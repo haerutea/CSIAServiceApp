@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "824462646615",
+    "firebase_url": "https://csiaserviceapp.firebaseio.com",
+    "project_id": "csiaserviceapp",
+    "storage_bucket": "csiaserviceapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:824462646615:android:55e2955029704c5e",
+        "android_client_info": {
+          "package_name": "ibcs.cs_ia_serviceapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "824462646615-dob9623ibb0ee8nadc1k72a26kea5omu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ibcs.cs_ia_serviceapp",
+            "certificate_hash": "08f340fe895950494512c55fb750d8988ee6ef46"
+          }
+        },
+        {
+          "client_id": "824462646615-hbohe6547d56tlbtnsj1koq99rfr7r3o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAbKt9HCyrq63jIamrXYnlL8WL4_igrfRA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "824462646615-hbohe6547d56tlbtnsj1koq99rfr7r3o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

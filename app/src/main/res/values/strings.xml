@@ -1,3 +1,23 @@
 <resources>
     <string name="app_name">CS_IA_Service App</string>
+
+    <!-- Dialog strings-->
+    <string name="loading">Loading</string>
+
+    <!-- ChooseAuthenticationActivity -->
+    <!-- xml layout -->
+    <string name="sign_up">Sign up</string>
+    <string name="normal_log_in">Log in</string>
+
+    <!--LoginActivity -->
+    <!-- xml layout -->
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    
+    <!-- SignUpActivity -->
+    <!-- xml layout -->
+    <string name="username">Username</string>
+    <string name="re_password">Re-enter Password</string>
+    <string name="type_spinner_text">Choose Account Type</string>
+    
 </resources>

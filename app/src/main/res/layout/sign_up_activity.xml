@@ -88,13 +88,13 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
-                android:id="@+id/age_description"
+                android:id="@+id/account_type_description"
                 style="@style/Base.TextAppearance.AppCompat.Title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="@string/type_spinner_text"
-                app:layout_constraintBottom_toTopOf="@+id/type_spinner"
+                app:layout_constraintBottom_toTopOf="@+id/account_type_spinner"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.036"
                 app:layout_constraintStart_toStartOf="parent"
@@ -102,7 +102,7 @@
                 app:layout_constraintVertical_bias="1.0" />
 
             <Spinner
-                android:id="@+id/type_spinner"
+                android:id="@+id/account_type_spinner"
                 android:layout_width="368dp"
                 android:layout_height="31dp"
                 android:layout_marginStart="5dp"

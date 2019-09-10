@@ -10,8 +10,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -26,6 +29,7 @@ import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import ibcs.cs_ia_serviceapp.R;
+import ibcs.cs_ia_serviceapp.object_classes.Request;
 import ibcs.cs_ia_serviceapp.utils.Constants;
 import ibcs.cs_ia_serviceapp.utils.DialogUtils;
 import ibcs.cs_ia_serviceapp.utils.UserSharedPreferences;
@@ -33,6 +37,10 @@ import ibcs.cs_ia_serviceapp.utils.UserSharedPreferences;
 public class SendRequestActivity extends AppCompatActivity implements View.OnClickListener {
 
     //UI
+    private Spinner sLanguageType;
+    private Spinner sServiceType;
+    private Spinner sPriorityType;
+    private Spinner sLocationType;
     private Button bChoose;
     private Button bSubmit;
     private ImageView imageView;
@@ -42,6 +50,10 @@ public class SendRequestActivity extends AppCompatActivity implements View.OnCli
 
     //fields
     private String uid;
+    private String selectedLang;
+    private String selectedService;
+    private String selectedPriority;
+    private String selectedLoc;
     private final int PICK_IMAGE_REQUEST = 1;
     private Uri filePath;
 
@@ -49,14 +61,104 @@ public class SendRequestActivity extends AppCompatActivity implements View.OnCli
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.send_request_activity);
+        selectedLang = "";
+        selectedService = "";
+        selectedPriority = "";
+        selectedLoc = "";
+
         bChoose = findViewById(R.id.choose);
         bChoose.setOnClickListener(this);
         bSubmit = findViewById(R.id.upload_request);
         bSubmit.setOnClickListener(this);
         imageView = findViewById(R.id.img_view);
+        setupSpinners();
 
         uid = UserSharedPreferences.getInstance(SendRequestActivity.this).getStringInfo(Constants.UID_KEY);
+        uid = "hiii";
         storageRef = FirebaseStorage.getInstance().getReference().child(uid);
+    }
+
+    private void setupSpinners()
+    {
+        sLanguageType = findViewById(R.id.language_type_spinner);
+        //since items are from an array
+        ArrayAdapter<String> langArrAdapter = new ArrayAdapter<String>(SendRequestActivity.this,
+                android.R.layout.simple_spinner_item, Constants.LANGUAGES);
+        langArrAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        sLanguageType.setAdapter(langArrAdapter);
+        //triggered whenever user selects something different
+        sLanguageType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+            {
+                selectedLang = parent.getItemAtPosition(position).toString();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent)
+            {
+            }
+        });
+
+        sServiceType = findViewById(R.id.service_type_spinner);
+        //since items are from an array
+        ArrayAdapter<String> servArrAdapter = new ArrayAdapter<String>(SendRequestActivity.this,
+                android.R.layout.simple_spinner_item, Constants.SERVICES);
+        servArrAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        sServiceType.setAdapter(servArrAdapter);
+        //triggered whenever user selects something different
+        sServiceType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+            {
+                selectedService = parent.getItemAtPosition(position).toString();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent)
+            {
+            }
+        });
+
+        sPriorityType = findViewById(R.id.priority_type_spinner);
+        //since items are from an array
+        ArrayAdapter<String> priorArrAdapter = new ArrayAdapter<String>(SendRequestActivity.this,
+                android.R.layout.simple_spinner_item, Constants.PRIORITY);
+        priorArrAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        sPriorityType.setAdapter(priorArrAdapter);
+        //triggered whenever user selects something different
+        sPriorityType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+            {
+                selectedPriority = parent.getItemAtPosition(position).toString();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent)
+            {
+            }
+        });
+
+        sLocationType = findViewById(R.id.location_type_spinner);
+        //since items are from an array
+        ArrayAdapter<String> locArrAdapter = new ArrayAdapter<String>(SendRequestActivity.this,
+                android.R.layout.simple_spinner_item, Constants.LOCATIONS);
+        locArrAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        sLocationType.setAdapter(locArrAdapter);
+        //triggered whenever user selects something different
+        sLocationType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+            {
+                selectedLoc = parent.getItemAtPosition(position).toString();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent)
+            {
+            }
+        });
     }
 
     //https://code.tutsplus.com/tutorials/image-upload-to-firebase-in-android-application--cms-29934
@@ -87,34 +189,49 @@ public class SendRequestActivity extends AppCompatActivity implements View.OnCli
         }
     }
 
-    //https://code.tutsplus.com/tutorials/image-upload-to-firebase-in-android-application--cms-29934
-    private void uploadImage()
+    private void submitRequest()
     {
         if(filePath != null)
         {
-            final ProgressDialog popup = DialogUtils.showProgressDialog(this, "Uploading...");
-            //TODO: ADD THIS TIMESTAMP TO REQUEST OBJECT SO IT'LL BE EASIER TO RETRIEVE
-            String timestamp = String.valueOf(TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()));
-            storageRef.child(timestamp + ".jpg").putFile(filePath)
-                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>()
-            {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot)
-                {
-                    Toast.makeText(SendRequestActivity.this, "Uploaded Successfully", Toast.LENGTH_SHORT).show();
-                }
-            })
-            .addOnFailureListener(new OnFailureListener()
-            {
-                @Override
-                public void onFailure(@NonNull Exception e)
-                {
-                    Toast.makeText(SendRequestActivity.this, "Failed. " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
-            popup.dismiss();
-            imageView.setImageBitmap(null);
+            String filename = uploadImage();
+            Request newReq = new Request();
+            uploadRequest(newReq);
         }
+    }
+
+    //https://code.tutsplus.com/tutorials/image-upload-to-firebase-in-android-application--cms-29934
+    private String uploadImage()
+    {
+        String timestamp = "";
+        final ProgressDialog popup = DialogUtils.showProgressDialog(this, "Uploading...");
+        //TODO: ADD THIS TIMESTAMP TO REQUEST OBJECT SO IT'LL BE EASIER TO RETRIEVE
+        timestamp = String.valueOf(TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()));
+        storageRef.child(timestamp + ".jpg").putFile(filePath)
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>()
+        {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot)
+            {
+                Toast.makeText(SendRequestActivity.this, "Uploaded Successfully", Toast.LENGTH_SHORT).show();
+            }
+        })
+        .addOnFailureListener(new OnFailureListener()
+        {
+            @Override
+            public void onFailure(@NonNull Exception e)
+            {
+                Toast.makeText(SendRequestActivity.this, "Failed. " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+        popup.dismiss();
+        imageView.setImageBitmap(null);
+        return timestamp;
+    }
+
+    private void uploadRequest(Request inRequest)
+    {
+
+        Constants.REQUEST_INSTANCE.child(uid).setValue(inRequest);
     }
 
     @Override
@@ -126,7 +243,7 @@ public class SendRequestActivity extends AppCompatActivity implements View.OnCli
         }
         if(bSubmit.getId() == i)
         {
-            uploadImage();
+            submitRequest();
         }
     }
 }

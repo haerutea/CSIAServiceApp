@@ -20,4 +20,11 @@
     <string name="re_password">Re-enter Password</string>
     <string name="type_spinner_text">Choose Account Type</string>
 
+    <!-- SendRequestActivity -->
+    <!-- xml layout -->
+    <string name="title">Title</string>
+    <string name="lang_spinner_desc">Choose Language</string>
+    <string name="service_spinner_desc">Choose Service Type</string>
+    <string name="prior_spinner_desc">Choose Priority</string>
+    <string name="loc_spinner_desc">Choose Location</string>
 </resources>

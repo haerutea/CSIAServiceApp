@@ -87,7 +87,8 @@ public class ChooseAuthenticationActivity extends AppCompatActivity implements V
         }
         else if(id == bSignUp.getId())
         {
-
+            Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);
+            startActivity(intent);
         }
     }
 }

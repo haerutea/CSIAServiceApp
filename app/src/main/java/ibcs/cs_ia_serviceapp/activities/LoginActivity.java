@@ -4,6 +4,8 @@ import android.app.ProgressDialog;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -20,6 +22,7 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseUser;
 
 import ibcs.cs_ia_serviceapp.R;
+import ibcs.cs_ia_serviceapp.utils.Constants;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -145,12 +148,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
      */
     private void goToProfile(FirebaseUser user)
     {
-        /*
+
         Constants.BASE_INSTANCE.child(Constants.USER_PATH).child(user.getUid())
                 .child(Constants.ONLINE_KEY).setValue(true);
         Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
         intent.putExtra(Constants.UID_KEY, user.getUid());
-        startActivity(intent);*/
+        startActivity(intent);
     }
 
     /**

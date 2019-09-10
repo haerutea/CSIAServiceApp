@@ -13,11 +13,11 @@
     <!-- xml layout -->
     <string name="email">Email</string>
     <string name="password">Password</string>
-    
+
     <!-- SignUpActivity -->
     <!-- xml layout -->
     <string name="username">Username</string>
     <string name="re_password">Re-enter Password</string>
     <string name="type_spinner_text">Choose Account Type</string>
-    
+
 </resources>

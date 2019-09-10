@@ -24,6 +24,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:19.0.0'
     implementation "com.google.firebase:firebase-database:19.0.0"
     implementation 'com.google.firebase:firebase-firestore:17.1.2'
+    implementation 'com.google.firebase:firebase-storage:19.0.0'
+
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 

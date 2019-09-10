@@ -34,6 +34,7 @@ import ibcs.cs_ia_serviceapp.R;
 import ibcs.cs_ia_serviceapp.object_classes.User;
 import ibcs.cs_ia_serviceapp.utils.Constants;
 import ibcs.cs_ia_serviceapp.utils.DialogUtils;
+import ibcs.cs_ia_serviceapp.utils.UserSharedPreferences;
 
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -261,7 +262,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     {
         //change FirebaseUser displayName field
         String username = usernameField.getText().toString();
-        User newUser = new User(mUser.getUid(), username, mUser.getEmail(), Constants.TYPE_CUSTOMER, false);
+        User newUser = new User(mUser.getUid(), username, mUser.getEmail(), selectedType, false);
         FirebaseDatabase.getInstance().getReference()
                 .child(Constants.USER_PATH).child(mUser.getUid()).setValue(newUser);
 
@@ -283,7 +284,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                     }
                 });
 
-        //Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
-        //startActivity(intent);
+        UserSharedPreferences.getInstance(this).setInfo(Constants.UID_KEY, mUser.getUid());
+        Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
+        startActivity(intent);
     }
 }

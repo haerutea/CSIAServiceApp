@@ -6,7 +6,6 @@ import java.util.ArrayList;
 //https://stackoverflow.com/a/2736612
 public class User implements Serializable
 {
-    //TODO: ADD STATS?  EG. CHAT COUNT, RATING FOR RANKS
     private String uid;
     private String username;
     private String email;

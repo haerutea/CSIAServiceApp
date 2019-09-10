@@ -24,11 +24,8 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
-
-import java.util.ArrayList;
 
 import ibcs.cs_ia_serviceapp.R;
 import ibcs.cs_ia_serviceapp.object_classes.User;
@@ -51,7 +48,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     private EditText emailField;
     private EditText passwordField;
     private EditText rePasswordField;
-    private Spinner typeSpinner;
+    private Spinner sAccountType;
     private Button bSignUp;
 
     /**
@@ -97,15 +94,14 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         passwordField = findViewById(R.id.sign_up_password);
         rePasswordField = findViewById(R.id.sign_up_re_password);
 
-        typeSpinner = findViewById(R.id.type_spinner);
+        sAccountType = findViewById(R.id.account_type_spinner);
         //since items are from an array
-        String[] types = {Constants.TYPE_CUSTOMER, Constants.TYPE_PROVIDER};
         ArrayAdapter<String> ageArrAdapter = new ArrayAdapter<String>(SignUpActivity.this,
-                android.R.layout.simple_spinner_item, types);
+                android.R.layout.simple_spinner_item, Constants.ACCOUNT_TYPES);
         ageArrAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        typeSpinner.setAdapter(ageArrAdapter);
+        sAccountType.setAdapter(ageArrAdapter);
         //triggered whenever user selects something different
-        typeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        sAccountType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
         {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
@@ -263,8 +259,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         //change FirebaseUser displayName field
         String username = usernameField.getText().toString();
         User newUser = new User(mUser.getUid(), username, mUser.getEmail(), selectedType, false);
-        FirebaseDatabase.getInstance().getReference()
-                .child(Constants.USER_PATH).child(mUser.getUid()).setValue(newUser);
+        Constants.USER_INSTANCE.child(mUser.getUid()).setValue(newUser);
 
         //https://firebase.google.com/docs/cloud-messaging/android/client?authuser=0
         FirebaseInstanceId.getInstance().getInstanceId()
@@ -278,7 +273,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
                         // Get new Instance ID token
                         String token = task.getResult().getToken();
-                        Constants.BASE_INSTANCE.child(Constants.USER_PATH).child(mUser.getUid()).
+                        Constants.USER_INSTANCE.child(mUser.getUid()).
                                 child(Constants.TOKEN_KEY).child(token).setValue(true);
                         //UserSharedPreferences.getInstance(SignUpActivity.this).setInfo(Constants.TOKEN_KEY, token);
                     }

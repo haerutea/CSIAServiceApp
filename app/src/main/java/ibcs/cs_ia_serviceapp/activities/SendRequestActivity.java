@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -26,6 +27,7 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 import ibcs.cs_ia_serviceapp.R;
@@ -41,6 +43,7 @@ public class SendRequestActivity extends AppCompatActivity implements View.OnCli
     private Spinner sServiceType;
     private Spinner sPriorityType;
     private Spinner sLocationType;
+    private EditText descriptionField;
     private Button bChoose;
     private Button bSubmit;
     private ImageView imageView;
@@ -66,6 +69,7 @@ public class SendRequestActivity extends AppCompatActivity implements View.OnCli
         selectedPriority = "";
         selectedLoc = "";
 
+        descriptionField = findViewById(R.id.request_description);
         bChoose = findViewById(R.id.choose);
         bChoose.setOnClickListener(this);
         bSubmit = findViewById(R.id.upload_request);
@@ -193,9 +197,13 @@ public class SendRequestActivity extends AppCompatActivity implements View.OnCli
     {
         if(filePath != null)
         {
+            final ProgressDialog popup = DialogUtils.showProgressDialog(this, "Uploading...");
+            String reqDescription = descriptionField.getText().toString();
             String filename = uploadImage();
-            Request newReq = new Request();
+            Request newReq =
+                    new Request(selectedLang, selectedService, selectedPriority, selectedLoc, reqDescription, filename);
             uploadRequest(newReq);
+            popup.dismiss();
         }
     }
 
@@ -203,16 +211,16 @@ public class SendRequestActivity extends AppCompatActivity implements View.OnCli
     private String uploadImage()
     {
         String timestamp = "";
-        final ProgressDialog popup = DialogUtils.showProgressDialog(this, "Uploading...");
+
         //TODO: ADD THIS TIMESTAMP TO REQUEST OBJECT SO IT'LL BE EASIER TO RETRIEVE
-        timestamp = String.valueOf(TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()));
-        storageRef.child(timestamp + ".jpg").putFile(filePath)
+        timestamp = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()) + ".jpg";
+        storageRef.child(timestamp).putFile(filePath)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>()
         {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot)
             {
-                Toast.makeText(SendRequestActivity.this, "Uploaded Successfully", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(SendRequestActivity.this, "Uploaded Successfully", Toast.LENGTH_SHORT).show();
             }
         })
         .addOnFailureListener(new OnFailureListener()
@@ -223,15 +231,14 @@ public class SendRequestActivity extends AppCompatActivity implements View.OnCli
                 Toast.makeText(SendRequestActivity.this, "Failed. " + e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-        popup.dismiss();
         imageView.setImageBitmap(null);
         return timestamp;
     }
 
     private void uploadRequest(Request inRequest)
     {
-
         Constants.REQUEST_INSTANCE.child(uid).setValue(inRequest);
+        Toast.makeText(SendRequestActivity.this, "Uploaded request", Toast.LENGTH_SHORT).show();
     }
 
     @Override

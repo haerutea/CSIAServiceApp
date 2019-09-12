@@ -18,6 +18,8 @@ import ibcs.cs_ia_serviceapp.utils.DialogUtils;
 //https://developers.google.com/identity/sign-in/android/sign-in
 public class ChooseAuthenticationActivity extends AppCompatActivity implements View.OnClickListener
 {
+    private String LOG_TAG = "ChooseAuthenticationActivity";
+
     private FirebaseAuth mAuth;
 
     //UI

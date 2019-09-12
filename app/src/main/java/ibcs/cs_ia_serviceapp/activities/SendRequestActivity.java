@@ -21,11 +21,9 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
@@ -37,6 +35,8 @@ import ibcs.cs_ia_serviceapp.utils.DialogUtils;
 import ibcs.cs_ia_serviceapp.utils.UserSharedPreferences;
 
 public class SendRequestActivity extends AppCompatActivity implements View.OnClickListener {
+
+    private String LOG_TAG = "SendRequestActivity";
 
     //UI
     private Spinner sLanguageType;
@@ -58,6 +58,7 @@ public class SendRequestActivity extends AppCompatActivity implements View.OnCli
     private String selectedPriority;
     private String selectedLoc;
     private final int PICK_IMAGE_REQUEST = 1;
+    private ArrayList<Uri> downloadUrl;
     private Uri filePath;
 
     @Override
@@ -78,8 +79,9 @@ public class SendRequestActivity extends AppCompatActivity implements View.OnCli
         setupSpinners();
 
         uid = UserSharedPreferences.getInstance(SendRequestActivity.this).getStringInfo(Constants.UID_KEY);
-        uid = "hiii";
+        uid = "hi";
         storageRef = FirebaseStorage.getInstance().getReference().child(uid);
+        downloadUrl = new ArrayList<>();
     }
 
     private void setupSpinners()
@@ -205,15 +207,15 @@ public class SendRequestActivity extends AppCompatActivity implements View.OnCli
             uploadRequest(newReq);
             popup.dismiss();
         }
+
     }
 
     //https://code.tutsplus.com/tutorials/image-upload-to-firebase-in-android-application--cms-29934
     private String uploadImage()
     {
-        String timestamp = "";
-
         //TODO: ADD THIS TIMESTAMP TO REQUEST OBJECT SO IT'LL BE EASIER TO RETRIEVE
-        timestamp = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()) + ".jpg";
+        String timestamp = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()) + ".jpg";
+
         storageRef.child(timestamp).putFile(filePath)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>()
         {
@@ -231,13 +233,12 @@ public class SendRequestActivity extends AppCompatActivity implements View.OnCli
                 Toast.makeText(SendRequestActivity.this, "Failed. " + e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-        imageView.setImageBitmap(null);
         return timestamp;
     }
 
     private void uploadRequest(Request inRequest)
     {
-        Constants.REQUEST_INSTANCE.child(uid).setValue(inRequest);
+        Constants.REQUEST_REFERENCE.child(uid).setValue(inRequest);
         Toast.makeText(SendRequestActivity.this, "Uploaded request", Toast.LENGTH_SHORT).show();
     }
 

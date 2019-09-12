@@ -17,6 +17,6 @@ public class ViewRequestsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_requests_activity);
 
-        imageView = findViewById(R.id.viewall_img_view)
+        imageView = findViewById(R.id.viewall_img_view);
     }
 }

@@ -74,7 +74,7 @@ public class SendRequestActivity extends AppCompatActivity implements View.OnCli
         bChoose.setOnClickListener(this);
         bSubmit = findViewById(R.id.upload_request);
         bSubmit.setOnClickListener(this);
-        imageView = findViewById(R.id.img_view);
+        imageView = findViewById(R.id.submit_img_view);
         setupSpinners();
 
         uid = UserSharedPreferences.getInstance(SendRequestActivity.this).getStringInfo(Constants.UID_KEY);

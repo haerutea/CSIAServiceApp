@@ -149,7 +149,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private void goToProfile(FirebaseUser user)
     {
 
-        Constants.USER_INSTANCE.child(user.getUid())
+        Constants.USER_REFERENCE.child(user.getUid())
                 .child(Constants.ONLINE_KEY).setValue(true);
         Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
         intent.putExtra(Constants.UID_KEY, user.getUid());

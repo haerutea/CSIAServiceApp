@@ -23,6 +23,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
     //UI
     private Button bSend;
+    private Button bView;
     private Button bLogout;
 
     //Firebase
@@ -39,11 +40,13 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         setContentView(R.layout.profile_activity);
         bSend = findViewById(R.id.submit_request);
         bSend.setOnClickListener(this);
+        bView = findViewById(R.id.view_requests);
+        bView.setOnClickListener(this);
         bLogout = findViewById(R.id.log_out);
         bLogout.setOnClickListener(this);
 
         uid = UserSharedPreferences.getInstance(ProfileActivity.this).getStringInfo(Constants.UID_KEY);
-        getUserRef = Constants.USER_INSTANCE.child(uid);
+        getUserRef = Constants.USER_REFERENCE.child(uid);
         getUserRef.addListenerForSingleValueEvent(new ValueEventListener()
         {
             @Override
@@ -68,6 +71,11 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         if(bSend.getId() == id)
         {
             Intent intent = new Intent(getApplicationContext(), SendRequestActivity.class);
+            startActivity(intent);
+        }
+        else if(bView.getId() == id)
+        {
+            Intent intent = new Intent(getApplicationContext(), SingleViewRequestActivity.class);
             startActivity(intent);
         }
         else if(bLogout.getId() == id)

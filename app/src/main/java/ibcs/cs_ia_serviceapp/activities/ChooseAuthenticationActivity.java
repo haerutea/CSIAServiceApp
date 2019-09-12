@@ -1,5 +1,6 @@
 package ibcs.cs_ia_serviceapp.activities;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,6 +12,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import ibcs.cs_ia_serviceapp.R;
+import ibcs.cs_ia_serviceapp.utils.Constants;
+import ibcs.cs_ia_serviceapp.utils.DialogUtils;
 
 //https://developers.google.com/identity/sign-in/android/sign-in
 public class ChooseAuthenticationActivity extends AppCompatActivity implements View.OnClickListener
@@ -61,7 +64,7 @@ public class ChooseAuthenticationActivity extends AppCompatActivity implements V
     private void updateUI(FirebaseUser user)
     {
         //show a simple loading popup
-        /*ProgressDialog loadingWindow = DialogUtils.showProgressDialog(this, "loading");
+        ProgressDialog loadingWindow = DialogUtils.showProgressDialog(this, "loading");
         if (user != null)
         {
             Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
@@ -69,7 +72,7 @@ public class ChooseAuthenticationActivity extends AppCompatActivity implements V
             startActivity(intent);
         }
         //get rid of popup
-        loadingWindow.dismiss();*/
+        loadingWindow.dismiss();
     }
 
     @Override

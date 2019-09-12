@@ -23,6 +23,7 @@
     <!-- SendRequestActivity -->
     <!-- xml layout -->
     <string name="title">Title</string>
+    <string name="description">Description</string>
     <string name="lang_spinner_desc">Choose Language</string>
     <string name="service_spinner_desc">Choose Service Type</string>
     <string name="prior_spinner_desc">Choose Priority</string>

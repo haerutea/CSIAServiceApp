@@ -2,6 +2,8 @@ package ibcs.cs_ia_serviceapp.utils;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 public class Constants {
 
@@ -40,7 +42,8 @@ public class Constants {
     public static final String TOKEN_KEY = "token";
     public static final String UID_KEY = "uid";
     public static final String ONLINE_KEY = "online";
-    public static final DatabaseReference BASE_INSTANCE = FirebaseDatabase.getInstance().getReference();
-    public static final DatabaseReference USER_INSTANCE = BASE_INSTANCE.child(USER_PATH);
-    public static final DatabaseReference REQUEST_INSTANCE = BASE_INSTANCE.child(REQUEST_PATH);
+    public static final DatabaseReference BASE_REFERENCE = FirebaseDatabase.getInstance().getReference();
+    public static final DatabaseReference USER_REFERENCE = BASE_REFERENCE.child(USER_PATH);
+    public static final DatabaseReference REQUEST_REFERENCE = BASE_REFERENCE.child(REQUEST_PATH);
+    public static final StorageReference STORAGE_REFERENCE = FirebaseStorage.getInstance().getReference();
 }

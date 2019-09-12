@@ -43,7 +43,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         bLogout.setOnClickListener(this);
 
         uid = UserSharedPreferences.getInstance(ProfileActivity.this).getStringInfo(Constants.UID_KEY);
-        getUserRef = Constants.BASE_INSTANCE.child(Constants.USER_PATH).child(uid);
+        getUserRef = Constants.USER_INSTANCE.child(uid);
         getUserRef.addListenerForSingleValueEvent(new ValueEventListener()
         {
             @Override

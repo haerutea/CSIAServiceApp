@@ -1,10 +1,10 @@
 package ibcs.cs_ia_serviceapp.object_classes;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 public class Request implements Serializable {
 
+    private String title;
     private String language;
     private String service;
     private String priority;
@@ -17,14 +17,20 @@ public class Request implements Serializable {
 
     }
 
-    public Request(String inLang, String inServ, String inPri, String inLoc, String inDesc, String inNames)
+    public Request(String inTitle, String inLang, String inServ, String inPri, String inLoc, String inDesc, String inNames)
     {
+        title = inTitle;
         language = inLang;
         service = inServ;
         priority = inPri;
         location = inLoc;
         description = inDesc;
         filename = inNames;
+    }
+
+    public String getTitle()
+    {
+        return title;
     }
 
     public String getLanguage()
@@ -55,6 +61,11 @@ public class Request implements Serializable {
     public String getFilename()
     {
         return filename;
+    }
+
+    public void setTitle(String title)
+    {
+        this.title = title;
     }
 
     public void setLanguage(String inLang)

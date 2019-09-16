@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -39,6 +40,7 @@ public class SendRequestActivity extends AppCompatActivity implements View.OnCli
     private String LOG_TAG = "SendRequestActivity";
 
     //UI
+    private TextView titleView;
     private Spinner sLanguageType;
     private Spinner sServiceType;
     private Spinner sPriorityType;
@@ -70,6 +72,7 @@ public class SendRequestActivity extends AppCompatActivity implements View.OnCli
         selectedPriority = "";
         selectedLoc = "";
 
+        titleView = findViewById(R.id.request_title_send);
         descriptionField = findViewById(R.id.request_description);
         bChoose = findViewById(R.id.choose);
         bChoose.setOnClickListener(this);
@@ -199,11 +202,12 @@ public class SendRequestActivity extends AppCompatActivity implements View.OnCli
     {
         if(filePath != null)
         {
+            String requestTitle = titleView.getText().toString();
             final ProgressDialog popup = DialogUtils.showProgressDialog(this, "Uploading...");
             String reqDescription = descriptionField.getText().toString();
             String filename = uploadImage();
             Request newReq =
-                    new Request(selectedLang, selectedService, selectedPriority, selectedLoc, reqDescription, filename);
+                    new Request(requestTitle, selectedLang, selectedService, selectedPriority, selectedLoc, reqDescription, filename);
             uploadRequest(newReq);
             popup.dismiss();
         }

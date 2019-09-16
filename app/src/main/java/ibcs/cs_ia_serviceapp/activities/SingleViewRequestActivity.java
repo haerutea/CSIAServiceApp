@@ -17,17 +17,17 @@ import ibcs.cs_ia_serviceapp.R;
 import ibcs.cs_ia_serviceapp.object_classes.Request;
 import ibcs.cs_ia_serviceapp.utils.Constants;
 
-public class SingleViewRequestActivity extends AppCompatActivity {
-
+public class SingleViewRequestActivity extends AppCompatActivity
+{
     //UI
     private ImageView imageView;
 
     //Fields
     private String uid;
-    private Uri imageUrl;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.single_view_requests_activity);
 
@@ -41,20 +41,17 @@ public class SingleViewRequestActivity extends AppCompatActivity {
             {
                 Request req = dataSnapshot.getValue(Request.class);
                 if(req != null)
-                    Constants.STORAGE_REFERENCE.child(uid).child(req.getFilename()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    Constants.STORAGE_REFERENCE.child(uid).child(req.getFilename()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>()
+                    {
                         @Override
                         public void onSuccess(Uri uri) {
-                            imageUrl = uri;
                             Glide.with(SingleViewRequestActivity.this).load(uri).into(imageView);
                         }
                     });
-
-
             }
-
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
+            public void onCancelled(@NonNull DatabaseError databaseError)
+            {
             }
         });
     }

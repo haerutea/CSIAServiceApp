@@ -279,7 +279,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                     }
                 });
 
-        UserSharedPreferences.getInstance(this).setInfo(Constants.UID_KEY, mUser.getUid());
         Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
         startActivity(intent);
     }

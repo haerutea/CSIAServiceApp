@@ -17,6 +17,7 @@ import com.google.firebase.database.ValueEventListener;
 import ibcs.cs_ia_serviceapp.R;
 import ibcs.cs_ia_serviceapp.object_classes.Request;
 import ibcs.cs_ia_serviceapp.utils.Constants;
+import ibcs.cs_ia_serviceapp.utils.UserSharedPreferences;
 
 public class SingleViewRequestActivity extends AppCompatActivity
 {
@@ -38,7 +39,7 @@ public class SingleViewRequestActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.single_view_requests_activity);
 
-        uid = "hi";
+        uid = UserSharedPreferences.getInstance(SingleViewRequestActivity.this).getStringInfo(Constants.UID_KEY);
         requestView = findViewById(R.id.request_title_view);
         languageView = findViewById(R.id.language_title);
         serviceView = findViewById(R.id.service_title);

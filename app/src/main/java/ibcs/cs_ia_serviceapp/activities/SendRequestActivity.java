@@ -82,7 +82,6 @@ public class SendRequestActivity extends AppCompatActivity implements View.OnCli
         setupSpinners();
 
         uid = UserSharedPreferences.getInstance(SendRequestActivity.this).getStringInfo(Constants.UID_KEY);
-        uid = "hi";
         storageRef = FirebaseStorage.getInstance().getReference().child(uid);
         downloadUrl = new ArrayList<>();
     }

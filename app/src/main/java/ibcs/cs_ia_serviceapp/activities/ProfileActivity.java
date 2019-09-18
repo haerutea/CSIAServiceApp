@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -33,6 +35,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     private String uid;
     private User userAccount;
     private String LOG = "profileActivity";
+    private FirebaseUser mUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +48,9 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         bLogout = findViewById(R.id.log_out);
         bLogout.setOnClickListener(this);
 
-        uid = UserSharedPreferences.getInstance(ProfileActivity.this).getStringInfo(Constants.UID_KEY);
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
+        uid = mUser.getUid();
+        UserSharedPreferences.getInstance(this).setInfo(Constants.UID_KEY, uid);
         getUserRef = Constants.USER_REFERENCE.child(uid);
         getUserRef.addListenerForSingleValueEvent(new ValueEventListener()
         {

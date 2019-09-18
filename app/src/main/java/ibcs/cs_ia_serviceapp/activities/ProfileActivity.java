@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -24,6 +25,8 @@ import ibcs.cs_ia_serviceapp.utils.UserSharedPreferences;
 public class ProfileActivity extends AppCompatActivity implements View.OnClickListener {
 
     //UI
+    private TextView tUsername;
+    private TextView tEmail;
     private Button bSend;
     private Button bView;
     private Button bLogout;
@@ -38,9 +41,12 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     private FirebaseUser mUser;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile_activity);
+        tUsername = findViewById(R.id.profile_username);
+        tEmail = findViewById(R.id.profile_email);
         bSend = findViewById(R.id.submit_request);
         bSend.setOnClickListener(this);
         bView = findViewById(R.id.view_requests);
@@ -58,6 +64,8 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             public void onDataChange(@NonNull DataSnapshot dataSnapshot)
             {
                 userAccount = dataSnapshot.getValue(User.class);
+                tUsername.setText(userAccount.getUsername());
+                tEmail.setText(userAccount.getEmail());
                 //getUserSource.setResult(null);
             }
 

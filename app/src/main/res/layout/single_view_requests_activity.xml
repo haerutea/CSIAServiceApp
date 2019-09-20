@@ -79,6 +79,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 
+    <!-- https://stackoverflow.com/questions/25995680/android-imageview-wrap-content -->
     <ImageView
         android:id="@+id/viewall_img_view"
         android:layout_width="fill_parent"

@@ -1,9 +1,11 @@
 package ibcs.cs_ia_serviceapp.object_classes;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class Request implements Serializable {
 
+    private String submitterUid;
     private String title;
     private String language;
     private String service;
@@ -11,14 +13,16 @@ public class Request implements Serializable {
     private String location;
     private String description;
     private String filename;
+    private Date currentDate;
 
     public Request()
     {
 
     }
 
-    public Request(String inTitle, String inLang, String inServ, String inPri, String inLoc, String inDesc, String inNames)
+    public Request(String inUid, String inTitle, String inLang, String inServ, String inPri, String inLoc, String inDesc, String inNames)
     {
+        submitterUid = inUid;
         title = inTitle;
         language = inLang;
         service = inServ;
@@ -26,6 +30,12 @@ public class Request implements Serializable {
         location = inLoc;
         description = inDesc;
         filename = inNames;
+        currentDate = new Date();
+    }
+
+    public String getSubmitterUid()
+    {
+        return submitterUid;
     }
 
     public String getTitle()
@@ -61,6 +71,16 @@ public class Request implements Serializable {
     public String getFilename()
     {
         return filename;
+    }
+
+    public Date getCurrentDate()
+    {
+        return currentDate;
+    }
+
+    public void setSubmitterUid(String submitterUid)
+    {
+        this.submitterUid = submitterUid;
     }
 
     public void setTitle(String title)

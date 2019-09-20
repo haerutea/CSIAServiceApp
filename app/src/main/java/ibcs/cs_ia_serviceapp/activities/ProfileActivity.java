@@ -88,7 +88,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         }
         else if(bView.getId() == id)
         {
-            Intent intent = new Intent(getApplicationContext(), SingleViewRequestActivity.class);
+            Intent intent = new Intent(getApplicationContext(), AllRequestsActivity.class);
             startActivity(intent);
         }
         else if(bLogout.getId() == id)

@@ -26,7 +26,6 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 import ibcs.cs_ia_serviceapp.R;
@@ -60,7 +59,6 @@ public class SendRequestActivity extends AppCompatActivity implements View.OnCli
     private String selectedPriority;
     private String selectedLoc;
     private final int PICK_IMAGE_REQUEST = 1;
-    private ArrayList<Uri> downloadUrl;
     private Uri filePath;
 
     @Override
@@ -83,7 +81,6 @@ public class SendRequestActivity extends AppCompatActivity implements View.OnCli
 
         uid = UserSharedPreferences.getInstance(SendRequestActivity.this).getStringInfo(Constants.UID_KEY);
         storageRef = FirebaseStorage.getInstance().getReference().child(uid);
-        downloadUrl = new ArrayList<>();
     }
 
     private void setupSpinners()
@@ -206,7 +203,7 @@ public class SendRequestActivity extends AppCompatActivity implements View.OnCli
             String reqDescription = descriptionField.getText().toString();
             String filename = uploadImage();
             Request newReq =
-                    new Request(requestTitle, selectedLang, selectedService, selectedPriority, selectedLoc, reqDescription, filename);
+                    new Request(uid, requestTitle, selectedLang, selectedService, selectedPriority, selectedLoc, reqDescription, filename);
             uploadRequest(newReq);
             popup.dismiss();
         }

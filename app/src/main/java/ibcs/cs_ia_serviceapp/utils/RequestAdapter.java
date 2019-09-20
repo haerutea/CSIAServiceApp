@@ -1,0 +1,148 @@
+package ibcs.cs_ia_serviceapp.utils;
+
+import android.content.Intent;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+
+import ibcs.cs_ia_serviceapp.R;
+import ibcs.cs_ia_serviceapp.activities.SingleViewRequestActivity;
+import ibcs.cs_ia_serviceapp.object_classes.Request;
+
+import static android.content.Context.MODE_PRIVATE;
+
+public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.RequestViewHolder>
+{
+    /**
+     * class for each individual request view object
+     */
+    public static class RequestViewHolder extends RecyclerView.ViewHolder
+    {
+        private View wholeView;
+        private TextView title;
+        private TextView service;
+        private TextView date;
+
+        /**
+         * assigns view for each field
+         * @param v individual chat message view
+         */
+        public RequestViewHolder(View v)
+        {
+            super(v);
+            wholeView = v;
+            title = v.findViewById(R.id.single_request_title);
+            service = v.findViewById(R.id.single_request_service);
+            date = v.findViewById(R.id.single_request_date);
+        }
+
+        /**
+         * allows user to save or unsave message by tapping on each chat message
+         * @param dataObj Message object contained in the view user clicked on
+         */
+        public void goToRequest(final Request dataObj)
+        {
+            if(dataObj != null)
+            {
+                wholeView.setOnClickListener(new View.OnClickListener()
+                {
+                    @Override
+                    public void onClick(View v)
+                    {
+                        Log.d("requestObj", "clicked!");
+                        String uid = v.getContext().getSharedPreferences(Constants.SHARED_PREF_KEY, MODE_PRIVATE)
+                                .getString(Constants.UID_KEY, "");
+
+                        Intent intent = new Intent(v.getContext(), SingleViewRequestActivity.class);
+                        intent.putExtra("request", dataObj);
+                        v.getContext().startActivity(intent);
+                    }
+                });
+            }
+        }
+    }
+
+    private ArrayList<Request> allRequests;
+    /**
+     * required empty constructor
+     */
+    public RequestAdapter()
+    {
+
+    }
+
+    /**
+     * constructor, instantiates fields
+     * @param inRequests arraylist containing all requests
+     */
+    public RequestAdapter(ArrayList<Request> inRequests)
+    {
+        allRequests = inRequests;
+    }
+
+
+    /**
+     * called when new requests are added, needing to create more views of the new requests
+     * @param viewParent where the new view will be added
+     * @param type view type, not used
+     * @return new MessageViewHolder object with the new inflated view
+     */
+    @NonNull
+    public RequestViewHolder onCreateViewHolder(@NonNull ViewGroup viewParent, int type)
+    {
+        LayoutInflater inflater = LayoutInflater.from(viewParent.getContext());
+        View view = inflater.inflate(R.layout.single_request_layout, viewParent, false);
+        return new RequestViewHolder(view);
+    }
+
+    /**
+     * called when needed to display new data of the new request that was added
+     * @param messageHolder the MessageViewHolder that needs to be updated
+     * @param positionIndex position of new item in allRequests
+     */
+    @Override
+    public void onBindViewHolder(@NonNull RequestViewHolder messageHolder, int positionIndex)
+    {
+        Request data = allRequests.get(positionIndex);
+        messageHolder.title.setText(data.getTitle());
+        messageHolder.service.setText(data.getService());
+        //https://stackoverflow.com/questions/5683728/convert-java-util-date-to-string
+        String date = new SimpleDateFormat("dd/MM/yyyy").format(data.getCurrentDate()).toString();
+        messageHolder.date.setText(date);
+        messageHolder.goToRequest(data);
+    }
+
+    /**
+     * gets the amount of requests there are
+     * @return size of messageContent
+     */
+    public int getItemCount()
+    {
+        return allRequests.size();
+    }
+
+    /**
+     * adds new request to allRequests
+     * @param inRequest new Request object to be added
+     */
+    public void addRequest(Request inRequest)
+    {
+        allRequests.add(inRequest);
+    }
+
+    /**
+     * deletes everything in allRequests
+     */
+    public void clearContent()
+    {
+        allRequests.clear();
+    }
+}

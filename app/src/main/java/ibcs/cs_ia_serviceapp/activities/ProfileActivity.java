@@ -38,6 +38,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     private String uid;
     private User userAccount;
     private String LOG = "profileActivity";
+    private FirebaseAuth mAuth;
     private FirebaseUser mUser;
 
     @Override
@@ -54,8 +55,10 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         bLogout = findViewById(R.id.log_out);
         bLogout.setOnClickListener(this);
 
-        mUser = FirebaseAuth.getInstance().getCurrentUser();
+        mAuth = FirebaseAuth.getInstance();
+        mUser = mAuth.getCurrentUser();
         uid = mUser.getUid();
+
         UserSharedPreferences.getInstance(this).setInfo(Constants.UID_KEY, uid);
         getUserRef = Constants.USER_REFERENCE.child(uid);
         getUserRef.addListenerForSingleValueEvent(new ValueEventListener()
@@ -93,7 +96,9 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         }
         else if(bLogout.getId() == id)
         {
-
+            mAuth.signOut();
+            Intent intent = new Intent(getApplicationContext(), ChooseAuthenticationActivity.class);
+            startActivity(intent);
         }
     }
 }

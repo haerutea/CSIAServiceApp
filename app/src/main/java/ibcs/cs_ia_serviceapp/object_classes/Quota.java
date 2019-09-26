@@ -10,7 +10,7 @@ public class Quota
     {
     }
 
-    public Quota(int inPrice, String inProviderUid, String inReceiverUid, Request inRequest)
+    public Quota(int inPrice, String inProviderUid, Request inRequest)
     {
         price = inPrice;
         providerUid = inProviderUid;
@@ -41,7 +41,7 @@ public class Quota
     {
         this.providerUid = providerUid;
     }
-    
+
     public void setRequestObj(Request requestObj)
     {
         this.requestObj = requestObj;

@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,7 +21,7 @@ import ibcs.cs_ia_serviceapp.object_classes.Request;
 import ibcs.cs_ia_serviceapp.utils.Constants;
 import ibcs.cs_ia_serviceapp.utils.UserSharedPreferences;
 
-public class SingleViewRequestActivity extends AppCompatActivity
+public class SingleViewRequestActivity extends AppCompatActivity implements View.OnClickListener
 {
     //UI
     private TextView requestView;
@@ -29,6 +31,7 @@ public class SingleViewRequestActivity extends AppCompatActivity
     private TextView locationView;
     private TextView descriptionView;
     private ImageView imageView;
+    private Button bSendQuota;
 
     //Fields
     private String uid;
@@ -50,6 +53,8 @@ public class SingleViewRequestActivity extends AppCompatActivity
         locationView = findViewById(R.id.location_title);
         descriptionView = findViewById(R.id.description);
         imageView = findViewById(R.id.viewall_img_view);
+        bSendQuota = findViewById(R.id.send_quota_button);
+        bSendQuota.setOnClickListener(this);
 
         requestView.setText(getString(R.string.title_format, inRequest.getTitle()));
         languageView.setText(getString(R.string.lang_format, inRequest.getLanguage()));
@@ -95,5 +100,19 @@ public class SingleViewRequestActivity extends AppCompatActivity
             {
             }
         });*/
+    }
+
+    private void pullUpQuotaScreen()
+    {
+
+    }
+    @Override
+    public void onClick(View v)
+    {
+        int i = v.getId();
+        if(i == bSendQuota.getId())
+        {
+            pullUpQuotaScreen();
+        }
     }
 }

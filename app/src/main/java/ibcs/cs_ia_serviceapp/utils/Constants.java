@@ -12,7 +12,7 @@ public class Constants {
     public static final String ACCOUNT_CUSTOMER = "Customer";
     public static final String[] ACCOUNT_TYPES = {ACCOUNT_CUSTOMER, ACCOUNT_PROVIDER};
 
-    //send request
+    //send request GUI
     public static final String LANG_CANTO = "Cantonese";
     public static final String LANG_ENG = "English";
     public static final String LANG_MANDO = "Mandarin";
@@ -42,6 +42,7 @@ public class Constants {
     public static final String TOKEN_KEY = "token";
     public static final String UID_KEY = "uid";
     public static final String ONLINE_KEY = "online";
+    public static final String REQUEST_KEY = "request";
     public static final DatabaseReference BASE_REFERENCE = FirebaseDatabase.getInstance().getReference();
     public static final DatabaseReference USER_REFERENCE = BASE_REFERENCE.child(USER_PATH);
     public static final DatabaseReference REQUEST_REFERENCE = BASE_REFERENCE.child(REQUEST_PATH);

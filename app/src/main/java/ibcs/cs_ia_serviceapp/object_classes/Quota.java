@@ -4,7 +4,6 @@ public class Quota
 {
     public int price;
     public String providerUid;
-    public String receiverUid;
     public Request requestObj;
 
     public Quota()
@@ -15,7 +14,6 @@ public class Quota
     {
         price = inPrice;
         providerUid = inProviderUid;
-        receiverUid = inReceiverUid;
         requestObj = inRequest;
     }
 
@@ -27,11 +25,6 @@ public class Quota
     public String getProviderUid()
     {
         return providerUid;
-    }
-
-    public String getReceiverUid()
-    {
-        return receiverUid;
     }
 
     public Request getRequestObj()
@@ -48,12 +41,7 @@ public class Quota
     {
         this.providerUid = providerUid;
     }
-
-    public void setReceiverUid(String receiverUid)
-    {
-        this.receiverUid = receiverUid;
-    }
-
+    
     public void setRequestObj(Request requestObj)
     {
         this.requestObj = requestObj;

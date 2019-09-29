@@ -62,7 +62,7 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.RequestV
                                 .getString(Constants.UID_KEY, "");
 
                         Intent intent = new Intent(v.getContext(), SingleViewRequestActivity.class);
-                        intent.putExtra("request", dataObj);
+                        intent.putExtra(Constants.REQUEST_KEY, dataObj);
                         v.getContext().startActivity(intent);
                     }
                 });

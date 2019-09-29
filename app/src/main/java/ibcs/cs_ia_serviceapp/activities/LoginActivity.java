@@ -137,7 +137,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             passwordField.setError("Required.");
             valid = false;
         }
-
         return valid;
     }
 

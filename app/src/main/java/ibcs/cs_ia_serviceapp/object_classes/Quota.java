@@ -1,20 +1,20 @@
 package ibcs.cs_ia_serviceapp.object_classes;
 
-public class Quota
+import java.io.Serializable;
+
+public class Quota implements Serializable
 {
     public int price;
     public String providerUid;
-    public Request requestObj;
 
     public Quota()
     {
     }
 
-    public Quota(int inPrice, String inProviderUid, Request inRequest)
+    public Quota(int inPrice, String inProviderUid)
     {
         price = inPrice;
         providerUid = inProviderUid;
-        requestObj = inRequest;
     }
 
     public int getPrice()
@@ -27,11 +27,6 @@ public class Quota
         return providerUid;
     }
 
-    public Request getRequestObj()
-    {
-        return requestObj;
-    }
-
     public void setPrice(int price)
     {
         this.price = price;
@@ -40,10 +35,5 @@ public class Quota
     public void setProviderUid(String providerUid)
     {
         this.providerUid = providerUid;
-    }
-
-    public void setRequestObj(Request requestObj)
-    {
-        this.requestObj = requestObj;
     }
 }

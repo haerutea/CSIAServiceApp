@@ -17,6 +17,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
 import ibcs.cs_ia_serviceapp.R;
+import ibcs.cs_ia_serviceapp.SendQuotaFragment;
 import ibcs.cs_ia_serviceapp.object_classes.Request;
 import ibcs.cs_ia_serviceapp.utils.Constants;
 import ibcs.cs_ia_serviceapp.utils.UserSharedPreferences;
@@ -43,7 +44,7 @@ public class SingleViewRequestActivity extends AppCompatActivity implements View
         super.onCreate(savedInstanceState);
         setContentView(R.layout.single_view_requests_activity);
 
-        inRequest = (Request) getIntent().getSerializableExtra("request");
+        inRequest = (Request) getIntent().getSerializableExtra(Constants.REQUEST_KEY);
         uid = UserSharedPreferences.getInstance(SingleViewRequestActivity.this).getStringInfo(Constants.UID_KEY);
 
         requestView = findViewById(R.id.request_title_view);
@@ -104,8 +105,11 @@ public class SingleViewRequestActivity extends AppCompatActivity implements View
 
     private void pullUpQuotaScreen()
     {
+        SendQuotaFragment sendQuotaFrag = SendQuotaFragment.newInstance(inRequest);
+        sendQuotaFrag.show(this.getSupportFragmentManager(), "sendQuotaFrag");
 
     }
+
     @Override
     public void onClick(View v)
     {

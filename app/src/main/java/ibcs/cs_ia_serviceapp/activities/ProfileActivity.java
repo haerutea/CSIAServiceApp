@@ -9,17 +9,23 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 import ibcs.cs_ia_serviceapp.R;
 import ibcs.cs_ia_serviceapp.object_classes.User;
 import ibcs.cs_ia_serviceapp.utils.Constants;
+import ibcs.cs_ia_serviceapp.utils.NotificationSender;
 import ibcs.cs_ia_serviceapp.utils.UserSharedPreferences;
 
 public class ProfileActivity extends AppCompatActivity implements View.OnClickListener {
@@ -28,7 +34,8 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     private TextView tUsername;
     private TextView tEmail;
     private Button bSend;
-    private Button bView;
+    private Button bViewAll;
+    private Button bViewMy;
     private Button bLogout;
 
     //Firebase
@@ -50,14 +57,34 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         tEmail = findViewById(R.id.profile_email);
         bSend = findViewById(R.id.submit_request);
         bSend.setOnClickListener(this);
-        bView = findViewById(R.id.view_requests);
-        bView.setOnClickListener(this);
+        bViewAll = findViewById(R.id.view_all_requests);
+        bViewAll.setOnClickListener(this);
+        bViewMy = findViewById(R.id.view_my_requests);
+        bViewMy.setOnClickListener(this);
         bLogout = findViewById(R.id.log_out);
         bLogout.setOnClickListener(this);
 
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
         uid = mUser.getUid();
+
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>()
+                {
+                    @Override
+                    public void onComplete(@NonNull Task<InstanceIdResult> task)
+                    {
+                        if (task.isSuccessful())
+                        {
+                            // Get new Instance ID token
+                            String token = task.getResult().getToken();
+                            Constants.USER_REFERENCE.child(uid)
+                                    .child(Constants.TOKEN_KEY).child(token).setValue(true);
+                            Toast.makeText(getApplicationContext(), token, Toast.LENGTH_LONG).show();
+                            System.out.println(("token: " + token));
+                        }
+                    }
+                });
 
         UserSharedPreferences.getInstance(this).setInfo(Constants.UID_KEY, uid);
         getUserRef = Constants.USER_REFERENCE.child(uid);
@@ -89,10 +116,14 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             Intent intent = new Intent(getApplicationContext(), SendRequestActivity.class);
             startActivity(intent);
         }
-        else if(bView.getId() == id)
+        else if(bViewAll.getId() == id)
         {
             Intent intent = new Intent(getApplicationContext(), AllRequestsActivity.class);
             startActivity(intent);
+        }
+        else if(bViewMy.getId() == id)
+        {
+            NotificationSender.setNotif(this, ProfileActivity.class, "hi", "bye", false);
         }
         else if(bLogout.getId() == id)
         {

@@ -83,6 +83,7 @@ public class SendQuotaFragment extends DialogFragment implements View.OnClickLis
         if(formFilled())
         {
             Quota newQuota = new Quota(price, userUid);
+            //https://stackoverflow.com/questions/54643550/arraylist-of-string-not-being-created-in-firebase
             ArrayList<Quota> tempList = requestObj.getQuotas();
             tempList.add(newQuota);
             Constants.REQUEST_REFERENCE.child(requestObj.getSubmitterUid())

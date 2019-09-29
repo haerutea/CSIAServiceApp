@@ -232,8 +232,7 @@ public class SendRequestActivity extends AppCompatActivity implements View.OnCli
             Request newReq =
                     new Request(uid, requestTitle, selectedLang, selectedService, selectedPriority, selectedLoc, reqDescription, filename);
             uploadRequest(newReq);
-            Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
-            startActivity(intent);
+
         }
 
     }
@@ -285,6 +284,8 @@ public class SendRequestActivity extends AppCompatActivity implements View.OnCli
                 {
                     Constants.REQUEST_REFERENCE.child(uid).child(inRequest.getTitle()).setValue(inRequest);
                     Toast.makeText(SendRequestActivity.this, "Uploaded request", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
+                    startActivity(intent);
                 }
 
             }

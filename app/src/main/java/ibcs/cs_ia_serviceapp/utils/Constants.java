@@ -49,4 +49,10 @@ public class Constants {
     public static final DatabaseReference REQUEST_REFERENCE = BASE_REFERENCE.child(REQUEST_PATH);
     public static final DatabaseReference QUOTA_REFERENCE = BASE_REFERENCE.child(QUOTA_PATH);
     public static final StorageReference STORAGE_REFERENCE = FirebaseStorage.getInstance().getReference();
+
+    //for notifications
+    public static final String CHANNEL_ID = "ServiceChatID";
+    public static final String CHANNEL_NAME = "ServiceChat";
+    public static final String CHANNEL_DES = "temp";
+    public static final int CHAT_NOTIF_ID = 1;
 }

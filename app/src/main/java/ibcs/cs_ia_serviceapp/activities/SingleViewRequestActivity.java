@@ -46,32 +46,35 @@ public class SingleViewRequestActivity extends AppCompatActivity implements View
 
         inRequest = (Request) getIntent().getSerializableExtra(Constants.REQUEST_KEY);
         uid = UserSharedPreferences.getInstance(SingleViewRequestActivity.this).getStringInfo(Constants.UID_KEY);
-
-        requestView = findViewById(R.id.request_title_view);
-        languageView = findViewById(R.id.language_title);
-        serviceView = findViewById(R.id.service_title);
-        priorityView = findViewById(R.id.priority_title);
-        locationView = findViewById(R.id.location_title);
-        descriptionView = findViewById(R.id.description);
-        imageView = findViewById(R.id.viewall_img_view);
-        bSendQuota = findViewById(R.id.send_quota_button);
-        bSendQuota.setOnClickListener(this);
-
-        requestView.setText(getString(R.string.title_format, inRequest.getTitle()));
-        languageView.setText(getString(R.string.lang_format, inRequest.getLanguage()));
-        serviceView.setText(getString(R.string.service_format, inRequest.getService()));
-        priorityView.setText(getString(R.string.priority_format, inRequest.getPriority()));
-        locationView.setText(getString(R.string.location_format, inRequest.getLocation()));
-        descriptionView.setText(inRequest.getDescription());
-        //https://stackoverflow.com/questions/50816557/storing-and-displaying-image-using-glide-firebase-android
-        Constants.STORAGE_REFERENCE.child(uid).child(inRequest.getFilename()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>()
+        if(inRequest != null)
         {
-            //https://github.com/bumptech/glide#how-do-i-use-glide
-            @Override
-            public void onSuccess(Uri uri) {
-                Glide.with(SingleViewRequestActivity.this).load(uri).into(imageView);
-            }
-        });
+            requestView = findViewById(R.id.request_title_view);
+            languageView = findViewById(R.id.language_title);
+            serviceView = findViewById(R.id.service_title);
+            priorityView = findViewById(R.id.priority_title);
+            locationView = findViewById(R.id.location_title);
+            descriptionView = findViewById(R.id.description);
+            imageView = findViewById(R.id.viewall_img_view);
+            bSendQuota = findViewById(R.id.send_quota_button);
+            bSendQuota.setOnClickListener(this);
+
+            requestView.setText(getString(R.string.title_format, inRequest.getTitle()));
+            languageView.setText(getString(R.string.lang_format, inRequest.getLanguage()));
+            serviceView.setText(getString(R.string.service_format, inRequest.getService()));
+            priorityView.setText(getString(R.string.priority_format, inRequest.getPriority()));
+            locationView.setText(getString(R.string.location_format, inRequest.getLocation()));
+            descriptionView.setText(inRequest.getDescription());
+            //https://stackoverflow.com/questions/50816557/storing-and-displaying-image-using-glide-firebase-android
+            Constants.STORAGE_REFERENCE.child(inRequest.getSubmitterUid()).child(inRequest.getFilename()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>()
+            {
+                //https://github.com/bumptech/glide#how-do-i-use-glide
+                @Override
+                public void onSuccess(Uri uri) {
+                    Glide.with(SingleViewRequestActivity.this).load(uri).into(imageView);
+                }
+            });
+        }
+
 /*
         Constants.REQUEST_REFERENCE.child(uid).addListenerForSingleValueEvent(new ValueEventListener()
         {

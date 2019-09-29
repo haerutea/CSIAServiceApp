@@ -1,6 +1,7 @@
 package ibcs.cs_ia_serviceapp.object_classes;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Request implements Serializable {
@@ -14,6 +15,7 @@ public class Request implements Serializable {
     private String description;
     private String filename;
     private Date currentDate;
+    private ArrayList<Quota> quotas;
 
     public Request()
     {
@@ -31,6 +33,8 @@ public class Request implements Serializable {
         description = inDesc;
         filename = inNames;
         currentDate = new Date();
+        quotas = new ArrayList<>();
+        quotas.add(new Quota());
     }
 
     public String getSubmitterUid()
@@ -78,6 +82,11 @@ public class Request implements Serializable {
         return currentDate;
     }
 
+    public ArrayList<Quota> getQuotas()
+    {
+        return quotas;
+    }
+
     public void setSubmitterUid(String submitterUid)
     {
         this.submitterUid = submitterUid;
@@ -117,4 +126,10 @@ public class Request implements Serializable {
     {
         this.filename = inFilename;
     }
+
+    public void addQuota(Quota inQuota)
+    {
+        this.quotas.add(inQuota);
+    }
+
 }

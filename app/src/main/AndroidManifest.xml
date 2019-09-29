@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="ibcs.cs_ia_serviceapp">
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
@@ -12,8 +13,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.SendRequestActivity">
-        </activity>
+        <activity android:name=".activities.AllRequestsActivity"></activity>
+        <activity android:name=".activities.SingleViewRequestActivity" />
+        <activity android:name=".activities.SendRequestActivity" />
         <activity android:name=".activities.ProfileActivity" />
         <activity android:name=".activities.SignUpActivity" />
         <activity android:name=".activities.LoginActivity" />

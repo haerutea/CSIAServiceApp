@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -13,7 +14,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.AllRequestsActivity"></activity>
+
+        <!-- https://github.com/firebase/quickstart-android/blob/d307afe958a672bebdf3394c10017cc671c027e2/messaging/app/src/main/AndroidManifest.xml#L48-L52 -->
+        <service android:name=".utils.FirebaseNotificationMessaging">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <activity android:name=".activities.MyRequestsActivity"></activity>
+        <activity android:name=".activities.AllRequestsActivity" />
         <activity android:name=".activities.SingleViewRequestActivity" />
         <activity android:name=".activities.SendRequestActivity" />
         <activity android:name=".activities.ProfileActivity" />

@@ -1,12 +1,11 @@
 package ibcs.cs_ia_serviceapp.object_classes;
 
 import java.io.Serializable;
-import java.util.HashMap;
 
 public class Quota implements Serializable
 {
     public int price;
-    public HashMap<String, Boolean> providerUid;
+    public String providerUid;
 
     public Quota()
     {
@@ -15,8 +14,7 @@ public class Quota implements Serializable
     public Quota(int inPrice, String inProviderUid)
     {
         price = inPrice;
-        providerUid = new HashMap<>();
-        providerUid.put(inProviderUid, true);
+        providerUid = inProviderUid;
     }
 
     public int getPrice()
@@ -26,8 +24,7 @@ public class Quota implements Serializable
 
     public String getProviderUid()
     {
-        //https://stackoverflow.com/questions/10462819/get-keys-from-hashmap-in-java
-        return (String) providerUid.keySet().toArray()[0];
+        return providerUid;
     }
 
     public void setPrice(int price)
@@ -35,9 +32,8 @@ public class Quota implements Serializable
         this.price = price;
     }
 
-    public void setProviderUid(String inProviderUid)
+    public void setProviderUid(String inproviderUid)
     {
-        this.providerUid.clear();
-        this.providerUid.put(inProviderUid, true);
+        this.providerUid = inproviderUid;
     }
 }

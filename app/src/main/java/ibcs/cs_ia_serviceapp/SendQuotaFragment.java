@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import ibcs.cs_ia_serviceapp.object_classes.Quota;
 import ibcs.cs_ia_serviceapp.object_classes.Request;
@@ -82,7 +83,9 @@ public class SendQuotaFragment extends DialogFragment implements View.OnClickLis
     {
         if(formFilled())
         {
-            Quota newQuota = new Quota(price, userUid);
+            HashMap<String, Boolean> uidMap = new HashMap<>();
+            uidMap.put(userUid, true);
+            Quota newQuota = new Quota(price, uidMap);
             //https://stackoverflow.com/questions/54643550/arraylist-of-string-not-being-created-in-firebase
             ArrayList<Quota> tempList = requestObj.getQuotas();
             tempList.add(newQuota);

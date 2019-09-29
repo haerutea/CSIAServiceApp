@@ -41,12 +41,12 @@ public class FirebaseNotificationMessaging extends FirebaseMessagingService
             Class destinationClass = null;
 
             boolean special = false;
-            if(remoteMessage.getNotification().getTitle().equals("You have a new quota!"))
+            if(remoteMessage.getNotification().getTitle().equals("You have a new quota request!"))
             {
                 destinationClass = MyRequestsActivity.class;
                 special = true;
             }
-            else if(remoteMessage.getNotification().getTitle().equals("Deleted quota"))
+            else if(remoteMessage.getNotification().getTitle().equals("Deleted request"))
             {
                 destinationClass = ProfileActivity.class;
             }

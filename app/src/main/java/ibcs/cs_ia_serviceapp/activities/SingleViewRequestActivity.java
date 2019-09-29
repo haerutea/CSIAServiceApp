@@ -65,7 +65,8 @@ public class SingleViewRequestActivity extends AppCompatActivity implements View
             locationView.setText(getString(R.string.location_format, inRequest.getLocation()));
             descriptionView.setText(inRequest.getDescription());
             //https://stackoverflow.com/questions/50816557/storing-and-displaying-image-using-glide-firebase-android
-            Constants.STORAGE_REFERENCE.child(inRequest.getSubmitterUid()).child(inRequest.getFilename()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>()
+            Constants.STORAGE_REFERENCE.child(inRequest.getSubmitterUid()).child(inRequest.getFilename())
+                    .getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>()
             {
                 //https://github.com/bumptech/glide#how-do-i-use-glide
                 @Override

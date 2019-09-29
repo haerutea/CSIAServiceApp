@@ -45,7 +45,6 @@ public class SendQuotaFragment extends DialogFragment implements View.OnClickLis
      * @param reqObject request object user is trying to send quota of
      * @return A new instance of fragment SendQuotaFragment.
      */
-    // TODO: Rename and change types and number of parameters
     public static SendQuotaFragment newInstance(Request reqObject)
     {
         SendQuotaFragment fragment = new SendQuotaFragment();

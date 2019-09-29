@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -21,6 +22,9 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -194,18 +198,42 @@ public class SendRequestActivity extends AppCompatActivity implements View.OnCli
         }
     }
 
+    /**
+     * checks if the form is filled in correctly where all EditTexts are filled,
+     * if not, show an error.
+     * @return true or false if form is filled in correctly.
+     */
+    private boolean formFilled()
+    {
+        boolean valid = true;
+
+        String email = titleView.getText().toString();
+        if (TextUtils.isEmpty(email))
+        {
+            titleView.setError("Required.");
+            valid = false;
+        }
+
+        String password = descriptionField.getText().toString();
+        if (TextUtils.isEmpty(password))
+        {
+            descriptionField.setError("Required.");
+            valid = false;
+        }
+        return valid;
+    }
     private void submitRequest()
     {
-        if(filePath != null)
+        if(formFilled())
         {
             String requestTitle = titleView.getText().toString();
-            final ProgressDialog popup = DialogUtils.showProgressDialog(this, "Uploading...");
             String reqDescription = descriptionField.getText().toString();
             String filename = uploadImage();
             Request newReq =
                     new Request(uid, requestTitle, selectedLang, selectedService, selectedPriority, selectedLoc, reqDescription, filename);
             uploadRequest(newReq);
-            popup.dismiss();
+            Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
+            startActivity(intent);
         }
 
     }
@@ -236,10 +264,38 @@ public class SendRequestActivity extends AppCompatActivity implements View.OnCli
         return timestamp;
     }
 
-    private void uploadRequest(Request inRequest)
+    private void uploadRequest(final Request inRequest)
     {
-        Constants.REQUEST_REFERENCE.child(uid).setValue(inRequest);
-        Toast.makeText(SendRequestActivity.this, "Uploaded request", Toast.LENGTH_SHORT).show();
+        Constants.REQUEST_REFERENCE.child(uid).addListenerForSingleValueEvent(new ValueEventListener()
+        {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot)
+            {
+                boolean validTitle = true;
+                for(DataSnapshot data : dataSnapshot.getChildren())
+                {
+                    Request temp = data.getValue(Request.class);
+                    if(temp.getTitle().equals(inRequest.getTitle()))
+                    {
+                        validTitle = false;
+                        titleView.setError("You already have a request with this title.");
+                    }
+                }
+                if(validTitle)
+                {
+                    Constants.REQUEST_REFERENCE.child(uid).child(inRequest.getTitle()).setValue(inRequest);
+                    Toast.makeText(SendRequestActivity.this, "Uploaded request", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError)
+            {
+
+            }
+        });
+
     }
 
     @Override

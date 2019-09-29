@@ -302,7 +302,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 }
             }
         };
-
+        mAuth.addAuthStateListener(authListener);
         Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
         startActivity(intent);
     }

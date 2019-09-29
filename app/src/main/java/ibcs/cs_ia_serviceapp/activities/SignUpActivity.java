@@ -261,6 +261,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         User newUser = new User(mUser.getUid(), username, mUser.getEmail(), selectedType, false);
         Constants.USER_REFERENCE.child(mUser.getUid()).setValue(newUser);
 
+        //add device notif token
         //https://firebase.google.com/docs/cloud-messaging/android/client?authuser=0
         FirebaseInstanceId.getInstance().getInstanceId()
                 .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
@@ -278,6 +279,29 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                         //UserSharedPreferences.getInstance(SignUpActivity.this).setInfo(Constants.TOKEN_KEY, token);
                     }
                 });
+
+        //add username to firebaseUser obj
+
+        //https://stackoverflow.com/questions/41105826/change-displayname-in-firebase/43680527#43680527
+        authListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                if(mUser != null)
+                {
+                    UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                            .setDisplayName(usernameField.getText().toString()).build();
+                    mUser.updateProfile(profileUpdates);
+                    mUser.updateProfile(profileUpdates).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Log.d("Display name: ", FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
+                            }
+                        }
+                    });
+                }
+            }
+        };
 
         Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
         startActivity(intent);

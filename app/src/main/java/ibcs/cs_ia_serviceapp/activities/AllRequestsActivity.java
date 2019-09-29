@@ -65,8 +65,10 @@ public class AllRequestsActivity extends AppCompatActivity
             public void onComplete(@NonNull Task<String> task)
             {
                 System.out.println(allRequests.size());
+                linearLayoutManager = new LinearLayoutManager(AllRequestsActivity.this);
                 adapter = new RequestAdapter(allRequests);
                 RecyclerView chat = findViewById(R.id.all_requests_recycler);
+                chat.setLayoutManager(linearLayoutManager);
                 chat.setAdapter(adapter);
             }
         });

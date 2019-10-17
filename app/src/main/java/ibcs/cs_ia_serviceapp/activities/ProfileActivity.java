@@ -25,7 +25,6 @@ import com.google.firebase.iid.InstanceIdResult;
 import ibcs.cs_ia_serviceapp.R;
 import ibcs.cs_ia_serviceapp.object_classes.User;
 import ibcs.cs_ia_serviceapp.utils.Constants;
-import ibcs.cs_ia_serviceapp.utils.NotificationSender;
 import ibcs.cs_ia_serviceapp.utils.UserSharedPreferences;
 
 public class ProfileActivity extends BaseActivity implements View.OnClickListener {
@@ -34,8 +33,6 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
     private TextView tUsername;
     private TextView tEmail;
     private Button bSend;
-    private Button bViewAll;
-    private Button bViewMy;
     private Button bLogout;
 
     //Firebase
@@ -59,10 +56,6 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
         tEmail = findViewById(R.id.profile_email);
         bSend = findViewById(R.id.submit_request);
         bSend.setOnClickListener(this);
-        bViewAll = findViewById(R.id.view_all_requests);
-        bViewAll.setOnClickListener(this);
-        bViewMy = findViewById(R.id.view_my_requests);
-        bViewMy.setOnClickListener(this);
         bLogout = findViewById(R.id.log_out);
         bLogout.setOnClickListener(this);
 

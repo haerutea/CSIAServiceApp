@@ -20,6 +20,12 @@
     <string name="re_password">Re-enter Password</string>
     <string name="type_spinner_text">Choose Account Type</string>
 
+    <!-- ProfileActivity -->
+    <!-- xml layout -->
+    <string name="view_all_requests">All Requests</string>
+    <string name="my_requests">My Requests</string>
+    <string name="submit_request">Submit Request</string>
+    <string name="logout">Logout</string>
     <!-- SendRequestActivity -->
     <!-- xml layout -->
     <string name="title">Title</string>
@@ -43,5 +49,9 @@
     <string name="pricing">Your Suggested Price</string>
     <string name="send">Send</string>
     <string name="cancel">Cancel</string>
+
+    <!-- ChatActivity -->
+    <!-- xml layout -->
+    <string name="message_hint">Message Here</string>
 
 </resources>

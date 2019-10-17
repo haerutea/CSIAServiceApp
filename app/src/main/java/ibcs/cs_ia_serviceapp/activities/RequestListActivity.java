@@ -21,7 +21,7 @@ import ibcs.cs_ia_serviceapp.object_classes.Request;
 import ibcs.cs_ia_serviceapp.utils.Constants;
 import ibcs.cs_ia_serviceapp.utils.RequestAdapter;
 
-public class AllRequestsActivity extends AppCompatActivity
+public class RequestListActivity extends AppCompatActivity
 {
     //UI
     private LinearLayoutManager linearLayoutManager;
@@ -33,7 +33,7 @@ public class AllRequestsActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.all_requests_activity);
+        setContentView(R.layout.request_list_activity);
 
         allRequests = new ArrayList<>();
         final TaskCompletionSource<String> getAllRequestsTask = new TaskCompletionSource<>();
@@ -65,7 +65,7 @@ public class AllRequestsActivity extends AppCompatActivity
             public void onComplete(@NonNull Task<String> task)
             {
                 System.out.println(allRequests.size());
-                linearLayoutManager = new LinearLayoutManager(AllRequestsActivity.this);
+                linearLayoutManager = new LinearLayoutManager(RequestListActivity.this);
                 adapter = new RequestAdapter(allRequests);
                 RecyclerView chat = findViewById(R.id.all_requests_recycler);
                 chat.setLayoutManager(linearLayoutManager);

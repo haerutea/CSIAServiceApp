@@ -1,6 +1,5 @@
 package ibcs.cs_ia_serviceapp.activities;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.net.Uri;
@@ -12,9 +11,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.ValueEventListener;
 
 import ibcs.cs_ia_serviceapp.R;
 import ibcs.cs_ia_serviceapp.SendQuotaFragment;
@@ -22,7 +18,7 @@ import ibcs.cs_ia_serviceapp.object_classes.Request;
 import ibcs.cs_ia_serviceapp.utils.Constants;
 import ibcs.cs_ia_serviceapp.utils.UserSharedPreferences;
 
-public class SingleViewRequestActivity extends AppCompatActivity implements View.OnClickListener
+public class ProviderSingleRequestActivity extends AppCompatActivity implements View.OnClickListener
 {
     //UI
     private TextView requestView;
@@ -42,10 +38,10 @@ public class SingleViewRequestActivity extends AppCompatActivity implements View
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.single_view_requests_activity);
+        setContentView(R.layout.provider_single_request_activity);
 
         inRequest = (Request) getIntent().getSerializableExtra(Constants.REQUEST_KEY);
-        uid = UserSharedPreferences.getInstance(SingleViewRequestActivity.this).getStringInfo(Constants.UID_KEY);
+        uid = UserSharedPreferences.getInstance(ProviderSingleRequestActivity.this).getStringInfo(Constants.UID_KEY);
         if(inRequest != null)
         {
             requestView = findViewById(R.id.request_title_view);
@@ -71,7 +67,7 @@ public class SingleViewRequestActivity extends AppCompatActivity implements View
                 //https://github.com/bumptech/glide#how-do-i-use-glide
                 @Override
                 public void onSuccess(Uri uri) {
-                    Glide.with(SingleViewRequestActivity.this).load(uri).into(imageView);
+                    Glide.with(ProviderSingleRequestActivity.this).load(uri).into(imageView);
                 }
             });
         }
@@ -95,7 +91,7 @@ public class SingleViewRequestActivity extends AppCompatActivity implements View
                     {
                         @Override
                         public void onSuccess(Uri uri) {
-                            Glide.with(SingleViewRequestActivity.this).load(uri).into(imageView);
+                            Glide.with(ProviderSingleRequestActivity.this).load(uri).into(imageView);
                         }
                     });
                 }

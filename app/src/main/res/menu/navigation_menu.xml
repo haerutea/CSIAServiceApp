@@ -7,7 +7,7 @@
 
     <item android:id="@+id/menu_requests_list"
     android:icon="@drawable/list_icon"
-    android:title="holder" />
+    android:title="placeholder" />
 
     <group android:id="@+id/settings_group">
         <item android:id="@+id/menu_settings"

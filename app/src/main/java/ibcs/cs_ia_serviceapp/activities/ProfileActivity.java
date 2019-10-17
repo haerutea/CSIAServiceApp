@@ -1,15 +1,15 @@
 package ibcs.cs_ia_serviceapp.activities;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -28,7 +28,7 @@ import ibcs.cs_ia_serviceapp.utils.Constants;
 import ibcs.cs_ia_serviceapp.utils.NotificationSender;
 import ibcs.cs_ia_serviceapp.utils.UserSharedPreferences;
 
-public class ProfileActivity extends AppCompatActivity implements View.OnClickListener {
+public class ProfileActivity extends BaseActivity implements View.OnClickListener {
 
     //UI
     private TextView tUsername;
@@ -52,7 +52,9 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.profile_activity);
+        LayoutInflater inflater = getLayoutInflater();
+        inflater.inflate(R.layout.profile_activity, (ViewGroup) findViewById(R.id.contents));
+
         tUsername = findViewById(R.id.profile_username);
         tEmail = findViewById(R.id.profile_email);
         bSend = findViewById(R.id.submit_request);
@@ -80,8 +82,6 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                             String token = task.getResult().getToken();
                             Constants.USER_REFERENCE.child(uid)
                                     .child(Constants.TOKEN_KEY).child(token).setValue(true);
-                            Toast.makeText(getApplicationContext(), token, Toast.LENGTH_LONG).show();
-                            System.out.println(("token: " + token));
                         }
                     }
                 });
@@ -97,6 +97,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                 tUsername.setText(userAccount.getUsername());
                 tEmail.setText(userAccount.getEmail());
                 UserSharedPreferences.getInstance(getApplicationContext()).setInfo(Constants.USERNAME_KEY, userAccount.getUsername());
+                UserSharedPreferences.getInstance(getApplicationContext()).setInfo(Constants.ACCOUNT_TYPE_KEY, userAccount.getAccountType());
             }
 
             @Override
@@ -115,15 +116,6 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         {
             Intent intent = new Intent(getApplicationContext(), SendRequestActivity.class);
             startActivity(intent);
-        }
-        else if(bViewAll.getId() == id)
-        {
-            Intent intent = new Intent(getApplicationContext(), AllRequestsActivity.class);
-            startActivity(intent);
-        }
-        else if(bViewMy.getId() == id)
-        {
-            NotificationSender.setNotif(this, ProfileActivity.class, "hi", "bye", false);
         }
         else if(bLogout.getId() == id)
         {

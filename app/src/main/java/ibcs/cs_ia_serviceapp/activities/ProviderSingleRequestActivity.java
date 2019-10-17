@@ -71,36 +71,6 @@ public class ProviderSingleRequestActivity extends AppCompatActivity implements 
                 }
             });
         }
-
-/*
-        Constants.REQUEST_REFERENCE.child(uid).addListenerForSingleValueEvent(new ValueEventListener()
-        {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot)
-            {
-                Request inRequest = dataSnapshot.getValue(Request.class);
-                if(inRequest != null)
-                {
-                    requestView.setText(getString(R.string.title_format, inRequest.getTitle()));
-                    languageView.setText(getString(R.string.lang_format, inRequest.getLanguage()));
-                    serviceView.setText(getString(R.string.service_format, inRequest.getService()));
-                    priorityView.setText(getString(R.string.priority_format, inRequest.getPriority()));
-                    locationView.setText(getString(R.string.location_format, inRequest.getLocation()));
-                    descriptionView.setText(inRequest.getDescription());
-                    Constants.STORAGE_REFERENCE.child(uid).child(inRequest.getFilename()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>()
-                    {
-                        @Override
-                        public void onSuccess(Uri uri) {
-                            Glide.with(ProviderSingleRequestActivity.this).load(uri).into(imageView);
-                        }
-                    });
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError)
-            {
-            }
-        });*/
     }
 
     private void pullUpQuotaScreen()

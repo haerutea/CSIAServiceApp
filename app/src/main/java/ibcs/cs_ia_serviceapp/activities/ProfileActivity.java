@@ -96,7 +96,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                 userAccount = dataSnapshot.getValue(User.class);
                 tUsername.setText(userAccount.getUsername());
                 tEmail.setText(userAccount.getEmail());
-                //getUserSource.setResult(null);
+                UserSharedPreferences.getInstance(getApplicationContext()).setInfo(Constants.USERNAME_KEY, userAccount.getUsername());
             }
 
             @Override

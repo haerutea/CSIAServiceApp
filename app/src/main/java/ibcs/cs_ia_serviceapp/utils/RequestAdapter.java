@@ -70,7 +70,7 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.RequestV
         }
     }
 
-    private ArrayList<Request> allRequests;
+    private ArrayList<Request> requestList;
     /**
      * required empty constructor
      */
@@ -85,7 +85,7 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.RequestV
      */
     public RequestAdapter(ArrayList<Request> inRequests)
     {
-        allRequests = inRequests;
+        requestList = inRequests;
     }
 
 
@@ -106,12 +106,13 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.RequestV
     /**
      * called when needed to display new data of the new request that was added
      * @param messageHolder the MessageViewHolder that needs to be updated
-     * @param positionIndex position of new item in allRequests
+     * @param positionIndex position of new item in requestList
+     *
      */
     @Override
     public void onBindViewHolder(@NonNull RequestViewHolder messageHolder, int positionIndex)
     {
-        Request data = allRequests.get(positionIndex);
+        Request data = requestList.get(positionIndex);
         messageHolder.title.setText(data.getTitle());
         messageHolder.service.setText(data.getService());
         //https://stackoverflow.com/questions/5683728/convert-java-util-date-to-string
@@ -126,23 +127,25 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.RequestV
      */
     public int getItemCount()
     {
-        return allRequests.size();
+        return requestList.size();
     }
 
     /**
-     * adds new request to allRequests
+     * adds new request to requestList
+     *
      * @param inRequest new Request object to be added
      */
     public void addRequest(Request inRequest)
     {
-        allRequests.add(inRequest);
+        requestList.add(inRequest);
     }
 
     /**
-     * deletes everything in allRequests
+     * deletes everything in requestList
+     *
      */
     public void clearContent()
     {
-        allRequests.clear();
+        requestList.clear();
     }
 }

@@ -38,16 +38,20 @@ public class Constants {
 
     //Database and IntentExtra
     public static final String USER_PATH = "users";
+    public static final String CHAT_PATH = "chats";
+    public static final String MESSAGE_PATH = "messages";
     public static final String REQUEST_PATH = "requests";
     public static final String QUOTA_PATH = "quotas";
     public static final String TOKEN_KEY = "token";
     public static final String UID_KEY = "uid";
+    public static final String USERNAME_KEY = "username";
     public static final String ONLINE_KEY = "online";
     public static final String REQUEST_KEY = "request";
+    public static final String CHAT_ROOM_ID_KEY = "chatRoomID";
     public static final DatabaseReference BASE_REFERENCE = FirebaseDatabase.getInstance().getReference();
     public static final DatabaseReference USER_REFERENCE = BASE_REFERENCE.child(USER_PATH);
     public static final DatabaseReference REQUEST_REFERENCE = BASE_REFERENCE.child(REQUEST_PATH);
-    public static final DatabaseReference QUOTA_REFERENCE = BASE_REFERENCE.child(QUOTA_PATH);
+    public static final DatabaseReference CHAT_REFERENCE = BASE_REFERENCE.child(CHAT_PATH);
     public static final StorageReference STORAGE_REFERENCE = FirebaseStorage.getInstance().getReference();
 
     //for notifications

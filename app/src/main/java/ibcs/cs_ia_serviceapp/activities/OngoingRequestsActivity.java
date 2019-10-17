@@ -7,7 +7,7 @@ import android.os.Bundle;
 import ibcs.cs_ia_serviceapp.R;
 import ibcs.cs_ia_serviceapp.object_classes.Request;
 
-public class MyRequestsActivity extends AppCompatActivity
+public class OngoingRequestsActivity extends AppCompatActivity
 {
 
     @Override

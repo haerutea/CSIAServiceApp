@@ -45,6 +45,7 @@ public class Constants {
     public static final String TOKEN_KEY = "token";
     public static final String UID_KEY = "uid";
     public static final String USERNAME_KEY = "username";
+    public static final String ACCOUNT_TYPE_KEY = "accountType";
     public static final String ONLINE_KEY = "online";
     public static final String REQUEST_KEY = "request";
     public static final String CHAT_ROOM_ID_KEY = "chatRoomID";

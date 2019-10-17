@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/menu_home"
+        android:icon="@drawable/home_black_icon"
+        android:title="@string/home" />
+
+    <item android:id="@+id/menu_requests_list"
+    android:icon="@drawable/list_icon"
+    android:title="holder" />
+
+    <group android:id="@+id/settings_group">
+        <item android:id="@+id/menu_settings"
+            android:title="@string/settings"
+            android:icon="@drawable/settings_black_icon" />
+    </group>
+
+</menu>

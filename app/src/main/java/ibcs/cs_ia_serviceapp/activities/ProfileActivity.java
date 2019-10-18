@@ -2,6 +2,7 @@ package ibcs.cs_ia_serviceapp.activities;
 
 import androidx.annotation.NonNull;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -96,7 +97,6 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
             @Override
             public void onCancelled(DatabaseError databaseError)
             {
-                //getUserSource.setException(databaseError.toException());
                 Log.d(LOG, "onCancelled: " + databaseError.getMessage());
             }
         });

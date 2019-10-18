@@ -5,19 +5,20 @@ import java.util.HashMap;
 
 public class Quota implements Serializable
 {
-    public int price;
-    public HashMap<String, Boolean> providerUid;
+    private int price;
+    private HashMap<String, Boolean> providerUid;
+    private String providerUsername;
 
     public Quota()
     {
         providerUid = new HashMap<>();
     }
 
-    public Quota(int inPrice, HashMap<String, Boolean> inProviderUid)
+    public Quota(int inPrice, HashMap<String, Boolean> inProviderUid, String inUsername)
     {
         price = inPrice;
         providerUid = inProviderUid;
-        //providerUid = "";
+        providerUsername = inUsername;
     }
 
     public int getPrice()
@@ -25,28 +26,28 @@ public class Quota implements Serializable
         return price;
     }
 
-    public HashMap<String, Boolean> getProviderUid() {
+    public HashMap<String, Boolean> getProviderUid()
+    {
         return providerUid;
     }
 
-    /*
-    public String getProviderUid()
+    public String getProviderUsername()
     {
-        return providerUid;
-    }*/
+        return providerUsername;
+    }
 
     public void setPrice(int price)
     {
         this.price = price;
     }
 
-    public void setProviderUid(HashMap<String, Boolean> providerUid) {
+    public void setProviderUid(HashMap<String, Boolean> providerUid)
+    {
         this.providerUid = providerUid;
     }
 
-    /*
-    public void setProviderUid(String inproviderUid)
+    public void setProviderUsername(String providerUsername)
     {
-        this.providerUid = inproviderUid;
-    }*/
+        this.providerUsername = providerUsername;
+    }
 }

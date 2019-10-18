@@ -16,6 +16,7 @@ public class Request implements Serializable {
     private String filename;
     private Date currentDate;
     private ArrayList<Quota> quotas;
+    private boolean accepted;
 
     public Request()
     {
@@ -35,6 +36,7 @@ public class Request implements Serializable {
         currentDate = new Date();
         quotas = new ArrayList<>();
         quotas.add(new Quota());
+        accepted = false;
     }
 
     public String getSubmitterUid()
@@ -75,6 +77,11 @@ public class Request implements Serializable {
     public String getFilename()
     {
         return filename;
+    }
+
+    public boolean isAccepted()
+    {
+        return accepted;
     }
 
     public Date getCurrentDate()
@@ -125,6 +132,11 @@ public class Request implements Serializable {
     public void setFilename(String inFilename)
     {
         this.filename = inFilename;
+    }
+
+    public void setAccepted(boolean accepted)
+    {
+        this.accepted = accepted;
     }
 
     public void addQuota(Quota inQuota)

@@ -23,6 +23,7 @@ import ibcs.cs_ia_serviceapp.utils.UserSharedPreferences;
 public class BaseActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener
 {
+    private NavigationView navigationView;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -38,8 +39,14 @@ public class BaseActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        //https://stackoverflow.com/a/34283820
+        navigationView = findViewById(R.id.nav_view);
+
+        navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    //https://stackoverflow.com/a/34283820
+    public void updateMenuRequestString()
+    {
         Menu menu = navigationView.getMenu();
         String account = UserSharedPreferences.getInstance(this).getStringInfo(Constants.ACCOUNT_TYPE_KEY);
         Log.d("baseActivity", account);
@@ -52,9 +59,8 @@ public class BaseActivity extends AppCompatActivity
             menu.findItem(R.id.menu_requests_list).setTitle(R.string.all_requests);
             Log.d("baseActivity", getString(R.string.all_requests));
         }
-        navigationView.setNavigationItemSelectedListener(this);
+        navigationView.invalidate();
     }
-
     @Override
     public void onBackPressed()
     {

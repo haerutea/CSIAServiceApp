@@ -1,7 +1,6 @@
 package ibcs.cs_ia_serviceapp.activities;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -91,9 +90,9 @@ public class RequestListActivity extends BaseActivity
                 System.out.println(requestsList.size());
                 linearLayoutManager = new LinearLayoutManager(RequestListActivity.this);
                 adapter = new RequestAdapter(requestsList);
-                RecyclerView chat = findViewById(R.id.all_requests_recycler);
-                chat.setLayoutManager(linearLayoutManager);
-                chat.setAdapter(adapter);
+                RecyclerView requests = findViewById(R.id.all_requests_recycler);
+                requests.setLayoutManager(linearLayoutManager);
+                requests.setAdapter(adapter);
             }
         });
     }

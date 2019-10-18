@@ -2,7 +2,6 @@ package ibcs.cs_ia_serviceapp.activities;
 
 import androidx.annotation.NonNull;
 
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -92,6 +91,7 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
                 tEmail.setText(userAccount.getEmail());
                 UserSharedPreferences.getInstance(getApplicationContext()).setInfo(Constants.USERNAME_KEY, userAccount.getUsername());
                 UserSharedPreferences.getInstance(getApplicationContext()).setInfo(Constants.ACCOUNT_TYPE_KEY, userAccount.getAccountType());
+                updateMenuRequestString();
             }
 
             @Override
@@ -100,6 +100,7 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
                 Log.d(LOG, "onCancelled: " + databaseError.getMessage());
             }
         });
+
     }
 
     @Override

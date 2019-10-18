@@ -1,6 +1,6 @@
 package ibcs.cs_ia_serviceapp.activities;
 
-import android.app.ProgressDialog;
+import android.app.AlertDialog;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,15 +23,16 @@ import com.google.firebase.auth.FirebaseUser;
 
 import ibcs.cs_ia_serviceapp.R;
 import ibcs.cs_ia_serviceapp.utils.Constants;
+import ibcs.cs_ia_serviceapp.utils.DialogUtils;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String LOGTAG = "LogInActivity";
 
     private FirebaseAuth mAuth;
+    private AlertDialog dialog;
 
     // UI references.
-
     private EditText emailField;
     private EditText passwordField;
     private Button bLogIn;
@@ -47,6 +48,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_activity);
 
+        dialog = DialogUtils.makeDialog(this,"Loading...");
         mAuth = FirebaseAuth.getInstance();
 
         emailField = findViewById(R.id.login_email);
@@ -70,12 +72,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         {
             return;
         }
-        //TODO: PUT THIS SOMEWHERE SO ITS REUSABLE
-        ProgressDialog loading = new ProgressDialog(this);
-        loading.setMessage("loading");
-        loading.setIndeterminate(true);
-        loading.setCancelable(false);
-        loading.show();
+        AlertDialog dialog = DialogUtils.makeDialog(this,"Loading...");
 
         // [START sign_in_with_email]
         mAuth.signInWithEmailAndPassword(email, password)
@@ -112,7 +109,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         }
                     }
                 });
-        loading.dismiss();
+        dialog.dismiss();
     }
 
     /**
@@ -147,7 +144,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
      */
     private void goToProfile(FirebaseUser user)
     {
-
+        dialog.dismiss();
         Constants.USER_REFERENCE.child(user.getUid())
                 .child(Constants.ONLINE_KEY).setValue(true);
         Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
@@ -165,6 +162,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         int i = v.getId();
         if (i == bLogIn.getId())
         {
+            dialog.show();
             signIn(emailField.getText().toString(), passwordField.getText().toString());
         }
     }

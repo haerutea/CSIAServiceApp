@@ -3,6 +3,7 @@ package ibcs.cs_ia_serviceapp.activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -33,6 +34,7 @@ import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import ibcs.cs_ia_serviceapp.R;
+import ibcs.cs_ia_serviceapp.SendQuotaFragment;
 import ibcs.cs_ia_serviceapp.object_classes.Request;
 import ibcs.cs_ia_serviceapp.utils.Constants;
 import ibcs.cs_ia_serviceapp.utils.DialogUtils;
@@ -57,6 +59,7 @@ public class SendRequestActivity extends AppCompatActivity implements View.OnCli
     private StorageReference storageRef;
 
     //fields
+    private AlertDialog dialog;
     private String uid;
     private String selectedLang;
     private String selectedService;
@@ -69,6 +72,7 @@ public class SendRequestActivity extends AppCompatActivity implements View.OnCli
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.send_request_activity);
+        dialog = DialogUtils.makeDialog(this,"Loading...");
         selectedLang = "";
         selectedService = "";
         selectedPriority = "";
@@ -226,13 +230,13 @@ public class SendRequestActivity extends AppCompatActivity implements View.OnCli
     {
         if(formFilled())
         {
+
             String requestTitle = titleView.getText().toString();
             String reqDescription = descriptionField.getText().toString();
             String filename = uploadImage();
             Request newReq =
                     new Request(uid, requestTitle, selectedLang, selectedService, selectedPriority, selectedLoc, reqDescription, filename);
             uploadRequest(newReq);
-
         }
 
     }
@@ -278,11 +282,13 @@ public class SendRequestActivity extends AppCompatActivity implements View.OnCli
                     {
                         validTitle = false;
                         titleView.setError("You already have a request with this title.");
+                        dialog.dismiss();
                     }
                 }
                 if(validTitle)
                 {
                     Constants.REQUEST_REFERENCE.child(uid).child(inRequest.getTitle()).setValue(inRequest);
+                    dialog.dismiss();
                     Toast.makeText(SendRequestActivity.this, "Uploaded request", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
                     startActivity(intent);
@@ -308,6 +314,7 @@ public class SendRequestActivity extends AppCompatActivity implements View.OnCli
         }
         if(bSubmit.getId() == i)
         {
+            dialog.show();
             submitRequest();
         }
     }

@@ -9,6 +9,10 @@
     android:icon="@drawable/list_icon"
     android:title="placeholder" />
 
+    <item android:id="@+id/menu_in_progress_list"
+        android:icon="@drawable/chat_icon"
+        android:title="@string/in_progress_requests" />
+
     <group android:id="@+id/settings_group">
         <item android:id="@+id/menu_settings"
             android:title="@string/settings"

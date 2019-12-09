@@ -4,12 +4,12 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "ibcs.cs_ia_serviceapp"
-        minSdkVersion 16
+        minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        vectorDrawables.useSupportLibrary = true //for drawables in chat_message
+        vectorDrawables.useSupportLibrary = true //for drawables in chat_message_card
     }
     buildTypes {
         release {

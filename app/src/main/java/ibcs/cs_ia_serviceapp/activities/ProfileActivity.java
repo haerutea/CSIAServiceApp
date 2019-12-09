@@ -91,7 +91,6 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
                 tEmail.setText(userAccount.getEmail());
                 UserSharedPreferences.getInstance(getApplicationContext()).setInfo(Constants.USERNAME_KEY, userAccount.getUsername());
                 UserSharedPreferences.getInstance(getApplicationContext()).setInfo(Constants.ACCOUNT_TYPE_KEY, userAccount.getAccountType());
-                updateMenuRequestString();
             }
 
             @Override

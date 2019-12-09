@@ -13,7 +13,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -43,7 +43,6 @@ public class RequestListActivity extends BaseActivity
         final TaskCompletionSource<String> getAllRequestsTask = new TaskCompletionSource<>();
         String account = UserSharedPreferences.getInstance(this).getStringInfo(Constants.ACCOUNT_TYPE_KEY);
         String uid = UserSharedPreferences.getInstance(this).getStringInfo(Constants.UID_KEY);
-        DatabaseReference requestsRef = null;
         if(account.equals(Constants.ACCOUNT_CUSTOMER))
         {
             Constants.REQUEST_REFERENCE.child(uid).addListenerForSingleValueEvent(new ValueEventListener()
@@ -63,6 +62,7 @@ public class RequestListActivity extends BaseActivity
         }
         else if(account.equals(Constants.ACCOUNT_PROVIDER))
         {
+
             Constants.REQUEST_REFERENCE.addListenerForSingleValueEvent(new ValueEventListener()
             {
                 @Override
@@ -70,6 +70,8 @@ public class RequestListActivity extends BaseActivity
                 {
                     for(DataSnapshot uids : dataSnapshot.getChildren())
                     {
+                        //TODO: FIGURE OUT HOW TO SORT ACCEPTED FROM NOT ACCEPTED https://stackoverflow.com/questions/45891437/how-to-query-firebase-database-and-not-show-values-based-of-a-boolean-value
+                        Query query = Constants.REQUEST_REFERENCE.child(uids.getKey()).orderByChild("accepted").equalTo("true");
                         populateRequests(uids);
                     }
                     getAllRequestsTask.setResult(null);

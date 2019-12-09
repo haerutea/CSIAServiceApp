@@ -93,5 +93,10 @@
             android:scaleType="fitCenter"
             android:background="@android:color/transparent" />
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/all_quotas_recycler"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"/>
+
     </LinearLayout>
 </ScrollView>

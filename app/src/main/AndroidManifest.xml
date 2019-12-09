@@ -13,7 +13,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.BaseActivity"></activity>
+        <activity android:name=".activities.PendingRequestsActivity"></activity>
+        <activity android:name=".activities.CustomerSingleRequestActivity" />
+        <activity android:name=".activities.BaseActivity" />
         <activity android:name=".activities.ChatActivity" /> <!-- https://github.com/firebase/quickstart-android/blob/d307afe958a672bebdf3394c10017cc671c027e2/messaging/app/src/main/AndroidManifest.xml#L48-L52 -->
         <service android:name=".utils.FirebaseNotificationMessaging">
             <intent-filter>
@@ -21,15 +23,16 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".activities.OngoingRequestsActivity" />
-        <activity android:name=".activities.RequestListActivity" />
+        <activity
+            android:name=".activities.RequestListActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activities.ProviderSingleRequestActivity" />
         <activity android:name=".activities.SendRequestActivity" />
-        <activity android:name=".activities.ProfileActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".activities.ProfileActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activities.SignUpActivity" />
         <activity android:name=".activities.LoginActivity" />
-        <activity android:name=".activities.GoogleLoginActivity" />
         <activity android:name=".activities.ChooseAuthenticationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -3,7 +3,6 @@ package ibcs.cs_ia_serviceapp.activities;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.content.Intent;
 
@@ -42,25 +41,28 @@ public class BaseActivity extends AppCompatActivity
         navigationView = findViewById(R.id.nav_view);
 
         navigationView.setNavigationItemSelectedListener(this);
+        updateMenu();
     }
 
     //https://stackoverflow.com/a/34283820
-    public void updateMenuRequestString()
+    public void updateMenu()
     {
         Menu menu = navigationView.getMenu();
         String account = UserSharedPreferences.getInstance(this).getStringInfo(Constants.ACCOUNT_TYPE_KEY);
         Log.d("baseActivity", account);
         if(account.equals(Constants.ACCOUNT_CUSTOMER))
         {
-            menu.findItem(R.id.menu_requests_list).setTitle(R.string.ongoing_requests);
+            menu.findItem(R.id.menu_requests_list).setTitle(R.string.pending_requests);
         }
         else if(account.equals(Constants.ACCOUNT_PROVIDER))
         {
             menu.findItem(R.id.menu_requests_list).setTitle(R.string.all_requests);
             Log.d("baseActivity", getString(R.string.all_requests));
+            menu.removeItem(R.id.menu_in_progress_list);
         }
         navigationView.invalidate();
     }
+
     @Override
     public void onBackPressed()
     {
@@ -90,6 +92,11 @@ public class BaseActivity extends AppCompatActivity
         else if(id == R.id.menu_requests_list)
         {
             Intent intent = new Intent(getApplicationContext(), RequestListActivity.class);
+            startActivity(intent);
+        }
+        else if(id == R.id.menu_in_progress_list)
+        {
+            Intent intent = new Intent(getApplicationContext(), PendingRequestsActivity.class);
             startActivity(intent);
         }
         DrawerLayout drawer = findViewById(R.id.drawer_layout);

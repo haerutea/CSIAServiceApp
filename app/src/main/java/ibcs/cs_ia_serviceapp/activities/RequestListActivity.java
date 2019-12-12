@@ -42,40 +42,75 @@ public class RequestListActivity extends BaseActivity
         requestsList = new ArrayList<>();
         final TaskCompletionSource<String> getAllRequestsTask = new TaskCompletionSource<>();
         String account = UserSharedPreferences.getInstance(this).getStringInfo(Constants.ACCOUNT_TYPE_KEY);
-        String uid = UserSharedPreferences.getInstance(this).getStringInfo(Constants.UID_KEY);
+        final String uid = UserSharedPreferences.getInstance(this).getStringInfo(Constants.UID_KEY);
         if(account.equals(Constants.ACCOUNT_CUSTOMER))
         {
-            Constants.REQUEST_REFERENCE.child(uid).addListenerForSingleValueEvent(new ValueEventListener()
+            final ArrayList<String> userRidList = new ArrayList<>();
+            final TaskCompletionSource<String> getUserRidTask = new TaskCompletionSource<>();
+            Constants.USER_REFERENCE.child(uid).child(Constants.SUBMITTED_PATH).addListenerForSingleValueEvent(new ValueEventListener()
             {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot)
                 {
-                    populateRequests(dataSnapshot);
-                    getAllRequestsTask.setResult(null);
+                    for(DataSnapshot rid : dataSnapshot.getChildren())
+                    {
+                        userRidList.add(rid.getKey());
+                    }
                 }
+
                 @Override
-                public void onCancelled(@NonNull DatabaseError databaseError)
-                {
-                    getAllRequestsTask.setException(databaseError.toException());
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    getUserRidTask.setException(databaseError.toException());
                 }
             });
+            getUserRidTask.getTask().addOnCompleteListener(new OnCompleteListener<String>()
+            {
+                @Override
+                public void onComplete(@NonNull Task<String> task)
+                {
+                    Constants.REQUEST_REFERENCE.addListenerForSingleValueEvent(new ValueEventListener()
+                    {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot)
+                        {
+                            for(DataSnapshot tempRid : dataSnapshot.getChildren())
+                            {
+                                if(userRidList.contains(tempRid.getKey()))
+                                {
+                                    requestsList.add(tempRid.getValue(Request.class));
+                                }
+                            }
+                            getAllRequestsTask.setResult(null);
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError)
+                        {
+                            getAllRequestsTask.setException(databaseError.toException());
+                        }
+                    });
+                }
+            });
+
         }
         else if(account.equals(Constants.ACCOUNT_PROVIDER))
         {
-
-            Constants.REQUEST_REFERENCE.addListenerForSingleValueEvent(new ValueEventListener()
+            Query onlyUnaccepted = Constants.REQUEST_REFERENCE.orderByChild(Constants.ACCEPTED_KEY).equalTo(false);
+            onlyUnaccepted.addListenerForSingleValueEvent(new ValueEventListener()
             {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot)
                 {
-                    for(DataSnapshot uids : dataSnapshot.getChildren())
+                    if(dataSnapshot.exists())
                     {
-                        //TODO: FIGURE OUT HOW TO SORT ACCEPTED FROM NOT ACCEPTED https://stackoverflow.com/questions/45891437/how-to-query-firebase-database-and-not-show-values-based-of-a-boolean-value
-                        Query query = Constants.REQUEST_REFERENCE.child(uids.getKey()).orderByChild("accepted").equalTo("true");
-                        populateRequests(uids);
+                        for(DataSnapshot rid : dataSnapshot.getChildren())
+                        {
+                            requestsList.add(rid.getValue(Request.class));
+                            System.out.println(requestsList.toString());
+                        }
+                        getAllRequestsTask.setResult(null);
                     }
-                    getAllRequestsTask.setResult(null);
                 }
+
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError)
                 {
@@ -97,14 +132,5 @@ public class RequestListActivity extends BaseActivity
                 requests.setAdapter(adapter);
             }
         });
-    }
-
-    private void populateRequests(DataSnapshot parent)
-    {
-        for(DataSnapshot data : parent.getChildren())
-        {
-            Request tempRequest = data.getValue(Request.class);
-            requestsList.add(tempRequest);
-        }
     }
 }

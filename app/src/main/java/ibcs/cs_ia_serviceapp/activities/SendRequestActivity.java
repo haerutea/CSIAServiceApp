@@ -230,13 +230,22 @@ public class SendRequestActivity extends AppCompatActivity implements View.OnCli
     {
         if(formFilled())
         {
-
             String requestTitle = titleView.getText().toString();
             String reqDescription = descriptionField.getText().toString();
-            String filename = uploadImage();
+            String filename = Constants.NO_IMAGE_FILENAME;
+            //https://stackoverflow.com/questions/28822054/firebase-how-to-generate-a-unique-numeric-id-for-key
+            String rid = Constants.USER_REFERENCE.child(Constants.SUBMITTED_PATH).push().getKey();
+            if(filePath != null) //if there is an image
+            {
+                filename = uploadImage();
+            } //if there isn't, then filename = Constants.NO_IMAGE_FILENAME
             Request newReq =
-                    new Request(uid, requestTitle, selectedLang, selectedService, selectedPriority, selectedLoc, reqDescription, filename);
+                    new Request(rid, uid, requestTitle, selectedLang, selectedService, selectedPriority, selectedLoc, reqDescription, filename);
             uploadRequest(newReq);
+        }
+        else
+        {
+            dialog.dismiss();
         }
 
     }
@@ -244,7 +253,6 @@ public class SendRequestActivity extends AppCompatActivity implements View.OnCli
     //https://code.tutsplus.com/tutorials/image-upload-to-firebase-in-android-application--cms-29934
     private String uploadImage()
     {
-        //TODO: ADD THIS TIMESTAMP TO REQUEST OBJECT SO IT'LL BE EASIER TO RETRIEVE
         String timestamp = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()) + ".jpg";
 
         storageRef.child(timestamp).putFile(filePath)
@@ -253,7 +261,7 @@ public class SendRequestActivity extends AppCompatActivity implements View.OnCli
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot)
             {
-                //Toast.makeText(SendRequestActivity.this, "Uploaded Successfully", Toast.LENGTH_SHORT).show();
+                Toast.makeText(SendRequestActivity.this, "Uploaded Successfully", Toast.LENGTH_SHORT).show();
             }
         })
         .addOnFailureListener(new OnFailureListener()
@@ -274,26 +282,12 @@ public class SendRequestActivity extends AppCompatActivity implements View.OnCli
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot)
             {
-                boolean validTitle = true;
-                for(DataSnapshot data : dataSnapshot.getChildren())
-                {
-                    Request temp = data.getValue(Request.class);
-                    if(temp.getTitle().equals(inRequest.getTitle()))
-                    {
-                        validTitle = false;
-                        titleView.setError("You already have a request with this title.");
-                        dialog.dismiss();
-                    }
-                }
-                if(validTitle)
-                {
-                    Constants.REQUEST_REFERENCE.child(uid).child(inRequest.getTitle()).setValue(inRequest);
-                    dialog.dismiss();
-                    Toast.makeText(SendRequestActivity.this, "Uploaded request", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
-                    startActivity(intent);
-                }
-
+                Constants.USER_REFERENCE.child(uid).child(Constants.SUBMITTED_PATH).child(inRequest.getRid()).setValue(true);
+                Constants.REQUEST_REFERENCE.child(inRequest.getRid()).setValue(inRequest);
+                dialog.dismiss();
+                Toast.makeText(SendRequestActivity.this, "Request uploaded successfully", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
+                startActivity(intent);
             }
 
             @Override

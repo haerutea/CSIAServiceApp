@@ -6,6 +6,7 @@ import java.util.Date;
 
 public class Request implements Serializable {
 
+    private String rid;
     private String submitterUid;
     private String title;
     private String language;
@@ -23,8 +24,9 @@ public class Request implements Serializable {
 
     }
 
-    public Request(String inUid, String inTitle, String inLang, String inServ, String inPri, String inLoc, String inDesc, String inNames)
+    public Request(String inRid, String inUid, String inTitle, String inLang, String inServ, String inPri, String inLoc, String inDesc, String inNames)
     {
+        rid = inRid;
         submitterUid = inUid;
         title = inTitle;
         language = inLang;
@@ -37,6 +39,11 @@ public class Request implements Serializable {
         quotas = new ArrayList<>();
         quotas.add(new Quota());
         accepted = false;
+    }
+
+    public String getRid()
+    {
+        return rid;
     }
 
     public String getSubmitterUid()
@@ -92,6 +99,11 @@ public class Request implements Serializable {
     public ArrayList<Quota> getQuotas()
     {
         return quotas;
+    }
+
+    public void setRid(String rid)
+    {
+        this.rid = rid;
     }
 
     public void setSubmitterUid(String submitterUid)

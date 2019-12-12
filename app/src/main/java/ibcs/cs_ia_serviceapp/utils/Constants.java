@@ -37,10 +37,14 @@ public class Constants {
     public static final String SHARED_PREF_KEY = "userdetails";
 
     //Database and IntentExtra
+    public static final String NO_IMAGE_FILENAME = "na";
     public static final String USER_PATH = "users";
     public static final String CHAT_PATH = "chats";
     public static final String MESSAGE_PATH = "messages";
     public static final String REQUEST_PATH = "requests";
+    public static final String SUBMITTED_PATH = "submitted";
+    public static final String ONGOING_PATH = "ongoing";
+    public static final String COMPLETED_PATH = "completed";
     public static final String QUOTA_PATH = "quotas";
     public static final String TOKEN_KEY = "token";
     public static final String UID_KEY = "uid";
@@ -48,6 +52,8 @@ public class Constants {
     public static final String ACCOUNT_TYPE_KEY = "accountType";
     public static final String ONLINE_KEY = "online";
     public static final String REQUEST_KEY = "request";
+    public static final String QUOTA_KEY = "quota";
+    public static final String ACCEPTED_KEY = "accepted";
     public static final String CHAT_ROOM_ID_KEY = "chatRoomID";
     public static final DatabaseReference BASE_REFERENCE = FirebaseDatabase.getInstance().getReference();
     public static final DatabaseReference USER_REFERENCE = BASE_REFERENCE.child(USER_PATH);

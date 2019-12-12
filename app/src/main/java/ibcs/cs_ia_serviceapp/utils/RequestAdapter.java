@@ -14,10 +14,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import ibcs.cs_ia_serviceapp.R;
-import ibcs.cs_ia_serviceapp.activities.SingleViewRequestActivity;
+import ibcs.cs_ia_serviceapp.activities.CustomerSingleRequestActivity;
+import ibcs.cs_ia_serviceapp.activities.ProviderSingleRequestActivity;
 import ibcs.cs_ia_serviceapp.object_classes.Request;
-
-import static android.content.Context.MODE_PRIVATE;
 
 public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.RequestViewHolder>
 {
@@ -45,10 +44,10 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.RequestV
         }
 
         /**
-         * allows user to save or unsave message by tapping on each chat message
-         * @param dataObj Message object contained in the view user clicked on
+         * allows user to go to the request they clicked on
+         * @param dataObj Request object contained in the view user clicked on
          */
-        public void goToRequest(final Request dataObj)
+        private void goToRequest(final Request dataObj)
         {
             if(dataObj != null)
             {
@@ -58,10 +57,17 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.RequestV
                     public void onClick(View v)
                     {
                         Log.d("requestObj", "clicked!");
-                        String uid = v.getContext().getSharedPreferences(Constants.SHARED_PREF_KEY, MODE_PRIVATE)
-                                .getString(Constants.UID_KEY, "");
 
-                        Intent intent = new Intent(v.getContext(), SingleViewRequestActivity.class);
+                        String accountType = UserSharedPreferences.getInstance(v.getContext()).getStringInfo(Constants.ACCOUNT_TYPE_KEY);
+                        Intent intent = null;
+                        if(accountType.equals(Constants.ACCOUNT_CUSTOMER))
+                        {
+                            intent = new Intent(v.getContext(), CustomerSingleRequestActivity.class);
+                        }
+                        else if(accountType.equals(Constants.ACCOUNT_PROVIDER))
+                        {
+                            intent = new Intent(v.getContext(), ProviderSingleRequestActivity.class);
+                        }
                         intent.putExtra(Constants.REQUEST_KEY, dataObj);
                         v.getContext().startActivity(intent);
                     }
@@ -76,7 +82,6 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.RequestV
      */
     public RequestAdapter()
     {
-
     }
 
     /**
@@ -99,7 +104,7 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.RequestV
     public RequestViewHolder onCreateViewHolder(@NonNull ViewGroup viewParent, int type)
     {
         LayoutInflater inflater = LayoutInflater.from(viewParent.getContext());
-        View view = inflater.inflate(R.layout.single_request_layout, viewParent, false);
+        View view = inflater.inflate(R.layout.single_request, viewParent, false);
         return new RequestViewHolder(view);
     }
 
@@ -107,7 +112,6 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.RequestV
      * called when needed to display new data of the new request that was added
      * @param messageHolder the MessageViewHolder that needs to be updated
      * @param positionIndex position of new item in requestList
-     *
      */
     @Override
     public void onBindViewHolder(@NonNull RequestViewHolder messageHolder, int positionIndex)
@@ -132,7 +136,6 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.RequestV
 
     /**
      * adds new request to requestList
-     *
      * @param inRequest new Request object to be added
      */
     public void addRequest(Request inRequest)
@@ -142,7 +145,6 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.RequestV
 
     /**
      * deletes everything in requestList
-     *
      */
     public void clearContent()
     {

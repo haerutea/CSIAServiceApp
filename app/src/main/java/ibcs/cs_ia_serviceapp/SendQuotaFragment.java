@@ -90,8 +90,7 @@ public class SendQuotaFragment extends DialogFragment implements View.OnClickLis
             //https://stackoverflow.com/questions/54643550/arraylist-of-string-not-being-created-in-firebase
             ArrayList<Quota> tempList = requestObj.getQuotas();
             tempList.add(newQuota);
-            Constants.REQUEST_REFERENCE.child(requestObj.getSubmitterUid())
-                    .child(requestObj.getTitle()).child(Constants.QUOTA_PATH).setValue(tempList);
+            Constants.REQUEST_REFERENCE.child(requestObj.getRid()).child(Constants.QUOTA_PATH).setValue(tempList);
             Toast.makeText(getContext(), "Your quota has been sent.", Toast.LENGTH_SHORT).show();
             dismiss();
         }

@@ -11,7 +11,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -40,7 +42,7 @@ import ibcs.cs_ia_serviceapp.utils.Constants;
 import ibcs.cs_ia_serviceapp.utils.DialogUtils;
 import ibcs.cs_ia_serviceapp.utils.UserSharedPreferences;
 
-public class SendRequestActivity extends AppCompatActivity implements View.OnClickListener {
+public class SendRequestActivity extends BaseActivity implements View.OnClickListener {
 
     private String LOG_TAG = "SendRequestActivity";
 
@@ -74,7 +76,8 @@ public class SendRequestActivity extends AppCompatActivity implements View.OnCli
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.send_request_activity);
+        LayoutInflater inflater = getLayoutInflater();
+        inflater.inflate(R.layout.send_request_activity, (ViewGroup) findViewById(R.id.contents));
         dialog = DialogUtils.makeDialog(this,"Loading...");
         selectedLang = "";
         selectedService = "";

@@ -65,6 +65,9 @@ public class SendRequestActivity extends AppCompatActivity implements View.OnCli
     private String selectedService;
     private String selectedPriority;
     private String selectedLoc;
+    private String requestTitle;
+    private String reqDescription;
+    private String filename;
     private final int PICK_IMAGE_REQUEST = 1;
     private Uri filePath;
 
@@ -211,17 +214,21 @@ public class SendRequestActivity extends AppCompatActivity implements View.OnCli
     {
         boolean valid = true;
 
-        String email = titleView.getText().toString();
-        if (TextUtils.isEmpty(email))
+        requestTitle = titleView.getText().toString();
+        reqDescription = descriptionField.getText().toString();
+        if (TextUtils.isEmpty(requestTitle)) ///if there's no title
         {
             titleView.setError("Required.");
             valid = false;
         }
-
-        String password = descriptionField.getText().toString();
-        if (TextUtils.isEmpty(password))
+        else if (TextUtils.isEmpty(reqDescription)) //if there's no desc
         {
             descriptionField.setError("Required.");
+            valid = false;
+        }
+        else if(filePath == null) //if there is no image
+        {
+            Toast.makeText(SendRequestActivity.this, "Please select an image!", Toast.LENGTH_LONG).show();
             valid = false;
         }
         return valid;
@@ -230,15 +237,12 @@ public class SendRequestActivity extends AppCompatActivity implements View.OnCli
     {
         if(formFilled())
         {
-            String requestTitle = titleView.getText().toString();
-            String reqDescription = descriptionField.getText().toString();
-            String filename = Constants.NO_IMAGE_FILENAME;
             //https://stackoverflow.com/questions/28822054/firebase-how-to-generate-a-unique-numeric-id-for-key
             String rid = Constants.USER_REFERENCE.child(Constants.SUBMITTED_PATH).push().getKey();
-            if(filePath != null) //if there is an image
+            if(filePath != null)
             {
                 filename = uploadImage();
-            } //if there isn't, then filename = Constants.NO_IMAGE_FILENAME
+            }
             Request newReq =
                     new Request(rid, uid, requestTitle, selectedLang, selectedService, selectedPriority, selectedLoc, reqDescription, filename);
             uploadRequest(newReq);

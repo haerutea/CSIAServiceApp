@@ -23,19 +23,21 @@ public class BaseActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener
 {
     private NavigationView navigationView;
+    private Toolbar toolbar;
+    private DrawerLayout drawer;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         setContentView(R.layout.base_activity);
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.open, R.string.close);
-        drawer.addDrawerListener(toggle);
+        drawer.setDrawerListener(toggle);
         toggle.syncState();
 
         navigationView = findViewById(R.id.nav_view);
@@ -66,7 +68,6 @@ public class BaseActivity extends AppCompatActivity
     @Override
     public void onBackPressed()
     {
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START))
         {
             drawer.closeDrawer(GravityCompat.START);
@@ -92,11 +93,6 @@ public class BaseActivity extends AppCompatActivity
         else if(id == R.id.menu_requests_list)
         {
             Intent intent = new Intent(getApplicationContext(), RequestListActivity.class);
-            startActivity(intent);
-        }
-        else if(id == R.id.menu_in_progress_list)
-        {
-            Intent intent = new Intent(getApplicationContext(), PendingRequestsActivity.class);
             startActivity(intent);
         }
         DrawerLayout drawer = findViewById(R.id.drawer_layout);

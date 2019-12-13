@@ -37,7 +37,6 @@ public class Constants {
     public static final String SHARED_PREF_KEY = "userdetails";
 
     //Database and IntentExtra
-    public static final String NO_IMAGE_FILENAME = "na";
     public static final String USER_PATH = "users";
     public static final String CHAT_PATH = "chats";
     public static final String MESSAGE_PATH = "messages";

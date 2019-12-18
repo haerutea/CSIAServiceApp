@@ -56,6 +56,7 @@ public class RequestListActivity extends BaseActivity
                     {
                         userRidList.add(rid.getKey());
                     }
+                    getUserRidTask.setResult(null);
                 }
 
                 @Override
@@ -94,6 +95,7 @@ public class RequestListActivity extends BaseActivity
         }
         else if(account.equals(Constants.ACCOUNT_PROVIDER))
         {
+            //https://stackoverflow.com/questions/35552571/how-to-use-firebase-query-equaltovalue-key
             Query onlyUnaccepted = Constants.REQUEST_REFERENCE.orderByChild(Constants.ACCEPTED_KEY).equalTo(false);
             onlyUnaccepted.addListenerForSingleValueEvent(new ValueEventListener()
             {
@@ -105,7 +107,6 @@ public class RequestListActivity extends BaseActivity
                         for(DataSnapshot rid : dataSnapshot.getChildren())
                         {
                             requestsList.add(rid.getValue(Request.class));
-                            System.out.println(requestsList.toString());
                         }
                         getAllRequestsTask.setResult(null);
                     }

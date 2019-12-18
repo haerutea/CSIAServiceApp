@@ -70,6 +70,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         if (!formFilled())
         {
+            dialog.dismiss();
             return;
         }
         AlertDialog dialog = DialogUtils.makeDialog(this,"Loading...");

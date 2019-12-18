@@ -83,10 +83,10 @@ public class SendQuotaFragment extends DialogFragment implements View.OnClickLis
     {
         if(formFilled())
         {
-            HashMap<String, Boolean> uidMap = new HashMap<>();
-            uidMap.put(userUid, true);
+            //HashMap<String, Boolean> uidMap = new HashMap<>();
+            //uidMap.put(userUid, true);
             String username = UserSharedPreferences.getInstance(getContext()).getStringInfo(Constants.USERNAME_KEY);
-            Quota newQuota = new Quota(price, uidMap, username);
+            Quota newQuota = new Quota(price, userUid, username, requestObj.getSubmitterUid());
             //https://stackoverflow.com/questions/54643550/arraylist-of-string-not-being-created-in-firebase
             ArrayList<Quota> tempList = requestObj.getQuotas();
             tempList.add(newQuota);

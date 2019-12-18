@@ -1,10 +1,11 @@
 package ibcs.cs_ia_serviceapp.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -18,7 +19,7 @@ import ibcs.cs_ia_serviceapp.object_classes.Request;
 import ibcs.cs_ia_serviceapp.utils.Constants;
 import ibcs.cs_ia_serviceapp.utils.UserSharedPreferences;
 
-public class ProviderSingleRequestActivity extends AppCompatActivity implements View.OnClickListener
+public class ProviderSingleRequestActivity extends BaseActivity implements View.OnClickListener
 {
     //UI
     private TextView requestView;
@@ -38,11 +39,12 @@ public class ProviderSingleRequestActivity extends AppCompatActivity implements 
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.provider_single_request_activity);
+        LayoutInflater inflater = getLayoutInflater();
+        inflater.inflate(R.layout.provider_single_request_activity, (ViewGroup) findViewById(R.id.contents));
 
         inRequest = (Request) getIntent().getSerializableExtra(Constants.REQUEST_KEY);
         uid = UserSharedPreferences.getInstance(ProviderSingleRequestActivity.this).getStringInfo(Constants.UID_KEY);
-        if(inRequest != null)
+        if (inRequest != null)
         {
             requestView = findViewById(R.id.request_title_view);
             languageView = findViewById(R.id.language_title);
@@ -77,7 +79,6 @@ public class ProviderSingleRequestActivity extends AppCompatActivity implements 
     {
         SendQuotaFragment sendQuotaFrag = SendQuotaFragment.newInstance(inRequest);
         sendQuotaFrag.show(this.getSupportFragmentManager(), "sendQuotaFrag");
-
     }
 
     @Override

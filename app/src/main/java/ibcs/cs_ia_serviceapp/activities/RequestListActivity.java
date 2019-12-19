@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import ibcs.cs_ia_serviceapp.R;
 import ibcs.cs_ia_serviceapp.object_classes.Request;
 import ibcs.cs_ia_serviceapp.utils.Constants;
-import ibcs.cs_ia_serviceapp.utils.RequestAdapter;
+import ibcs.cs_ia_serviceapp.utils.AllRequestsAdapter;
 import ibcs.cs_ia_serviceapp.utils.UserSharedPreferences;
 
 public class RequestListActivity extends BaseActivity
@@ -29,7 +29,7 @@ public class RequestListActivity extends BaseActivity
     //UI
     private LinearLayoutManager linearLayoutManager;
 
-    private RequestAdapter adapter;
+    private AllRequestsAdapter adapter;
     private ArrayList<Request> requestsList;
 
     @Override
@@ -127,7 +127,7 @@ public class RequestListActivity extends BaseActivity
             {
                 System.out.println(requestsList.size());
                 linearLayoutManager = new LinearLayoutManager(RequestListActivity.this);
-                adapter = new RequestAdapter(requestsList);
+                adapter = new AllRequestsAdapter(requestsList);
                 RecyclerView requests = findViewById(R.id.all_requests_recycler);
                 requests.setLayoutManager(linearLayoutManager);
                 requests.setAdapter(adapter);

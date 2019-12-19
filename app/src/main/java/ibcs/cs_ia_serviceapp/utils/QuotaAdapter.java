@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import ibcs.cs_ia_serviceapp.AcceptQuotaFragment;
 import ibcs.cs_ia_serviceapp.R;
 import ibcs.cs_ia_serviceapp.object_classes.Quota;
+import ibcs.cs_ia_serviceapp.object_classes.Request;
 
 //https://github.com/DeKoServidoni/FirebaseChatAndroid/blob/master/app/src/main/java/com/dekoservidoni/firebasechat/adapters/ChatAdapter.java
 
@@ -48,21 +49,21 @@ public class QuotaAdapter extends RecyclerView.Adapter<QuotaAdapter.MessageViewH
 
         /**
          * allows user to go to the request they clicked on
-         * @param dataObj Request object contained in the view user clicked on
+         * @param quotaObj Request object contained in the view user clicked on
          */
-        private void openQuotaFrag(final Quota dataObj)
+        private void openQuotaFrag(final Quota quotaObj, final Request requestObj)
         {
-            if(dataObj != null)
+            if(quotaObj != null)
             {
                 wholeView.setOnClickListener(new View.OnClickListener()
                 {
                     @Override
                     public void onClick(View v)
                     {
-                        Log.d("requestObj", "clicked!");
+                        Log.d("quota", "clicked!");
 
-                        //String accountType = UserSharedPreferences.getInstance(v.getContext()).getStringInfo(Constants.ACCOUNT_TYPE_KEY);
-                        AcceptQuotaFragment acceptQuotaFrag = AcceptQuotaFragment.newInstance(dataObj);
+                        AcceptQuotaFragment acceptQuotaFrag = AcceptQuotaFragment.newInstance(quotaObj, requestObj);
+
                         //https://stackoverflow.com/a/51802596
                         acceptQuotaFrag.show(((AppCompatActivity) v.getContext()).getSupportFragmentManager(), "acceptQuotaFrag");
                     }
@@ -70,6 +71,7 @@ public class QuotaAdapter extends RecyclerView.Adapter<QuotaAdapter.MessageViewH
             }
         }
     }
+    private Request requestObj;
     private ArrayList<Quota> quotaList;
 
     /**
@@ -84,9 +86,10 @@ public class QuotaAdapter extends RecyclerView.Adapter<QuotaAdapter.MessageViewH
      * constructor, instantiates fields
      * @param inQuotaList Chat object containing messages
      */
-    public QuotaAdapter(ArrayList<Quota> inQuotaList)
+    public QuotaAdapter(ArrayList<Quota> inQuotaList, Request inRequestObj)
     {
-        quotaList = inQuotaList;
+        this.quotaList = inQuotaList;
+        this.requestObj = inRequestObj;
     }
 
     /**
@@ -115,7 +118,7 @@ public class QuotaAdapter extends RecyclerView.Adapter<QuotaAdapter.MessageViewH
         messageHolder.username.setText(data.getProviderUsername());
         String price = "Price: " + data.getPrice();
         messageHolder.message.setText(price);
-        messageHolder.openQuotaFrag(data);
+        messageHolder.openQuotaFrag(data, requestObj);
     }
 
     /**

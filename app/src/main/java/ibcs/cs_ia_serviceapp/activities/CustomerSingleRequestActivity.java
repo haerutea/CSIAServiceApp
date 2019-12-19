@@ -1,11 +1,12 @@
 package ibcs.cs_ia_serviceapp.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,7 +22,7 @@ import ibcs.cs_ia_serviceapp.utils.Constants;
 import ibcs.cs_ia_serviceapp.utils.QuotaAdapter;
 import ibcs.cs_ia_serviceapp.utils.UserSharedPreferences;
 
-public class CustomerSingleRequestActivity extends AppCompatActivity
+public class CustomerSingleRequestActivity extends BaseActivity
 {
     //UI
     private TextView requestView;
@@ -43,7 +44,8 @@ public class CustomerSingleRequestActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.customer_single_request_activity);
+        LayoutInflater inflater = getLayoutInflater();
+        inflater.inflate(R.layout.customer_single_request_activity, (ViewGroup) findViewById(R.id.contents));
 
         inRequest = (Request) getIntent().getSerializableExtra(Constants.REQUEST_KEY);
         uid = UserSharedPreferences.getInstance(CustomerSingleRequestActivity.this).getStringInfo(Constants.UID_KEY);
@@ -77,7 +79,7 @@ public class CustomerSingleRequestActivity extends AppCompatActivity
             linearLayoutManager = new LinearLayoutManager(CustomerSingleRequestActivity.this);
             ArrayList<Quota> quotas = inRequest.getQuotas();
             quotas.remove(0);
-            adapter = new QuotaAdapter(quotas);
+            adapter = new QuotaAdapter(quotas, inRequest);
             quotasView = findViewById(R.id.all_quotas_recycler);
             quotasView.setLayoutManager(linearLayoutManager);
             quotasView.setAdapter(adapter);

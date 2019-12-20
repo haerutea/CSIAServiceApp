@@ -136,6 +136,7 @@ public class ChatActivity extends BaseActivity implements TextView.OnEditorActio
                     username, messageInput.getText().toString());
 
             //adds to database
+            //TODO: CHECK WHY TIMESTAMP DISAPPEARS???
             ArrayList<Message> tempMsgLog = chatLog.getMessages();
             tempMsgLog.add(message);
             messageRef.setValue(tempMsgLog);

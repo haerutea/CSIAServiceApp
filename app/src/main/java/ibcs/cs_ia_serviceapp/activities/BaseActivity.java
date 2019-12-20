@@ -90,12 +90,17 @@ public class BaseActivity extends AppCompatActivity
         }
         else if(id == R.id.menu_requests_list)
         {
-            Intent intent = new Intent(getApplicationContext(), SubmittedRequestListActivity.class);
+            Intent intent = new Intent(getApplicationContext(), SubmittedRequestsListActivity.class);
             startActivity(intent);
         }
         else if(id == R.id.menu_ongoing_requests_list)
         {
             Intent intent = new Intent(getApplicationContext(), OngoingRequestsListActivity.class);
+            startActivity(intent);
+        }
+        else if(id == R.id.menu_completed_requests_list)
+        {
+            Intent intent = new Intent(getApplicationContext(), CompletedRequestsListActivity.class);
             startActivity(intent);
         }
         DrawerLayout drawer = findViewById(R.id.drawer_layout);

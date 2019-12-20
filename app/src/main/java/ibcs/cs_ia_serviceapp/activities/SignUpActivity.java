@@ -148,6 +148,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         Log.d(LOG_TAG, "createAccount:" + email);
         if (!formFilled()) //if formfilled returns false
         {
+            loading.dismiss();
             return;
         }
         else

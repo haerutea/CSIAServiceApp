@@ -2,6 +2,8 @@ package ibcs.cs_ia_serviceapp.object_classes;
 
 import java.sql.Timestamp;
 
+import ibcs.cs_ia_serviceapp.utils.Constants;
+
 public class Message {
 
     private String mSenderName;
@@ -11,6 +13,7 @@ public class Message {
 
     public Message()
     {
+        this.mMessage = Constants.DUMMY_STRING;
     }
 
     public Message(String senderId, String senderName, String message)

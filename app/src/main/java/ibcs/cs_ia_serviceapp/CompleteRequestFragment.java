@@ -84,7 +84,7 @@ public class CompleteRequestFragment extends DialogFragment implements View.OnCl
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View baseView = inflater.inflate(R.layout.send_quota_fragment, container, false);
+        View baseView = inflater.inflate(R.layout.complete_request_fragment, container, false);
         bCancel = baseView.findViewById(R.id.complete_cancel_button);
         bComplete = baseView.findViewById(R.id.complete_confirm_button);
 

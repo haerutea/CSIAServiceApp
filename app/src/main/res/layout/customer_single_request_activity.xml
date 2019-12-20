@@ -89,7 +89,8 @@
         <ImageView
             android:id="@+id/viewall_img_view"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
             android:scaleType="fitCenter"
             android:background="@android:color/transparent" />
 

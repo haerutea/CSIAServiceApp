@@ -13,10 +13,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.CustomerSingleRequestActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".activities.ReviewActivity"></activity>
+        <activity android:name=".activities.SingleOngoingRequestActivity" />
+        <activity
+            android:name=".activities.OngoingRequestsListActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.CustomerSingleRequestActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activities.BaseActivity" />
-        <activity android:name=".activities.ChatActivity" /> <!-- https://github.com/firebase/quickstart-android/blob/d307afe958a672bebdf3394c10017cc671c027e2/messaging/app/src/main/AndroidManifest.xml#L48-L52 -->
+        <activity
+            android:name=".activities.ChatActivity"
+            android:theme="@style/AppTheme.NoActionBar" /> <!-- https://github.com/firebase/quickstart-android/blob/d307afe958a672bebdf3394c10017cc671c027e2/messaging/app/src/main/AndroidManifest.xml#L48-L52 -->
         <service android:name=".utils.FirebaseNotificationMessaging">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
@@ -24,12 +32,14 @@
         </service>
 
         <activity
-            android:name=".activities.RequestListActivity"
+            android:name=".activities.SubmittedRequestListActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activities.ProviderSingleRequestActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".activities.SendRequestActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".activities.SingleSubmittedRequestActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.SendRequestActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.ProfileActivity"
             android:theme="@style/AppTheme.NoActionBar" />

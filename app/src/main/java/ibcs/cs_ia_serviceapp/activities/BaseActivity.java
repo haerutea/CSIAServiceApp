@@ -41,7 +41,6 @@ public class BaseActivity extends AppCompatActivity
         toggle.syncState();
 
         navigationView = findViewById(R.id.nav_view);
-
         navigationView.setNavigationItemSelectedListener(this);
         updateMenu();
     }
@@ -82,28 +81,24 @@ public class BaseActivity extends AppCompatActivity
     {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
+        Intent intent = null;
         if(id == R.id.menu_home)
         {
-            Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
-            startActivity(intent);
+            intent = new Intent(getApplicationContext(), ProfileActivity.class);
         }
         else if(id == R.id.menu_requests_list)
         {
-            Intent intent = new Intent(getApplicationContext(), SubmittedRequestsListActivity.class);
-            startActivity(intent);
+            intent = new Intent(getApplicationContext(), SubmittedRequestsListActivity.class);
         }
         else if(id == R.id.menu_ongoing_requests_list)
         {
-            Intent intent = new Intent(getApplicationContext(), OngoingRequestsListActivity.class);
-            startActivity(intent);
+            intent = new Intent(getApplicationContext(), OngoingRequestsListActivity.class);
         }
         else if(id == R.id.menu_completed_requests_list)
         {
-            Intent intent = new Intent(getApplicationContext(), CompletedRequestsListActivity.class);
-            startActivity(intent);
+            intent = new Intent(getApplicationContext(), CompletedRequestsListActivity.class);
         }
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        startActivity(intent);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }

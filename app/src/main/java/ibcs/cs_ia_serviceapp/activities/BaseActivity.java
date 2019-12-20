@@ -54,13 +54,11 @@ public class BaseActivity extends AppCompatActivity
         Log.d("baseActivity", account);
         if(account.equals(Constants.ACCOUNT_CUSTOMER))
         {
-            menu.findItem(R.id.menu_requests_list).setTitle(R.string.pending_requests);
+            menu.findItem(R.id.menu_requests_list).setTitle(R.string.submitted_requests);
         }
         else if(account.equals(Constants.ACCOUNT_PROVIDER))
         {
             menu.findItem(R.id.menu_requests_list).setTitle(R.string.all_requests);
-            Log.d("baseActivity", getString(R.string.all_requests));
-            menu.removeItem(R.id.menu_in_progress_list);
         }
         navigationView.invalidate();
     }
@@ -92,7 +90,12 @@ public class BaseActivity extends AppCompatActivity
         }
         else if(id == R.id.menu_requests_list)
         {
-            Intent intent = new Intent(getApplicationContext(), RequestListActivity.class);
+            Intent intent = new Intent(getApplicationContext(), SubmittedRequestListActivity.class);
+            startActivity(intent);
+        }
+        else if(id == R.id.menu_ongoing_requests_list)
+        {
+            Intent intent = new Intent(getApplicationContext(), OngoingRequestsListActivity.class);
             startActivity(intent);
         }
         DrawerLayout drawer = findViewById(R.id.drawer_layout);

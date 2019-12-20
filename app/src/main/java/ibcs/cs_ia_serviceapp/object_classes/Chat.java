@@ -18,6 +18,8 @@ public class Chat implements Serializable
         userOne = inUserOne;
         userTwo = inUserTwo;
         messages = new ArrayList<>();
+        //dummy element
+        messages.add(new Message());
     }
 
     public void addMessage(Message inputMessage)

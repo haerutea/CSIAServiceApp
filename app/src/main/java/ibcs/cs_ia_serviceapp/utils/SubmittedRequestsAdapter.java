@@ -18,7 +18,7 @@ import ibcs.cs_ia_serviceapp.activities.CustomerSingleRequestActivity;
 import ibcs.cs_ia_serviceapp.activities.ProviderSingleRequestActivity;
 import ibcs.cs_ia_serviceapp.object_classes.Request;
 
-public class AllRequestsAdapter extends RecyclerView.Adapter<AllRequestsAdapter.RequestViewHolder>
+public class SubmittedRequestsAdapter extends RecyclerView.Adapter<SubmittedRequestsAdapter.RequestViewHolder>
 {
     /**
      * class for each individual request view object
@@ -80,7 +80,7 @@ public class AllRequestsAdapter extends RecyclerView.Adapter<AllRequestsAdapter.
     /**
      * required empty constructor
      */
-    public AllRequestsAdapter()
+    public SubmittedRequestsAdapter()
     {
     }
 
@@ -88,7 +88,7 @@ public class AllRequestsAdapter extends RecyclerView.Adapter<AllRequestsAdapter.
      * constructor, instantiates fields
      * @param inRequests arraylist containing all requests
      */
-    public AllRequestsAdapter(ArrayList<Request> inRequests)
+    public SubmittedRequestsAdapter(ArrayList<Request> inRequests)
     {
         requestList = inRequests;
     }

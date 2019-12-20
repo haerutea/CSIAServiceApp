@@ -36,7 +36,7 @@ public class SingleOngoingRequestActivity extends BaseActivity implements View.O
     private TextView locationView;
     private TextView descriptionView;
     private ImageView imageView;
-    private Button bSendQuota;
+    private Button bComplete;
 
     //Fields
     private String uid;
@@ -57,8 +57,8 @@ public class SingleOngoingRequestActivity extends BaseActivity implements View.O
         locationView = findViewById(R.id.location_title);
         descriptionView = findViewById(R.id.description);
         imageView = findViewById(R.id.viewall_img_view);
-        bSendQuota = findViewById(R.id.send_quota_button);
-        bSendQuota.setOnClickListener(this);
+        bComplete = findViewById(R.id.complete_request_button);
+        bComplete.setOnClickListener(this);
 
         uid = UserSharedPreferences.getInstance(SingleOngoingRequestActivity.this).getStringInfo(Constants.UID_KEY);
 
@@ -108,7 +108,7 @@ public class SingleOngoingRequestActivity extends BaseActivity implements View.O
         });
     }
 
-    private void pullUpQuotaScreen()
+    private void pullUpCompleteFrag()
     {
         CompleteRequestFragment completeRequestFrag = CompleteRequestFragment.newInstance(inRequest.getRid());
         completeRequestFrag.show(this.getSupportFragmentManager(), "completeRequestFrag");
@@ -118,9 +118,9 @@ public class SingleOngoingRequestActivity extends BaseActivity implements View.O
     public void onClick(View v)
     {
         int i = v.getId();
-        if(i == bSendQuota.getId())
+        if(i == bComplete.getId())
         {
-            pullUpQuotaScreen();
+            pullUpCompleteFrag();
         }
     }
 }

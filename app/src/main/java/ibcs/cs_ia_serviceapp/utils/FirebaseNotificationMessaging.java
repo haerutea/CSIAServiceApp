@@ -8,7 +8,7 @@ import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
 import ibcs.cs_ia_serviceapp.activities.ProfileActivity;
-import ibcs.cs_ia_serviceapp.activities.RequestListActivity;
+import ibcs.cs_ia_serviceapp.activities.SubmittedRequestListActivity;
 
 /**
  * extends FirebsaeMessageService, this class handles the message sent to this device from
@@ -41,11 +41,12 @@ public class FirebaseNotificationMessaging extends FirebaseMessagingService
             Class destinationClass = null;
 
             boolean special = false;
-            if(remoteMessage.getNotification().getTitle().equals("You have a new quota request!"))
+            if(remoteMessage.getNotification().getTitle().matches("You have a new quota request!(.*)"))
             {
-                destinationClass = RequestListActivity.class;
+                destinationClass = SubmittedRequestListActivity.class;
                 special = true;
             }
+            //TODO: ADD CHAT NOTIF
             else if(remoteMessage.getNotification().getTitle().equals("Deleted request"))
             {
                 destinationClass = ProfileActivity.class;

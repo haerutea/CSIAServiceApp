@@ -4,22 +4,29 @@ import java.io.Serializable;
 
 public class Quota implements Serializable
 {
+    private String quotaId;
     private int price;
     private String providerUid;
     private String providerUsername;
-    private String submitterUid;
+    private boolean accepted;
 
     public Quota()
     {
         providerUid = "";
     }
 
-    public Quota(int inPrice, String inProviderUid, String inUsername, String inSubmitterUid)
+    public Quota(String inQid, int inPrice, String inProviderUid, String inUsername)
     {
+        quotaId = inQid;
         price = inPrice;
         providerUid = inProviderUid;
         providerUsername = inUsername;
-        submitterUid = inSubmitterUid;
+        accepted = false;
+    }
+
+    public String getQuotaId()
+    {
+        return quotaId;
     }
 
     public int getPrice()
@@ -37,19 +44,28 @@ public class Quota implements Serializable
         return providerUsername;
     }
 
+    public boolean isAccepted()
+    {
+        return accepted;
+    }
+
     public void setPrice(int price)
     {
         this.price = price;
     }
-
 
     public void setProviderUid(String providerUid)
     {
         this.providerUid = providerUid;
     }
 
-    public void setSubmitterUid(String submitterUid)
+    public void setQuotaId(String quotaId)
     {
-        this.submitterUid = submitterUid;
+        this.quotaId = quotaId;
+    }
+
+    public void setAccepted(boolean accepted)
+    {
+        this.accepted = accepted;
     }
 }

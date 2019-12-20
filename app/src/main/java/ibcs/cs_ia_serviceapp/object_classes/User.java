@@ -10,7 +10,7 @@ public class User implements Serializable
     private String username;
     private String email;
     private String accountType;
-    private boolean onlineStatus;
+    private ArrayList<Review> reviews;
 
     public User()
     {
@@ -23,10 +23,10 @@ public class User implements Serializable
         username = inName;
         email = inEmail;
         accountType = inType;
-        onlineStatus = online;
+        reviews = new ArrayList<>();
+        reviews.add(new Review());
     }
 
-    //TODO: IS ALL THIS NECCESARY IF THERE'S USERSHAREDPREF
     public void setUid(String inUid)
     {
         this.uid = inUid;
@@ -47,11 +47,6 @@ public class User implements Serializable
         this.accountType = inType;
     }
 
-    public void setOnline(boolean inputOnline)
-    {
-        this.onlineStatus = inputOnline;
-    }
-
     public String getUid()
     {
         return uid;
@@ -70,10 +65,5 @@ public class User implements Serializable
     public String getAccountType()
     {
         return accountType;
-    }
-
-    public boolean getOnline()
-    {
-        return onlineStatus;
     }
 }

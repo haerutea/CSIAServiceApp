@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnSuccessListener;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
 import ibcs.cs_ia_serviceapp.R;
 import ibcs.cs_ia_serviceapp.object_classes.Quota;
@@ -77,13 +77,12 @@ public class CustomerSingleRequestActivity extends BaseActivity
             });
 
             linearLayoutManager = new LinearLayoutManager(CustomerSingleRequestActivity.this);
-            ArrayList<Quota> quotas = inRequest.getQuotas();
-            quotas.remove(0);
+            HashMap<String, Quota> quotas = inRequest.getQuotas();
+            quotas.remove(Constants.DUMMY_STRING);
             adapter = new QuotaAdapter(quotas, inRequest);
             quotasView = findViewById(R.id.all_quotas_recycler);
             quotasView.setLayoutManager(linearLayoutManager);
             quotasView.setAdapter(adapter);
         }
     }
-
 }

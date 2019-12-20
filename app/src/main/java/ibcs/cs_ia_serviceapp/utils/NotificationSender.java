@@ -6,6 +6,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.util.Log;
 //import android.support.v4.app.NotificationCompat;
 //import android.support.v4.app.NotificationManagerCompat;
 
@@ -44,11 +45,14 @@ public class NotificationSender
         else
         {
             notifyPendingIntent = PendingIntent.getActivity(inContext, 0, intent, 0);
+            //getting rid from notifTitle
+            String rid = (notifTitle.split(":"))[1];
+            intent.putExtra(Constants.RID_KEY, rid);
         }
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(inContext, Constants.CHANNEL_ID)
                 .setSmallIcon(R.drawable.chat_notif_icon)
-                .setContentTitle(notifTitle)
+                .setContentTitle(Constants.NOTIF_TITLE)
                 .setContentText(notifContent)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 //https://stackoverflow.com/questions/2632272/android-notification-doesnt-disappear-after-clicking-the-notifcation

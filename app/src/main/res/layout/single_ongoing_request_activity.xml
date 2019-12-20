@@ -89,24 +89,25 @@
         <ImageView
             android:id="@+id/viewall_img_view"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
             android:scaleType="fitCenter"
             android:background="@android:color/transparent" />
 
         <Button
-            android:id="@+id/send_quota_button"
+            android:id="@+id/complete_request_button"
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_gravity="center"
             android:layout_weight="1.0"
             android:layout_marginStart="5dp"
-            android:text="@string/send_quota"
+            android:text="@string/complete_request"
             android:theme="@style/ThemeOverlay.MyDarkButton"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/viewall_img_view" />
 
     </LinearLayout>
 </ScrollView>

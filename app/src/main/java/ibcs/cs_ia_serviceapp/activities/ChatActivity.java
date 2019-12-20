@@ -1,14 +1,18 @@
 package ibcs.cs_ia_serviceapp.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,7 +24,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.Date;
+import java.util.ArrayList;
 
 import ibcs.cs_ia_serviceapp.R;
 import ibcs.cs_ia_serviceapp.object_classes.Chat;
@@ -33,7 +37,7 @@ import ibcs.cs_ia_serviceapp.utils.UserSharedPreferences;
  * screen where user can chat with another user that was connected
  * through their chat request.
  */
-public class ChatActivity extends AppCompatActivity implements TextView.OnEditorActionListener
+public class ChatActivity extends BaseActivity implements TextView.OnEditorActionListener
 {
     private final String LOG_TAG = "ChatFragmentDatabase";
     private DatabaseReference roomReference;
@@ -48,7 +52,7 @@ public class ChatActivity extends AppCompatActivity implements TextView.OnEditor
     //objects referenced
     private String userUid;
     private DatabaseReference chatLogRef;
-    private String chatRoomId;
+    private String rid;
     private String username;
     private Chat chatLog;
 
@@ -64,7 +68,8 @@ public class ChatActivity extends AppCompatActivity implements TextView.OnEditor
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.chat_activity);
+        LayoutInflater inflater = getLayoutInflater();
+        inflater.inflate(R.layout.chat_activity, (ViewGroup) findViewById(R.id.contents));
         Log.d("inChatActivity", "here");
 
         //sets EditText
@@ -78,9 +83,10 @@ public class ChatActivity extends AppCompatActivity implements TextView.OnEditor
         linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setStackFromEnd(true);
 
-        //gets chat room name
-        chatRoomId = getIntent().getStringExtra(Constants.CHAT_ROOM_ID_KEY);
-        chatLogRef = Constants.CHAT_REFERENCE;
+        //gets request rid to access chat log
+        rid = getIntent().getStringExtra(Constants.RID_KEY);
+        Log.d("chats", rid);
+        chatLogRef = Constants.REQUEST_REFERENCE.child(rid).child(Constants.CHAT_PATH);
 
         final TaskCompletionSource<String> getChatLogTask = new TaskCompletionSource<>();
         chatLogRef.addListenerForSingleValueEvent(new ValueEventListener()
@@ -88,7 +94,7 @@ public class ChatActivity extends AppCompatActivity implements TextView.OnEditor
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot)
             {
-                chatLog = dataSnapshot.child(chatRoomId).getValue(Chat.class);
+                chatLog = dataSnapshot.getValue(Chat.class);
                 getChatLogTask.setResult(null);
             }
 
@@ -129,8 +135,10 @@ public class ChatActivity extends AppCompatActivity implements TextView.OnEditor
             Message message = new Message(userUid,
                     username, messageInput.getText().toString());
 
-            //adds to database with time as key
-            messageRef.child(String.valueOf(new Date().getTime())).setValue(message);
+            //adds to database
+            ArrayList<Message> tempMsgLog = chatLog.getMessages();
+            tempMsgLog.add(message);
+            messageRef.setValue(tempMsgLog);
 
             //scroll to latest message
             linearLayoutManager.scrollToPosition(adapter.getItemCount() - 1);
@@ -147,8 +155,7 @@ public class ChatActivity extends AppCompatActivity implements TextView.OnEditor
      */
     private void setupConnection()
     {
-        roomReference = Constants.CHAT_REFERENCE.child(chatRoomId);
-        messageRef = roomReference.child(Constants.MESSAGE_PATH);
+        messageRef = chatLogRef.child(Constants.MESSAGE_PATH);
         messageRef.addValueEventListener(new ValueEventListener()
         {
             @Override
@@ -162,6 +169,10 @@ public class ChatActivity extends AppCompatActivity implements TextView.OnEditor
                 {
                     //https://firebase.google.com/docs/reference/android/com/google/firebase/database/DataSnapshot#getValue(java.lang.Class%3CT%3E)
                     Message data = item.getValue(Message.class);
+                    if(data.getMessage().equals(Constants.DUMMY_STRING))
+                    {
+                        continue;
+                    }
                     adapter.addChat(data);
                 }
                 adapter.notifyDataSetChanged();
@@ -174,5 +185,28 @@ public class ChatActivity extends AppCompatActivity implements TextView.OnEditor
                 Toast.makeText(getApplicationContext(), "Failed to connect", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    //https://guides.codepath.com/android/using-the-app-toolbar
+    //https://stackoverflow.com/questions/35648913/how-to-set-menu-to-toolbar-in-android/35649219
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        //this adds items to the action bar
+        getMenuInflater().inflate(R.menu.toolbar_menu, menu);
+        return true;
+    }
+    //https://developer.android.com/training/appbar/actions
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        int id = item.getItemId();
+        if(id == R.id.menu_request)
+        {
+            Intent intent = new Intent(getApplicationContext(), SingleOngoingRequestActivity.class);
+            intent.putExtra(Constants.RID_KEY, rid);
+            startActivity(intent);
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

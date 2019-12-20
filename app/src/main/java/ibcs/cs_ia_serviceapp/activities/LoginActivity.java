@@ -73,7 +73,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             dialog.dismiss();
             return;
         }
-        AlertDialog dialog = DialogUtils.makeDialog(this,"Loading...");
 
         // [START sign_in_with_email]
         mAuth.signInWithEmailAndPassword(email, password)

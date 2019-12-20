@@ -14,11 +14,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import ibcs.cs_ia_serviceapp.R;
-import ibcs.cs_ia_serviceapp.activities.CustomerSingleRequestActivity;
-import ibcs.cs_ia_serviceapp.activities.ProviderSingleRequestActivity;
+import ibcs.cs_ia_serviceapp.activities.ChatActivity;
 import ibcs.cs_ia_serviceapp.object_classes.Request;
 
-public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.RequestViewHolder>
+public class OngoingRequestsAdapter extends RecyclerView.Adapter<OngoingRequestsAdapter.RequestViewHolder>
 {
     /**
      * class for each individual request view object
@@ -57,18 +56,8 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.RequestV
                     public void onClick(View v)
                     {
                         Log.d("requestObj", "clicked!");
-
-                        String accountType = UserSharedPreferences.getInstance(v.getContext()).getStringInfo(Constants.ACCOUNT_TYPE_KEY);
-                        Intent intent = null;
-                        if(accountType.equals(Constants.ACCOUNT_CUSTOMER))
-                        {
-                            intent = new Intent(v.getContext(), CustomerSingleRequestActivity.class);
-                        }
-                        else if(accountType.equals(Constants.ACCOUNT_PROVIDER))
-                        {
-                            intent = new Intent(v.getContext(), ProviderSingleRequestActivity.class);
-                        }
-                        intent.putExtra(Constants.REQUEST_KEY, dataObj);
+                        Intent intent = new Intent(v.getContext(), ChatActivity.class);
+                        intent.putExtra(Constants.RID_KEY, dataObj.getRid());
                         v.getContext().startActivity(intent);
                     }
                 });
@@ -80,7 +69,7 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.RequestV
     /**
      * required empty constructor
      */
-    public RequestAdapter()
+    public OngoingRequestsAdapter()
     {
     }
 
@@ -88,7 +77,7 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.RequestV
      * constructor, instantiates fields
      * @param inRequests arraylist containing all requests
      */
-    public RequestAdapter(ArrayList<Request> inRequests)
+    public OngoingRequestsAdapter(ArrayList<Request> inRequests)
     {
         requestList = inRequests;
     }

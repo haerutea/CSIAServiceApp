@@ -24,7 +24,7 @@ import ibcs.cs_ia_serviceapp.utils.Constants;
 import ibcs.cs_ia_serviceapp.utils.AllRequestsAdapter;
 import ibcs.cs_ia_serviceapp.utils.UserSharedPreferences;
 
-public class RequestListActivity extends BaseActivity
+public class SubmittedRequestListActivity extends BaseActivity
 {
     //UI
     private LinearLayoutManager linearLayoutManager;
@@ -47,7 +47,7 @@ public class RequestListActivity extends BaseActivity
         {
             final ArrayList<String> userRidList = new ArrayList<>();
             final TaskCompletionSource<String> getUserRidTask = new TaskCompletionSource<>();
-            Constants.USER_REFERENCE.child(uid).child(Constants.SUBMITTED_PATH).addListenerForSingleValueEvent(new ValueEventListener()
+            Constants.USER_REFERENCE.child(uid).child(Constants.REQUESTS_SUBMITTED_PATH).addListenerForSingleValueEvent(new ValueEventListener()
             {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot)
@@ -106,7 +106,8 @@ public class RequestListActivity extends BaseActivity
                     {
                         for(DataSnapshot rid : dataSnapshot.getChildren())
                         {
-                            requestsList.add(rid.getValue(Request.class));
+                            Request tempReq = rid.getValue(Request.class);
+                            requestsList.add(tempReq);
                         }
                         getAllRequestsTask.setResult(null);
                     }
@@ -126,7 +127,7 @@ public class RequestListActivity extends BaseActivity
             public void onComplete(@NonNull Task<String> task)
             {
                 System.out.println(requestsList.size());
-                linearLayoutManager = new LinearLayoutManager(RequestListActivity.this);
+                linearLayoutManager = new LinearLayoutManager(SubmittedRequestListActivity.this);
                 adapter = new AllRequestsAdapter(requestsList);
                 RecyclerView requests = findViewById(R.id.all_requests_recycler);
                 requests.setLayoutManager(linearLayoutManager);

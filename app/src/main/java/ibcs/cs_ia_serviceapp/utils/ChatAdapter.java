@@ -1,12 +1,9 @@
 package ibcs.cs_ia_serviceapp.utils;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,8 +12,6 @@ import java.util.ArrayList;
 import ibcs.cs_ia_serviceapp.R;
 import ibcs.cs_ia_serviceapp.object_classes.Chat;
 import ibcs.cs_ia_serviceapp.object_classes.Message;
-
-import static android.content.Context.MODE_PRIVATE;
 
 //https://github.com/DeKoServidoni/FirebaseChatAndroid/blob/master/app/src/main/java/com/dekoservidoni/firebasechat/adapters/ChatAdapter.java
 
@@ -34,7 +29,6 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MessageViewHol
         private View wholeView;
         private TextView username;
         private TextView message;
-        private ImageView star;
 
         /**
          * assigns view for each field
@@ -46,7 +40,6 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MessageViewHol
             wholeView = v;
             username = v.findViewById(R.id.chat_username);
             message = v.findViewById(R.id.chat_message);
-            star = v.findViewById(R.id.star_view);
         }
 
     }
@@ -81,7 +74,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MessageViewHol
     public MessageViewHolder onCreateViewHolder(@NonNull  ViewGroup viewParent, int type)
     {
         LayoutInflater inflater = LayoutInflater.from(viewParent.getContext());
-        View view = inflater.inflate(R.layout.chat_message, viewParent, false);
+        View view = inflater.inflate(R.layout.chat_message_card, viewParent, false);
         return new MessageViewHolder(view);
     }
 

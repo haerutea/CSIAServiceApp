@@ -44,7 +44,7 @@ public class CompletedRequestsListActivity extends BaseActivity
         final String uid = UserSharedPreferences.getInstance(this).getStringInfo(Constants.UID_KEY);
         final ArrayList<String> userRidList = new ArrayList<>();
         final TaskCompletionSource<String> getUserRidTask = new TaskCompletionSource<>();
-        Constants.USER_REFERENCE.child(uid).child(Constants.REQUESTS_ONGOING_PATH).addListenerForSingleValueEvent(new ValueEventListener()
+        Constants.USER_REFERENCE.child(uid).child(Constants.REQUESTS_COMPLETED_PATH).addListenerForSingleValueEvent(new ValueEventListener()
         {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot)

@@ -12,10 +12,12 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/send_pricing_field"
+            android:id="@+id/textView_show_pricing"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/pricing"
+            android:hint="@string/show_price_format"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -29,7 +31,7 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/accept_quota_reject_button"
+                android:id="@+id/button_accept_quota_reject"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/reject"
@@ -43,7 +45,8 @@
                 />
 
             <Button
-                android:id="@+id/accept_quota_accept_button"
+                android:id="@+id/button_accept_quota_accept"
+                style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/accept"

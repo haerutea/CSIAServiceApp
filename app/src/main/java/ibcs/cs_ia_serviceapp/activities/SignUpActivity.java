@@ -146,52 +146,54 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     {
         final ProgressDialog loading = DialogUtils.showProgressDialog(this, getString(R.string.loading));
         Log.d(LOG_TAG, "createAccount:" + email);
-        if (!formFilled())
+        if (!formFilled()) //if formfilled returns false
         {
             return;
         }
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>()
-                {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task)
+        else
+        {
+            mAuth.createUserWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(new OnCompleteListener<AuthResult>()
                     {
-                        if (task.isSuccessful())
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task)
                         {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(LOG_TAG, "createUserWithEmail:success");
-                            mUser = mAuth.getCurrentUser();
-                            //send email verification
-                            sendEmail();
-                            //https://firebase.google.com/docs/auth/android/manage-users
-                            signUp();
+                            if (task.isSuccessful())
+                            {
+                                // Sign in success, update UI with the signed-in user's information
+                                Log.d(LOG_TAG, "createUserWithEmail:success");
+                                mUser = mAuth.getCurrentUser();
+                                //send email verification
+                                sendEmail();
+                                //https://firebase.google.com/docs/auth/android/manage-users
+                                signUp();
+                            } else
+                                {
+                                String errorMsg = "";
+                                try
+                                {
+                                    throw task.getException();
+                                }
+                                catch (FirebaseAuthInvalidCredentialsException e)
+                                {
+                                    errorMsg = "Invalid email.";
+                                }
+                                catch (FirebaseAuthUserCollisionException e)
+                                {
+                                    errorMsg = "The email address is already in use.";
+                                }
+                                catch (Exception e)
+                                {
+                                    Log.w(LOG_TAG, "createUserWithEmail:failure", task.getException());
+                                }
+                                // If sign in fails, display a message to the user.
+                                Toast.makeText(SignUpActivity.this, "Authentication failed.  " + errorMsg,
+                                        Toast.LENGTH_SHORT).show();
+                                loading.dismiss();
+                            }
                         }
-                        else
-                        {
-                            String errorMsg = "";
-                            try
-                            {
-                                throw task.getException();
-                            }
-                            catch(FirebaseAuthInvalidCredentialsException e)
-                            {
-                                errorMsg = "Invalid email.";
-                            }
-                            catch(FirebaseAuthUserCollisionException e)
-                            {
-                                errorMsg = "The email address is already in use.";
-                            }
-                            catch (Exception e)
-                            {
-                                Log.w(LOG_TAG, "createUserWithEmail:failure", task.getException());
-                            }
-                            // If sign in fails, display a message to the user.
-                            Toast.makeText(SignUpActivity.this, "Authentication failed.  " + errorMsg,
-                                    Toast.LENGTH_SHORT).show();
-                            loading.dismiss();
-                        }
-                    }
-                });
+                    });
+        }
     }
 
     /**
@@ -203,11 +205,13 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         boolean valid = true;
 
         String email = emailField.getText().toString();
-        if (TextUtils.isEmpty(email)) {
+        if (TextUtils.isEmpty(email))
+        {
             emailField.setError("Required.");
             valid = false;
         }
-        else {
+        else
+        {
             emailField.setError(null);
         }
 
@@ -221,11 +225,13 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         else if(!password.matches("([A-Za-z0-9])+"))
         {
             passwordField.setError("Only alphabet and digits please.");
+            valid = false;
         }
         else if(!(password.equals(rePassword)))
         {
             passwordField.setError("Passwords don't match.");
             rePasswordField.setError("Passwords don't match.");
+            valid = false;
         }
         else
         {

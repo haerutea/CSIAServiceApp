@@ -24,7 +24,7 @@ import ibcs.cs_ia_serviceapp.utils.Constants;
 import ibcs.cs_ia_serviceapp.utils.SubmittedRequestsAdapter;
 import ibcs.cs_ia_serviceapp.utils.UserSharedPreferences;
 
-public class SubmittedRequestListActivity extends BaseActivity
+public class SubmittedRequestsListActivity extends BaseActivity
 {
     //UI
     private LinearLayoutManager linearLayoutManager;
@@ -37,7 +37,7 @@ public class SubmittedRequestListActivity extends BaseActivity
     {
         super.onCreate(savedInstanceState);
         LayoutInflater inflater = getLayoutInflater();
-        inflater.inflate(R.layout.submitted_request_list_activity, (ViewGroup) findViewById(R.id.contents));
+        inflater.inflate(R.layout.submitted_requests_list_activity, (ViewGroup) findViewById(R.id.contents));
 
         requestsList = new ArrayList<>();
         final TaskCompletionSource<String> getAllRequestsTask = new TaskCompletionSource<>();
@@ -127,7 +127,7 @@ public class SubmittedRequestListActivity extends BaseActivity
             public void onComplete(@NonNull Task<String> task)
             {
                 System.out.println(requestsList.size());
-                linearLayoutManager = new LinearLayoutManager(SubmittedRequestListActivity.this);
+                linearLayoutManager = new LinearLayoutManager(SubmittedRequestsListActivity.this);
                 adapter = new SubmittedRequestsAdapter(requestsList);
                 RecyclerView requests = findViewById(R.id.submitted_requests_recycler);
                 requests.setLayoutManager(linearLayoutManager);

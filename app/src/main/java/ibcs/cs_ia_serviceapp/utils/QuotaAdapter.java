@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import ibcs.cs_ia_serviceapp.AcceptQuotaFragment;
 import ibcs.cs_ia_serviceapp.R;
@@ -84,11 +85,12 @@ public class QuotaAdapter extends RecyclerView.Adapter<QuotaAdapter.MessageViewH
 
     /**
      * constructor, instantiates fields
-     * @param inQuotaList Chat object containing messages
+     * @param inQuotaMap hashmaps of quotas containing quotas from different providers
      */
-    public QuotaAdapter(ArrayList<Quota> inQuotaList, Request inRequestObj)
+    public QuotaAdapter(HashMap<String, Quota> inQuotaMap, Request inRequestObj)
     {
-        this.quotaList = inQuotaList;
+        //https://stackoverflow.com/questions/5483330/how-does-one-convert-a-hashmap-to-a-list-in-java
+        quotaList = new ArrayList<Quota>(inQuotaMap.values());
         this.requestObj = inRequestObj;
     }
 

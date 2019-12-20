@@ -12,6 +12,7 @@
     <string name="submitted_requests">My Submitted Requests</string>
     <string name="all_requests">All Available Requests</string>
     <string name="ongoing_requests">Ongoing Requests</string>
+    <string name="completed_requests">Completed Requests</string>
     <string name="open">Open Drawer</string>
     <string name="close">Close Drawer</string>
 

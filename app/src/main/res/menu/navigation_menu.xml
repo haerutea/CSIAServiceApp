@@ -13,6 +13,10 @@
         android:icon="@drawable/chat_icon"
         android:title="@string/ongoing_requests" />
 
+    <item android:id="@+id/menu_completed_requests_list"
+        android:icon="@drawable/completed_icon"
+        android:title="@string/completed_requests" />
+
     <group android:id="@+id/settings_group">
         <item android:id="@+id/menu_settings"
             android:title="@string/settings"

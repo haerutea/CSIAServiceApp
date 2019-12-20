@@ -1,13 +1,16 @@
 package ibcs.cs_ia_serviceapp.object_classes;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+
+import ibcs.cs_ia_serviceapp.utils.Constants;
 
 public class Request implements Serializable {
 
     private String rid;
     private String submitterUid;
+    private String providerUid;
     private String title;
     private String language;
     private String service;
@@ -16,8 +19,10 @@ public class Request implements Serializable {
     private String description;
     private String filename;
     private Date currentDate;
-    private ArrayList<Quota> quotas;
+    private HashMap<String, Quota> quotas;
     private boolean accepted;
+    private boolean completedCustomer;
+    private boolean completedProvider;
 
     public Request()
     {
@@ -28,6 +33,7 @@ public class Request implements Serializable {
     {
         rid = inRid;
         submitterUid = inUid;
+        providerUid = "";
         title = inTitle;
         language = inLang;
         service = inServ;
@@ -36,9 +42,11 @@ public class Request implements Serializable {
         description = inDesc;
         filename = inNames;
         currentDate = new Date();
-        quotas = new ArrayList<>();
-        quotas.add(new Quota());
+        quotas = new HashMap<>();
+        quotas.put(Constants.DUMMY_STRING, new Quota());
         accepted = false;
+        completedCustomer = false;
+        completedProvider = false;
     }
 
     public String getRid()
@@ -49,6 +57,11 @@ public class Request implements Serializable {
     public String getSubmitterUid()
     {
         return submitterUid;
+    }
+
+    public String getProviderUid()
+    {
+        return providerUid;
     }
 
     public String getTitle()
@@ -91,12 +104,22 @@ public class Request implements Serializable {
         return accepted;
     }
 
+    public boolean isCompletedCustomer()
+    {
+        return completedCustomer;
+    }
+
+    public boolean isCompletedProvider()
+    {
+        return completedProvider;
+    }
+
     public Date getCurrentDate()
     {
         return currentDate;
     }
 
-    public ArrayList<Quota> getQuotas()
+    public HashMap<String, Quota> getQuotas()
     {
         return quotas;
     }
@@ -109,6 +132,11 @@ public class Request implements Serializable {
     public void setSubmitterUid(String submitterUid)
     {
         this.submitterUid = submitterUid;
+    }
+
+    public void setProviderUid(String providerUid)
+    {
+        this.providerUid = providerUid;
     }
 
     public void setTitle(String title)
@@ -151,9 +179,19 @@ public class Request implements Serializable {
         this.accepted = accepted;
     }
 
+    public void setCompletedCustomer(boolean completedCustomer)
+    {
+        this.completedCustomer = completedCustomer;
+    }
+
+    public void setCompletedProvider(boolean completedProvider)
+    {
+        this.completedProvider = completedProvider;
+    }
+
     public void addQuota(Quota inQuota)
     {
-        this.quotas.add(inQuota);
+        this.quotas.put(inQuota.getQuotaId(), inQuota);
     }
 
 }

@@ -13,14 +13,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import ibcs.cs_ia_serviceapp.object_classes.Quota;
 import ibcs.cs_ia_serviceapp.object_classes.Request;
 import ibcs.cs_ia_serviceapp.utils.Constants;
 import ibcs.cs_ia_serviceapp.utils.UserSharedPreferences;
-
 
 /**
  * fragment shown when the service provider wants to press on send quota
@@ -83,14 +81,17 @@ public class SendQuotaFragment extends DialogFragment implements View.OnClickLis
     {
         if(formFilled())
         {
-            //HashMap<String, Boolean> uidMap = new HashMap<>();
-            //uidMap.put(userUid, true);
             String username = UserSharedPreferences.getInstance(getContext()).getStringInfo(Constants.USERNAME_KEY);
-            Quota newQuota = new Quota(price, userUid, username, requestObj.getSubmitterUid());
+            String quotaId = Constants.USER_REFERENCE.child(userUid).child(Constants.QUOTAS_SUBMITTED_PATH).push().getKey();
+            Quota newQuota = new Quota(quotaId, price, userUid, username);
             //https://stackoverflow.com/questions/54643550/arraylist-of-string-not-being-created-in-firebase
-            ArrayList<Quota> tempList = requestObj.getQuotas();
-            tempList.add(newQuota);
-            Constants.REQUEST_REFERENCE.child(requestObj.getRid()).child(Constants.QUOTA_PATH).setValue(tempList);
+            HashMap<String, Quota> tempMap = requestObj.getQuotas();
+            tempMap.remove(Constants.DUMMY_STRING);
+            tempMap.put(quotaId, newQuota);
+            Constants.REQUEST_REFERENCE.child(requestObj.getRid()).child(Constants.QUOTA_PATH).setValue(tempMap);
+            //add it to provider's sent quota list. Format = quotaId:requestId
+            Constants.USER_REFERENCE.child(userUid).child(Constants.QUOTAS_SUBMITTED_PATH)
+                    .child(quotaId).setValue(requestObj.getRid());
             Toast.makeText(getContext(), "Your quota has been sent.", Toast.LENGTH_SHORT).show();
             dismiss();
         }

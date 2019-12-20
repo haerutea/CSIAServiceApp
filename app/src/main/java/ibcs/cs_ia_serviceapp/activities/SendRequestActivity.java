@@ -241,7 +241,7 @@ public class SendRequestActivity extends BaseActivity implements View.OnClickLis
         if(formFilled())
         {
             //https://stackoverflow.com/questions/28822054/firebase-how-to-generate-a-unique-numeric-id-for-key
-            String rid = Constants.USER_REFERENCE.child(Constants.SUBMITTED_PATH).push().getKey();
+            String rid = Constants.USER_REFERENCE.child(Constants.REQUESTS_SUBMITTED_PATH).push().getKey();
             if(filePath != null)
             {
                 filename = uploadImage();
@@ -289,7 +289,7 @@ public class SendRequestActivity extends BaseActivity implements View.OnClickLis
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot)
             {
-                Constants.USER_REFERENCE.child(uid).child(Constants.SUBMITTED_PATH).child(inRequest.getRid()).setValue(true);
+                Constants.USER_REFERENCE.child(uid).child(Constants.REQUESTS_SUBMITTED_PATH).child(inRequest.getRid()).setValue(true);
                 Constants.REQUEST_REFERENCE.child(inRequest.getRid()).setValue(inRequest);
                 dialog.dismiss();
                 Toast.makeText(SendRequestActivity.this, "Request uploaded successfully", Toast.LENGTH_SHORT).show();

@@ -5,7 +5,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-public class Constants {
+public class Constants
+{
 
     //sign up
     public static final String ACCOUNT_PROVIDER = "Service Provider";
@@ -18,7 +19,7 @@ public class Constants {
     public static final String LANG_MANDO = "Mandarin";
     public static final String[] LANGUAGES = {LANG_CANTO, LANG_ENG, LANG_MANDO};
     public static final String TYPE_CLEANING = "Cleaning";
-    public static final String TYPE_ELECTRIC= "Electrical Services";
+    public static final String TYPE_ELECTRIC = "Electrical Services";
     public static final String TYPE_PLUMBING = "Plumbing";
     public static final String TYPE_REPAIR = "Simple Repair";
     public static final String[] SERVICES = {TYPE_CLEANING, TYPE_ELECTRIC, TYPE_PLUMBING, TYPE_REPAIR};
@@ -64,7 +65,6 @@ public class Constants {
     public static final DatabaseReference BASE_REFERENCE = FirebaseDatabase.getInstance().getReference();
     public static final DatabaseReference USER_REFERENCE = BASE_REFERENCE.child(USER_PATH);
     public static final DatabaseReference REQUEST_REFERENCE = BASE_REFERENCE.child(REQUEST_PATH);
-    public static final DatabaseReference REVIEW_REFERENCE = BASE_REFERENCE.child(REVIEW_PATH);
     public static final StorageReference STORAGE_REFERENCE = FirebaseStorage.getInstance().getReference();
 
 

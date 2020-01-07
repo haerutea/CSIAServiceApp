@@ -31,6 +31,7 @@ public class OngoingRequestsAdapter extends RecyclerView.Adapter<OngoingRequests
 
         /**
          * assigns view for each field
+         *
          * @param v individual chat message view
          */
         public RequestViewHolder(View v)
@@ -44,11 +45,12 @@ public class OngoingRequestsAdapter extends RecyclerView.Adapter<OngoingRequests
 
         /**
          * allows user to go to the request they clicked on
+         *
          * @param dataObj Request object contained in the view user clicked on
          */
         private void goToRequest(final Request dataObj)
         {
-            if(dataObj != null)
+            if (dataObj != null)
             {
                 wholeView.setOnClickListener(new View.OnClickListener()
                 {
@@ -66,6 +68,7 @@ public class OngoingRequestsAdapter extends RecyclerView.Adapter<OngoingRequests
     }
 
     private ArrayList<Request> requestList;
+
     /**
      * required empty constructor
      */
@@ -75,6 +78,7 @@ public class OngoingRequestsAdapter extends RecyclerView.Adapter<OngoingRequests
 
     /**
      * constructor, instantiates fields
+     *
      * @param inRequests arraylist containing all requests
      */
     public OngoingRequestsAdapter(ArrayList<Request> inRequests)
@@ -85,8 +89,9 @@ public class OngoingRequestsAdapter extends RecyclerView.Adapter<OngoingRequests
 
     /**
      * called when new requests are added, needing to create more views of the new requests
+     *
      * @param viewParent where the new view will be added
-     * @param type view type, not used
+     * @param type       view type, not used
      * @return new MessageViewHolder object with the new inflated view
      */
     @NonNull
@@ -99,6 +104,7 @@ public class OngoingRequestsAdapter extends RecyclerView.Adapter<OngoingRequests
 
     /**
      * called when needed to display new data of the new request that was added
+     *
      * @param messageHolder the MessageViewHolder that needs to be updated
      * @param positionIndex position of new item in requestList
      */
@@ -116,6 +122,7 @@ public class OngoingRequestsAdapter extends RecyclerView.Adapter<OngoingRequests
 
     /**
      * gets the amount of requests there are
+     *
      * @return size of messageContent
      */
     public int getItemCount()
@@ -125,6 +132,7 @@ public class OngoingRequestsAdapter extends RecyclerView.Adapter<OngoingRequests
 
     /**
      * adds new request to requestList
+     *
      * @param inRequest new Request object to be added
      */
     public void addRequest(Request inRequest)

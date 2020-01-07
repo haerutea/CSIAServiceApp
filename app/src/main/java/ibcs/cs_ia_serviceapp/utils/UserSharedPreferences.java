@@ -25,12 +25,13 @@ public class UserSharedPreferences
     /**
      * acts like a constructor, creates and returns instance of this class,
      * also sets sharedPreferences and editor fields
+     *
      * @param context context of where this is called
      * @return new instance of UserSharedPreferences.
      */
     public static UserSharedPreferences getInstance(Context context)
     {
-        if(prefInstance == null)
+        if (prefInstance == null)
         {
             prefInstance = new UserSharedPreferences();
             sharedPreferences = context.getSharedPreferences(Constants.SHARED_PREF_KEY, Context.MODE_PRIVATE);
@@ -41,7 +42,8 @@ public class UserSharedPreferences
 
     /**
      * puts string into editor and applies it to make changes and add data to sharedpreferences.
-     * @param key String, key of info
+     *
+     * @param key  String, key of info
      * @param data String, value of info
      */
     public void setInfo(String key, String data)
@@ -52,6 +54,7 @@ public class UserSharedPreferences
 
     /**
      * gets the String with the corresponding key, default value is an empty string
+     *
      * @param key String, key of needed String.
      * @return value with the corresponding key
      */

@@ -44,7 +44,8 @@ public class SingleSubmittedRequestActivity extends BaseActivity
     private Request inRequest;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         LayoutInflater inflater = getLayoutInflater();
         inflater.inflate(R.layout.single_submitted_request_activity, (ViewGroup) findViewById(R.id.contents));

@@ -49,7 +49,7 @@ public class CustomerSingleRequestActivity extends BaseActivity
 
         inRequest = (Request) getIntent().getSerializableExtra(Constants.REQUEST_KEY);
         uid = UserSharedPreferences.getInstance(CustomerSingleRequestActivity.this).getStringInfo(Constants.UID_KEY);
-        if(inRequest != null)
+        if (inRequest != null)
         {
             requestView = findViewById(R.id.request_title_view);
             languageView = findViewById(R.id.language_title);
@@ -71,7 +71,8 @@ public class CustomerSingleRequestActivity extends BaseActivity
             {
                 //https://github.com/bumptech/glide#how-do-i-use-glide
                 @Override
-                public void onSuccess(Uri uri) {
+                public void onSuccess(Uri uri)
+                {
                     Glide.with(CustomerSingleRequestActivity.this).load(uri).into(imageView);
                 }
             });

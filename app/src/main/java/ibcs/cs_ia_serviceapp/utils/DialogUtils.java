@@ -1,6 +1,5 @@
 package ibcs.cs_ia_serviceapp.utils;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -16,12 +15,14 @@ import android.widget.TextView;
 /**
  * utils class to create and show ProgressDialogs easier
  */
-public class DialogUtils {
+public class DialogUtils
+{
 
     //https://stackoverflow.com/a/37428936
 
     /**
      * creates and shows new progress dialog, then returns the object so it can be dismissed.
+     *
      * @param context context of where it'll show up
      * @param message message to be shown on dialog
      * @return the created ProgressDialog object so it can be dismissed
@@ -74,7 +75,8 @@ public class DialogUtils {
         AlertDialog dialog = builder.create();
         //dialog.show();
         Window window = dialog.getWindow();
-        if (window != null) {
+        if (window != null)
+        {
             WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
             layoutParams.copyFrom(dialog.getWindow().getAttributes());
             layoutParams.width = LinearLayout.LayoutParams.WRAP_CONTENT;

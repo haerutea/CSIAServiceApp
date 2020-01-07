@@ -25,6 +25,7 @@ public class BaseActivity extends AppCompatActivity
     private NavigationView navigationView;
     private Toolbar toolbar;
     private DrawerLayout drawer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -51,11 +52,11 @@ public class BaseActivity extends AppCompatActivity
         Menu menu = navigationView.getMenu();
         String account = UserSharedPreferences.getInstance(this).getStringInfo(Constants.ACCOUNT_TYPE_KEY);
         Log.d("baseActivity", account);
-        if(account.equals(Constants.ACCOUNT_CUSTOMER))
+        if (account.equals(Constants.ACCOUNT_CUSTOMER))
         {
             menu.findItem(R.id.menu_requests_list).setTitle(R.string.submitted_requests);
         }
-        else if(account.equals(Constants.ACCOUNT_PROVIDER))
+        else if (account.equals(Constants.ACCOUNT_PROVIDER))
         {
             menu.findItem(R.id.menu_requests_list).setTitle(R.string.all_requests);
         }
@@ -82,19 +83,19 @@ public class BaseActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         Intent intent = null;
-        if(id == R.id.menu_home)
+        if (id == R.id.menu_home)
         {
             intent = new Intent(getApplicationContext(), ProfileActivity.class);
         }
-        else if(id == R.id.menu_requests_list)
+        else if (id == R.id.menu_requests_list)
         {
             intent = new Intent(getApplicationContext(), SubmittedRequestsListActivity.class);
         }
-        else if(id == R.id.menu_ongoing_requests_list)
+        else if (id == R.id.menu_ongoing_requests_list)
         {
             intent = new Intent(getApplicationContext(), OngoingRequestsListActivity.class);
         }
-        else if(id == R.id.menu_completed_requests_list)
+        else if (id == R.id.menu_completed_requests_list)
         {
             intent = new Intent(getApplicationContext(), CompletedRequestsListActivity.class);
         }

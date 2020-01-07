@@ -4,6 +4,7 @@ import ibcs.cs_ia_serviceapp.utils.Constants;
 
 public class Review
 {
+    private String submitter;
     private int rating;
     private String comments;
 
@@ -12,10 +13,16 @@ public class Review
         comments = Constants.DUMMY_STRING;
     }
 
-    public Review(int inRating, String inComments)
+    public Review(String inSubmitter, int inRating, String inComments)
     {
+        submitter = inSubmitter;
         rating = inRating;
         comments = inComments;
+    }
+
+    public String getSubmitter()
+    {
+        return submitter;
     }
 
     public int getRating()
@@ -26,6 +33,11 @@ public class Review
     public String getComments()
     {
         return comments;
+    }
+
+    public void setSubmitter(String submitter)
+    {
+        this.submitter = submitter;
     }
 
     public void setRating(int rating)

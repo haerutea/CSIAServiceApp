@@ -2,7 +2,9 @@ package ibcs.cs_ia_serviceapp.activities;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -61,6 +63,7 @@ public class ChooseAuthenticationActivity extends AppCompatActivity implements V
 
     /**
      * opens up ProfileActivity directly is user is present
+     *
      * @param user is the user that's logged in
      */
     private void updateUI(FirebaseUser user)
@@ -81,16 +84,16 @@ public class ChooseAuthenticationActivity extends AppCompatActivity implements V
     public void onClick(View v)
     {
         int id = v.getId();
-        if(id == bLogin.getId())
+        if (id == bLogin.getId())
         {
             Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
             startActivity(intent);
         }
-        else if(id == bLoginGoogle.getId())
+        else if (id == bLoginGoogle.getId())
         {
 
         }
-        else if(id == bSignUp.getId())
+        else if (id == bSignUp.getId())
         {
             Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);
             startActivity(intent);

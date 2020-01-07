@@ -6,7 +6,8 @@ import java.util.HashMap;
 
 import ibcs.cs_ia_serviceapp.utils.Constants;
 
-public class Request implements Serializable {
+public class Request implements Serializable
+{
 
     private String rid;
     private String submitterUid;

@@ -49,7 +49,7 @@ public class CompletedRequestsListActivity extends BaseActivity
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot)
             {
-                for(DataSnapshot rid : dataSnapshot.getChildren())
+                for (DataSnapshot rid : dataSnapshot.getChildren())
                 {
                     userRidList.add(rid.getKey());
                 }
@@ -72,15 +72,16 @@ public class CompletedRequestsListActivity extends BaseActivity
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot)
                     {
-                        for(DataSnapshot tempRid : dataSnapshot.getChildren())
+                        for (DataSnapshot tempRid : dataSnapshot.getChildren())
                         {
-                            if(userRidList.contains(tempRid.getKey()))
+                            if (userRidList.contains(tempRid.getKey()))
                             {
                                 requestsList.add(tempRid.getValue(Request.class));
                             }
                         }
                         getAllRequestsTask.setResult(null);
                     }
+
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError)
                     {

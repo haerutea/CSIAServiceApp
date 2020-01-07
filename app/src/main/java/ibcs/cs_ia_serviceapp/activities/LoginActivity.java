@@ -25,7 +25,8 @@ import ibcs.cs_ia_serviceapp.R;
 import ibcs.cs_ia_serviceapp.utils.Constants;
 import ibcs.cs_ia_serviceapp.utils.DialogUtils;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener
+{
 
     private static final String LOGTAG = "LogInActivity";
 
@@ -40,15 +41,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     /**
      * when activity is first opened, set content from login_activity.xml,
      * assign views to fields, add onClick listeners
+     *
      * @param savedInstanceState data saved from onSaveInstanceState, not used
      */
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_activity);
 
-        dialog = DialogUtils.makeDialog(this,"Loading...");
+        dialog = DialogUtils.makeDialog(this, "Loading...");
         mAuth = FirebaseAuth.getInstance();
 
         emailField = findViewById(R.id.login_email);
@@ -61,7 +64,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
      * checks if form is correctly filled, if yes, calls FirebaseAuth's built-in signIn method,
      * pass email and password as parameters.  If successful, call goToProfile with user as parameter
      * if unsuccessful, Toast the error message.
-     * @param email email from user's input
+     *
+     * @param email    email from user's input
      * @param password password from user's input
      */
     private void signIn(String email, String password)
@@ -79,7 +83,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>()
                 {
                     @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
+                    public void onComplete(@NonNull Task<AuthResult> task)
+                    {
                         //if user signed in successfully
                         if (task.isSuccessful())
                         {
@@ -95,11 +100,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             {
                                 throw task.getException();
                             }
-                            catch(FirebaseAuthInvalidCredentialsException e)
+                            catch (FirebaseAuthInvalidCredentialsException e)
                             {
                                 errorMsg = "Incorrect uEmail or password.";
                             }
-                            catch(Exception e)
+                            catch (Exception e)
                             {
                                 Log.w(LOGTAG, "signInWithEmail:failure", task.getException());
                             }
@@ -115,6 +120,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     /**
      * checks if the form is filled in correctly where all EditTexts are filled,
      * if not, show an error.
+     *
      * @return true or false if form is filled in correctly.
      */
     private boolean formFilled()
@@ -140,6 +146,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     /**
      * sets user to be online on database, puts user's uid into intent and
      * starts ProfileActivity.
+     *
      * @param user the signed in user
      */
     private void goToProfile(FirebaseUser user)
@@ -154,6 +161,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     /**
      * triggered when user clicks on view with onClickListener
+     *
      * @param v the view user clicked on
      */
     @Override

@@ -4,7 +4,8 @@ import java.sql.Timestamp;
 
 import ibcs.cs_ia_serviceapp.utils.Constants;
 
-public class Message {
+public class Message
+{
 
     private String mSenderName;
     private String mSenderId;

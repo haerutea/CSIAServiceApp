@@ -82,9 +82,11 @@ public class SingleOngoingRequestActivity extends BaseActivity implements View.O
         });
 
         //when done getting the request from DB, populate views
-        getRequestTask.getTask().addOnCompleteListener(new OnCompleteListener<String>() {
+        getRequestTask.getTask().addOnCompleteListener(new OnCompleteListener<String>()
+        {
             @Override
-            public void onComplete(@NonNull Task<String> task) {
+            public void onComplete(@NonNull Task<String> task)
+            {
                 if (inRequest != null)
                 {
                     requestView.setText(getString(R.string.title_format, inRequest.getTitle()));
@@ -99,7 +101,8 @@ public class SingleOngoingRequestActivity extends BaseActivity implements View.O
                     {
                         //https://github.com/bumptech/glide#how-do-i-use-glide
                         @Override
-                        public void onSuccess(Uri uri) {
+                        public void onSuccess(Uri uri)
+                        {
                             Glide.with(SingleOngoingRequestActivity.this).load(uri).into(imageView);
                         }
                     });
@@ -118,7 +121,7 @@ public class SingleOngoingRequestActivity extends BaseActivity implements View.O
     public void onClick(View v)
     {
         int i = v.getId();
-        if(i == bComplete.getId())
+        if (i == bComplete.getId())
         {
             pullUpCompleteFrag();
         }

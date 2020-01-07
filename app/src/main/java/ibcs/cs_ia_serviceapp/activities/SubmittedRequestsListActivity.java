@@ -43,7 +43,7 @@ public class SubmittedRequestsListActivity extends BaseActivity
         final TaskCompletionSource<String> getAllRequestsTask = new TaskCompletionSource<>();
         String account = UserSharedPreferences.getInstance(this).getStringInfo(Constants.ACCOUNT_TYPE_KEY);
         final String uid = UserSharedPreferences.getInstance(this).getStringInfo(Constants.UID_KEY);
-        if(account.equals(Constants.ACCOUNT_CUSTOMER))
+        if (account.equals(Constants.ACCOUNT_CUSTOMER))
         {
             final ArrayList<String> userRidList = new ArrayList<>();
             final TaskCompletionSource<String> getUserRidTask = new TaskCompletionSource<>();
@@ -52,7 +52,7 @@ public class SubmittedRequestsListActivity extends BaseActivity
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot)
                 {
-                    for(DataSnapshot rid : dataSnapshot.getChildren())
+                    for (DataSnapshot rid : dataSnapshot.getChildren())
                     {
                         userRidList.add(rid.getKey());
                     }
@@ -60,7 +60,8 @@ public class SubmittedRequestsListActivity extends BaseActivity
                 }
 
                 @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
+                public void onCancelled(@NonNull DatabaseError databaseError)
+                {
                     getUserRidTask.setException(databaseError.toException());
                 }
             });
@@ -74,15 +75,16 @@ public class SubmittedRequestsListActivity extends BaseActivity
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot)
                         {
-                            for(DataSnapshot tempRid : dataSnapshot.getChildren())
+                            for (DataSnapshot tempRid : dataSnapshot.getChildren())
                             {
-                                if(userRidList.contains(tempRid.getKey()))
+                                if (userRidList.contains(tempRid.getKey()))
                                 {
                                     requestsList.add(tempRid.getValue(Request.class));
                                 }
                             }
                             getAllRequestsTask.setResult(null);
                         }
+
                         @Override
                         public void onCancelled(@NonNull DatabaseError databaseError)
                         {
@@ -93,7 +95,7 @@ public class SubmittedRequestsListActivity extends BaseActivity
             });
 
         }
-        else if(account.equals(Constants.ACCOUNT_PROVIDER))
+        else if (account.equals(Constants.ACCOUNT_PROVIDER))
         {
             //https://stackoverflow.com/questions/35552571/how-to-use-firebase-query-equaltovalue-key
             Query onlyUnaccepted = Constants.REQUEST_REFERENCE.orderByChild(Constants.ACCEPTED_KEY).equalTo(false);
@@ -102,9 +104,9 @@ public class SubmittedRequestsListActivity extends BaseActivity
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot)
                 {
-                    if(dataSnapshot.exists())
+                    if (dataSnapshot.exists())
                     {
-                        for(DataSnapshot rid : dataSnapshot.getChildren())
+                        for (DataSnapshot rid : dataSnapshot.getChildren())
                         {
                             Request tempReq = rid.getValue(Request.class);
                             requestsList.add(tempReq);

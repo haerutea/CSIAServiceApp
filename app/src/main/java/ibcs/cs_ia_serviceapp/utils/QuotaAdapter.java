@@ -38,6 +38,7 @@ public class QuotaAdapter extends RecyclerView.Adapter<QuotaAdapter.MessageViewH
 
         /**
          * assigns view for each field
+         *
          * @param v individual chat message view
          */
         public MessageViewHolder(View v)
@@ -50,11 +51,12 @@ public class QuotaAdapter extends RecyclerView.Adapter<QuotaAdapter.MessageViewH
 
         /**
          * allows user to go to the request they clicked on
+         *
          * @param quotaObj Request object contained in the view user clicked on
          */
         private void openQuotaFrag(final Quota quotaObj, final Request requestObj)
         {
-            if(quotaObj != null)
+            if (quotaObj != null)
             {
                 wholeView.setOnClickListener(new View.OnClickListener()
                 {
@@ -72,6 +74,7 @@ public class QuotaAdapter extends RecyclerView.Adapter<QuotaAdapter.MessageViewH
             }
         }
     }
+
     private Request requestObj;
     private ArrayList<Quota> quotaList;
 
@@ -85,6 +88,7 @@ public class QuotaAdapter extends RecyclerView.Adapter<QuotaAdapter.MessageViewH
 
     /**
      * constructor, instantiates fields
+     *
      * @param inQuotaMap hashmaps of quotas containing quotas from different providers
      */
     public QuotaAdapter(HashMap<String, Quota> inQuotaMap, Request inRequestObj)
@@ -96,12 +100,13 @@ public class QuotaAdapter extends RecyclerView.Adapter<QuotaAdapter.MessageViewH
 
     /**
      * called when new messages are sent, needing to create more views of the new chat messages
+     *
      * @param viewParent where the new view will be added
-     * @param type view type, not used
+     * @param type       view type, not used
      * @return new MessageViewHolder object with the new inflated view
      */
     @NonNull
-    public MessageViewHolder onCreateViewHolder(@NonNull  ViewGroup viewParent, int type)
+    public MessageViewHolder onCreateViewHolder(@NonNull ViewGroup viewParent, int type)
     {
         LayoutInflater inflater = LayoutInflater.from(viewParent.getContext());
         View view = inflater.inflate(R.layout.chat_message_card, viewParent, false);
@@ -110,6 +115,7 @@ public class QuotaAdapter extends RecyclerView.Adapter<QuotaAdapter.MessageViewH
 
     /**
      * called when needed to display new data of the new chat message that was added
+     *
      * @param messageHolder the MessageViewHolder that needs to be updated
      * @param positionIndex position of new item in quotaList
      */
@@ -125,6 +131,7 @@ public class QuotaAdapter extends RecyclerView.Adapter<QuotaAdapter.MessageViewH
 
     /**
      * gets the amount of messages there are
+     *
      * @return size of quotaList
      */
     public int getItemCount()

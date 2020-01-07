@@ -81,6 +81,9 @@
     <string name="update_request">Update Request Status</string>
     <string name="complete">Complete</string>
 
+    <!-- ReviewActivity -->
+    <string name="overall_rating">Overall Rating</string>
+
     <!-- SettingsActivity -->
     <string name="settings">Settings</string>
     <string name="change_password">Change password</string>

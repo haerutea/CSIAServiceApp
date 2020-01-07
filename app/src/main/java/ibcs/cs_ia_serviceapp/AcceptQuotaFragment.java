@@ -27,7 +27,8 @@ import ibcs.cs_ia_serviceapp.utils.UserSharedPreferences;
 /**
  * fragment shown when the submitter wants to accept or reject quota
  */
-public class AcceptQuotaFragment extends DialogFragment implements View.OnClickListener {
+public class AcceptQuotaFragment extends DialogFragment implements View.OnClickListener
+{
     //UI
     private TextView pricingField;
     private Button bReject;
@@ -46,6 +47,7 @@ public class AcceptQuotaFragment extends DialogFragment implements View.OnClickL
 
     /**
      * Create a new instance of this fragment with parameters
+     *
      * @param inQuota quota object user is trying to accept or reject
      * @return A new instance of fragment SendQuotaFragment.
      */
@@ -64,7 +66,8 @@ public class AcceptQuotaFragment extends DialogFragment implements View.OnClickL
     {
         super.onCreate(savedInstanceState);
         userUid = UserSharedPreferences.getInstance(getContext()).getStringInfo(Constants.UID_KEY);
-        if (getArguments() != null) {
+        if (getArguments() != null)
+        {
             quotaObj = (Quota) getArguments().getSerializable(Constants.QUOTA_KEY);
             requestObj = (Request) getArguments().getSerializable(Constants.REQUEST_KEY);
             requestId = requestObj.getRid();
@@ -74,7 +77,8 @@ public class AcceptQuotaFragment extends DialogFragment implements View.OnClickL
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                             Bundle savedInstanceState)
+    {
         // Inflate the layout for this fragment
         View baseView = inflater.inflate(R.layout.accept_quota_fragment, container, false);
         pricingField = baseView.findViewById(R.id.textView_show_pricing);
@@ -136,11 +140,11 @@ public class AcceptQuotaFragment extends DialogFragment implements View.OnClickL
     public void onClick(View v)
     {
         int i = v.getId();
-        if(i == bAccept.getId())
+        if (i == bAccept.getId())
         {
             acceptQuota();
         }
-        else if(i == bReject.getId())
+        else if (i == bReject.getId())
         {
             rejectQuota();
         }
@@ -148,6 +152,7 @@ public class AcceptQuotaFragment extends DialogFragment implements View.OnClickL
 
     /**
      * called when fragment is first attached, has to be overridden
+     *
      * @param context the context it'll be attached to
      */
     @Override

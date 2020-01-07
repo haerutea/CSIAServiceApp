@@ -1,10 +1,8 @@
 package ibcs.cs_ia_serviceapp.activities;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -36,13 +34,13 @@ import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import ibcs.cs_ia_serviceapp.R;
-import ibcs.cs_ia_serviceapp.SendQuotaFragment;
 import ibcs.cs_ia_serviceapp.object_classes.Request;
 import ibcs.cs_ia_serviceapp.utils.Constants;
 import ibcs.cs_ia_serviceapp.utils.DialogUtils;
 import ibcs.cs_ia_serviceapp.utils.UserSharedPreferences;
 
-public class SendRequestActivity extends BaseActivity implements View.OnClickListener {
+public class SendRequestActivity extends BaseActivity implements View.OnClickListener
+{
 
     private String LOG_TAG = "SendRequestActivity";
 
@@ -74,11 +72,12 @@ public class SendRequestActivity extends BaseActivity implements View.OnClickLis
     private Uri filePath;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         LayoutInflater inflater = getLayoutInflater();
         inflater.inflate(R.layout.send_request_activity, (ViewGroup) findViewById(R.id.contents));
-        dialog = DialogUtils.makeDialog(this,"Loading...");
+        dialog = DialogUtils.makeDialog(this, "Loading...");
         selectedLang = "";
         selectedService = "";
         selectedPriority = "";
@@ -113,6 +112,7 @@ public class SendRequestActivity extends BaseActivity implements View.OnClickLis
             {
                 selectedLang = parent.getItemAtPosition(position).toString();
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parent)
             {
@@ -133,6 +133,7 @@ public class SendRequestActivity extends BaseActivity implements View.OnClickLis
             {
                 selectedService = parent.getItemAtPosition(position).toString();
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parent)
             {
@@ -153,6 +154,7 @@ public class SendRequestActivity extends BaseActivity implements View.OnClickLis
             {
                 selectedPriority = parent.getItemAtPosition(position).toString();
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parent)
             {
@@ -173,6 +175,7 @@ public class SendRequestActivity extends BaseActivity implements View.OnClickLis
             {
                 selectedLoc = parent.getItemAtPosition(position).toString();
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parent)
             {
@@ -193,11 +196,12 @@ public class SendRequestActivity extends BaseActivity implements View.OnClickLis
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
-                && data != null && data.getData() != null )
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
+                && data != null && data.getData() != null)
         {
             filePath = data.getData();
-            try {
+            try
+            {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
                 imageView.setImageBitmap(bitmap);
             }
@@ -211,6 +215,7 @@ public class SendRequestActivity extends BaseActivity implements View.OnClickLis
     /**
      * checks if the form is filled in correctly where all EditTexts are filled,
      * if not, show an error.
+     *
      * @return true or false if form is filled in correctly.
      */
     private boolean formFilled()
@@ -229,20 +234,21 @@ public class SendRequestActivity extends BaseActivity implements View.OnClickLis
             descriptionField.setError("Required.");
             valid = false;
         }
-        else if(filePath == null) //if there is no image
+        else if (filePath == null) //if there is no image
         {
             Toast.makeText(SendRequestActivity.this, "Please select an image!", Toast.LENGTH_LONG).show();
             valid = false;
         }
         return valid;
     }
+
     private void submitRequest()
     {
-        if(formFilled())
+        if (formFilled())
         {
             //https://stackoverflow.com/questions/28822054/firebase-how-to-generate-a-unique-numeric-id-for-key
             String rid = Constants.USER_REFERENCE.child(Constants.REQUESTS_SUBMITTED_PATH).push().getKey();
-            if(filePath != null)
+            if (filePath != null)
             {
                 filename = uploadImage();
             }
@@ -264,21 +270,21 @@ public class SendRequestActivity extends BaseActivity implements View.OnClickLis
 
         storageRef.child(timestamp).putFile(filePath)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>()
-        {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot)
-            {
-                Toast.makeText(SendRequestActivity.this, "Uploaded Successfully", Toast.LENGTH_SHORT).show();
-            }
-        })
-        .addOnFailureListener(new OnFailureListener()
-        {
-            @Override
-            public void onFailure(@NonNull Exception e)
-            {
-                Toast.makeText(SendRequestActivity.this, "Failed. " + e.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
+                {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot)
+                    {
+                        Toast.makeText(SendRequestActivity.this, "Uploaded Successfully", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener()
+                {
+                    @Override
+                    public void onFailure(@NonNull Exception e)
+                    {
+                        Toast.makeText(SendRequestActivity.this, "Failed. " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
         return timestamp;
     }
 
@@ -307,13 +313,14 @@ public class SendRequestActivity extends BaseActivity implements View.OnClickLis
     }
 
     @Override
-    public void onClick(View v) {
+    public void onClick(View v)
+    {
         int i = v.getId();
-        if(bChoose.getId() == i)
+        if (bChoose.getId() == i)
         {
             chooseImage();
         }
-        if(bSubmit.getId() == i)
+        if (bSubmit.getId() == i)
         {
             dialog.show();
             submitRequest();

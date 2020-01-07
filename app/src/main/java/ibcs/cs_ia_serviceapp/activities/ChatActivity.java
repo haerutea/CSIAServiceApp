@@ -62,6 +62,7 @@ public class ChatActivity extends BaseActivity implements TextView.OnEditorActio
      * gets current user's uid and username from sharedPreferences,
      * sets up chatAdapter for recyclerView,
      * assigns views to fields, also changes user chat status to true.
+     *
      * @param savedInstanceState data saved from onSaveInstanceState, not used
      */
     @Override
@@ -122,14 +123,15 @@ public class ChatActivity extends BaseActivity implements TextView.OnEditorActio
 
     /**
      * triggered when user presses enter on keyboard after typing message
+     *
      * @param textView textView containing text, not used
-     * @param i identifier for action, not used
+     * @param i        identifier for action, not used
      * @param keyEvent event triggered by enter key
      * @return true after action is processed by code
      */
     public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent)
     {
-        if(!messageInput.getText().toString().isEmpty())
+        if (!messageInput.getText().toString().isEmpty())
         {
             //creates new message object
             Message message = new Message(userUid,
@@ -170,7 +172,7 @@ public class ChatActivity extends BaseActivity implements TextView.OnEditorActio
                 {
                     //https://firebase.google.com/docs/reference/android/com/google/firebase/database/DataSnapshot#getValue(java.lang.Class%3CT%3E)
                     Message data = item.getValue(Message.class);
-                    if(data.getMessage().equals(Constants.DUMMY_STRING))
+                    if (data.getMessage().equals(Constants.DUMMY_STRING))
                     {
                         continue;
                     }
@@ -197,12 +199,13 @@ public class ChatActivity extends BaseActivity implements TextView.OnEditorActio
         getMenuInflater().inflate(R.menu.toolbar_menu, menu);
         return true;
     }
+
     //https://developer.android.com/training/appbar/actions
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
         int id = item.getItemId();
-        if(id == R.id.menu_request)
+        if (id == R.id.menu_request)
         {
             Intent intent = new Intent(getApplicationContext(), SingleOngoingRequestActivity.class);
             intent.putExtra(Constants.RID_KEY, rid);

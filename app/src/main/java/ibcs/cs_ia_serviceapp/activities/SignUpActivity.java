@@ -33,7 +33,8 @@ import ibcs.cs_ia_serviceapp.utils.Constants;
 import ibcs.cs_ia_serviceapp.utils.DialogUtils;
 import ibcs.cs_ia_serviceapp.utils.UserSharedPreferences;
 
-public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
+public class SignUpActivity extends AppCompatActivity implements View.OnClickListener
+{
 
     //https://stackoverflow.com/questions/37886301/tag-has-private-access-in-android-support-v4-app-fragmentactivity
     private static final String LOG_TAG = "SignUp";
@@ -56,6 +57,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
      * get FirebaseAuth instance, get the list of strengths they checked from previous activity,
      * set authListener to allow code to change username of FirebaseUser, assign views to fields,
      * add onClickListener for sign up button
+     *
      * @param savedInstanceState data saved from onSaveInstanceState, not used
      */
     @Override
@@ -68,19 +70,24 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         mAuth = FirebaseAuth.getInstance();
 
         //https://stackoverflow.com/questions/41105826/change-displayname-in-firebase/43680527#43680527
-        authListener = new FirebaseAuth.AuthStateListener() {
+        authListener = new FirebaseAuth.AuthStateListener()
+        {
             @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth)
+            {
                 FirebaseUser user = mAuth.getCurrentUser();
-                if(user != null)
+                if (user != null)
                 {
                     UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                             .setDisplayName(usernameField.getText().toString()).build();
                     user.updateProfile(profileUpdates);
-                    user.updateProfile(profileUpdates).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    user.updateProfile(profileUpdates).addOnCompleteListener(new OnCompleteListener<Void>()
+                    {
                         @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()) {
+                        public void onComplete(@NonNull Task<Void> task)
+                        {
+                            if (task.isSuccessful())
+                            {
                                 Log.d("Display name: ", FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
                             }
                         }
@@ -123,6 +130,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
     /**
      * triggered when user clicks on sign up button
+     *
      * @param v the view user clicked on
      */
     @Override
@@ -139,7 +147,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
      * shows loading dialog, checks if form is filled correctly, then calls built-in
      * create user method from FirebaseAuth and pass the email and password parameters in,
      * sends verification email and calls signUp method
-     * @param email from EditText emailField
+     *
+     * @param email    from EditText emailField
      * @param password from EditText passwordField
      */
     private void createAccount(String email, String password)
@@ -168,8 +177,9 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                                 sendEmail();
                                 //https://firebase.google.com/docs/auth/android/manage-users
                                 signUp();
-                            } else
-                                {
+                            }
+                            else
+                            {
                                 String errorMsg = "";
                                 try
                                 {
@@ -199,6 +209,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
     /**
      * checks if form is filled in correctly
+     *
      * @return true or false depending on result
      */
     private boolean formFilled()
@@ -219,16 +230,17 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         String password = passwordField.getText().toString();
         String rePassword = rePasswordField.getText().toString();
 
-        if (TextUtils.isEmpty(password)) {
+        if (TextUtils.isEmpty(password))
+        {
             passwordField.setError("Required.");
             valid = false;
         }
-        else if(!password.matches("([A-Za-z0-9])+"))
+        else if (!password.matches("([A-Za-z0-9])+"))
         {
             passwordField.setError("Only alphabet and digits please.");
             valid = false;
         }
-        else if(!(password.equals(rePassword)))
+        else if (!(password.equals(rePassword)))
         {
             passwordField.setError("Passwords don't match.");
             rePasswordField.setError("Passwords don't match.");
@@ -247,10 +259,13 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     private void sendEmail()
     {
         mUser.sendEmailVerification()
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                .addOnCompleteListener(new OnCompleteListener<Void>()
+                {
                     @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
+                    public void onComplete(@NonNull Task<Void> task)
+                    {
+                        if (task.isSuccessful())
+                        {
                             Log.d(LOG_TAG, "Email sent.");
                         }
                     }
@@ -271,10 +286,13 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         //add device notif token
         //https://firebase.google.com/docs/cloud-messaging/android/client?authuser=0
         FirebaseInstanceId.getInstance().getInstanceId()
-                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>()
+                {
                     @Override
-                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
-                        if (!task.isSuccessful()) {
+                    public void onComplete(@NonNull Task<InstanceIdResult> task)
+                    {
+                        if (!task.isSuccessful())
+                        {
                             Log.w(LOG_TAG, "getInstanceId failed", task.getException());
                             return;
                         }
@@ -290,18 +308,23 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         //add username to firebaseUser obj
 
         //https://stackoverflow.com/questions/41105826/change-displayname-in-firebase/43680527#43680527
-        authListener = new FirebaseAuth.AuthStateListener() {
+        authListener = new FirebaseAuth.AuthStateListener()
+        {
             @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                if(mUser != null)
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth)
+            {
+                if (mUser != null)
                 {
                     UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                             .setDisplayName(usernameField.getText().toString()).build();
                     mUser.updateProfile(profileUpdates);
-                    mUser.updateProfile(profileUpdates).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    mUser.updateProfile(profileUpdates).addOnCompleteListener(new OnCompleteListener<Void>()
+                    {
                         @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()) {
+                        public void onComplete(@NonNull Task<Void> task)
+                        {
+                            if (task.isSuccessful())
+                            {
                                 Log.d("Display name: ", FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
                             }
                         }

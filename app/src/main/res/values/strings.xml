@@ -83,7 +83,8 @@
 
     <!-- ReviewActivity -->
     <string name="overall_rating">Overall Rating</string>
-
+    <string name="submit_review">Submit Review</string>
+    
     <!-- SettingsActivity -->
     <string name="settings">Settings</string>
     <string name="change_password">Change password</string>

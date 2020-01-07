@@ -53,6 +53,7 @@ public class Constants
     public static final String RID_KEY = "rid";
     public static final String SUBMITTER_UID_KEY = "submitterUid";
     public static final String PROVIDER_UID_KEY = "providerUid";
+    public static final String OPPOSING_USER_UID_KEY = "opposingUid";
     public static final String USERNAME_KEY = "username";
     public static final String ACCOUNT_TYPE_KEY = "accountType";
     public static final String ONLINE_KEY = "online";

@@ -11,12 +11,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
 
-import androidx.annotation.NonNull;
-
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.ValueEventListener;
-
 import ibcs.cs_ia_serviceapp.R;
 import ibcs.cs_ia_serviceapp.object_classes.Review;
 import ibcs.cs_ia_serviceapp.utils.Constants;

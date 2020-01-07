@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.ArrayList;
 
 import ibcs.cs_ia_serviceapp.R;
@@ -32,6 +33,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MessageViewHol
 
         /**
          * assigns view for each field
+         *
          * @param v individual chat message view
          */
         public MessageViewHolder(View v)
@@ -43,6 +45,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MessageViewHol
         }
 
     }
+
     private Chat userChatlog;
     private ArrayList<Message> messageContent;
 
@@ -56,6 +59,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MessageViewHol
 
     /**
      * constructor, instantiates fields
+     *
      * @param inputChatlog Chat object containing messages
      */
     public ChatAdapter(Chat inputChatlog)
@@ -66,12 +70,13 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MessageViewHol
 
     /**
      * called when new messages are sent, needing to create more views of the new chat messages
+     *
      * @param viewParent where the new view will be added
-     * @param type view type, not used
+     * @param type       view type, not used
      * @return new MessageViewHolder object with the new inflated view
      */
     @NonNull
-    public MessageViewHolder onCreateViewHolder(@NonNull  ViewGroup viewParent, int type)
+    public MessageViewHolder onCreateViewHolder(@NonNull ViewGroup viewParent, int type)
     {
         LayoutInflater inflater = LayoutInflater.from(viewParent.getContext());
         View view = inflater.inflate(R.layout.chat_message_card, viewParent, false);
@@ -80,11 +85,13 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MessageViewHol
 
     /**
      * called when needed to display new data of the new chat message that was added
+     *
      * @param messageHolder the MessageViewHolder that needs to be updated
      * @param positionIndex position of new item in messageContent
      */
     @Override
-    public void onBindViewHolder(@NonNull MessageViewHolder messageHolder, int positionIndex) {
+    public void onBindViewHolder(@NonNull MessageViewHolder messageHolder, int positionIndex)
+    {
         Message data = messageContent.get(positionIndex);
         messageHolder.username.setText(data.getSenderName());
         messageHolder.message.setText(data.getMessage());
@@ -92,6 +99,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MessageViewHol
 
     /**
      * gets the amount of messages there are
+     *
      * @return size of messageContent
      */
     public int getItemCount()
@@ -101,6 +109,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MessageViewHol
 
     /**
      * adds new message to messageContent
+     *
      * @param message new Message object to be added
      */
     public void addChat(Message message)

@@ -27,7 +27,8 @@ import ibcs.cs_ia_serviceapp.object_classes.User;
 import ibcs.cs_ia_serviceapp.utils.Constants;
 import ibcs.cs_ia_serviceapp.utils.UserSharedPreferences;
 
-public class ProfileActivity extends BaseActivity implements View.OnClickListener {
+public class ProfileActivity extends BaseActivity implements View.OnClickListener
+{
 
     //UI
     private TextView tUsername;
@@ -103,14 +104,15 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
     }
 
     @Override
-    public void onClick(View v) {
+    public void onClick(View v)
+    {
         int id = v.getId();
-        if(bSend.getId() == id)
+        if (bSend.getId() == id)
         {
             Intent intent = new Intent(getApplicationContext(), SendRequestActivity.class);
             startActivity(intent);
         }
-        else if(bLogout.getId() == id)
+        else if (bLogout.getId() == id)
         {
             mAuth.signOut();
             Intent intent = new Intent(getApplicationContext(), ChooseAuthenticationActivity.class);

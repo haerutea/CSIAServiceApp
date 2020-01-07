@@ -35,6 +35,7 @@ public class CompleteRequestFragment extends DialogFragment implements View.OnCl
     private Request requestObj;
     private String accountType;
     private int price;
+    private String opposingUid;
 
     public CompleteRequestFragment()
     {
@@ -43,6 +44,7 @@ public class CompleteRequestFragment extends DialogFragment implements View.OnCl
 
     /**
      * Create a new instance of this fragment with parameters
+     *
      * @param rid request ID of request user is trying to update status of
      * @return A new instance of fragment CompleteRequestFragment
      */
@@ -59,6 +61,7 @@ public class CompleteRequestFragment extends DialogFragment implements View.OnCl
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        opposingUid = "";
         accountType = UserSharedPreferences.getInstance(getContext()).getStringInfo(Constants.ACCOUNT_TYPE_KEY);
         if (getArguments() != null)
         {
@@ -82,7 +85,8 @@ public class CompleteRequestFragment extends DialogFragment implements View.OnCl
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                             Bundle savedInstanceState)
+    {
         // Inflate the layout for this fragment
         View baseView = inflater.inflate(R.layout.complete_request_fragment, container, false);
         bCancel = baseView.findViewById(R.id.complete_cancel_button);
@@ -96,24 +100,27 @@ public class CompleteRequestFragment extends DialogFragment implements View.OnCl
     private void setRequestStatus()
     {
         DatabaseReference currentRequestRef = Constants.REQUEST_REFERENCE.child(requestObj.getRid());
-        if(accountType.equals(Constants.ACCOUNT_CUSTOMER))
+        if (accountType.equals(Constants.ACCOUNT_CUSTOMER))
         {
             currentRequestRef.child(Constants.COMPLETED_CUSTOMER).setValue(true);
-            if(requestObj.isCompletedProvider())
+            opposingUid = requestObj.getProviderUid();
+            if (requestObj.isCompletedProvider())
             {
                 updateDatabase();
             }
         }
-        else if(accountType.equals(Constants.ACCOUNT_PROVIDER))
+        else if (accountType.equals(Constants.ACCOUNT_PROVIDER))
         {
             currentRequestRef.child(Constants.COMPLETED_PROVIDER).setValue(true);
-            if(requestObj.isCompletedCustomer())
+            opposingUid = requestObj.getSubmitterUid();
+            if (requestObj.isCompletedCustomer())
             {
                 updateDatabase();
             }
         }
         Toast.makeText(getContext(), "You have declared this request to be completed.", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(getContext(), ReviewActivity.class);
+        intent.putExtra(Constants.OPPOSING_USER_UID_KEY, opposingUid);
         startActivity(intent);
         dismiss();
     }
@@ -135,11 +142,11 @@ public class CompleteRequestFragment extends DialogFragment implements View.OnCl
     public void onClick(View v)
     {
         int i = v.getId();
-        if(i == bComplete.getId())
+        if (i == bComplete.getId())
         {
             setRequestStatus();
         }
-        else if( i == bCancel.getId())
+        else if (i == bCancel.getId())
         {
             dismiss();
         }
@@ -147,6 +154,7 @@ public class CompleteRequestFragment extends DialogFragment implements View.OnCl
 
     /**
      * called when fragment is first attached, has to be overridden
+     *
      * @param context the context it'll be attached to
      */
     @Override

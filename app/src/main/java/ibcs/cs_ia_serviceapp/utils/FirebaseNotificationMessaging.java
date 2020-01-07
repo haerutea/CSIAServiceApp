@@ -20,8 +20,10 @@ public class FirebaseNotificationMessaging extends FirebaseMessagingService
     //this whole class is basically from the quickstart file by Firebase.
     //https://github.com/firebase/quickstart-android/blob/4017aac2bdc591dc8b9702953702f09921a4e76d/messaging/app/src/main/java/com/google/firebase/quickstart/fcm/java/MyFirebaseMessagingService.java
     private final String logTag = "messagingService";
+
     /**
      * Called when message is received.
+     *
      * @param remoteMessage Object representing the message received from Firebase Cloud Messaging.
      */
     @Override
@@ -30,7 +32,8 @@ public class FirebaseNotificationMessaging extends FirebaseMessagingService
         Log.d(logTag, "From: " + remoteMessage.getFrom());
 
         // Check if message contains a data payload.
-        if (remoteMessage.getData().size() > 0) {
+        if (remoteMessage.getData().size() > 0)
+        {
             Log.d(logTag, "Message data payload: " + remoteMessage.getData());
         }
 
@@ -41,13 +44,13 @@ public class FirebaseNotificationMessaging extends FirebaseMessagingService
             Class destinationClass = null;
 
             boolean special = false;
-            if(remoteMessage.getNotification().getTitle().matches("You have a new quota request!(.*)"))
+            if (remoteMessage.getNotification().getTitle().matches("You have a new quota request!(.*)"))
             {
                 destinationClass = SubmittedRequestsListActivity.class;
                 special = true;
             }
             //TODO: ADD CHAT NOTIF
-            else if(remoteMessage.getNotification().getTitle().equals("Deleted request"))
+            else if (remoteMessage.getNotification().getTitle().equals("Deleted request"))
             {
                 destinationClass = ProfileActivity.class;
             }
@@ -70,7 +73,7 @@ public class FirebaseNotificationMessaging extends FirebaseMessagingService
 
         //have to do this because UID might not have been saved to sharedPreferences
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if(user != null)
+        if (user != null)
         {
             String uid = user.getUid();
             Constants.USER_REFERENCE.child(uid)

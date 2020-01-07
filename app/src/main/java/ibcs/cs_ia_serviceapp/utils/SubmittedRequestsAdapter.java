@@ -31,6 +31,7 @@ public class SubmittedRequestsAdapter extends RecyclerView.Adapter<SubmittedRequ
 
         /**
          * assigns view for each field
+         *
          * @param v individual chat message view
          */
         public RequestViewHolder(View v)
@@ -44,11 +45,12 @@ public class SubmittedRequestsAdapter extends RecyclerView.Adapter<SubmittedRequ
 
         /**
          * allows user to go to the request they clicked on
+         *
          * @param dataObj Request object contained in the view user clicked on
          */
         private void goToRequest(final Request dataObj)
         {
-            if(dataObj != null)
+            if (dataObj != null)
             {
                 wholeView.setOnClickListener(new View.OnClickListener()
                 {
@@ -77,6 +79,7 @@ public class SubmittedRequestsAdapter extends RecyclerView.Adapter<SubmittedRequ
     }
 
     private ArrayList<Request> requestList;
+
     /**
      * required empty constructor
      */
@@ -86,6 +89,7 @@ public class SubmittedRequestsAdapter extends RecyclerView.Adapter<SubmittedRequ
 
     /**
      * constructor, instantiates fields
+     *
      * @param inRequests arraylist containing all requests
      */
     public SubmittedRequestsAdapter(ArrayList<Request> inRequests)
@@ -96,8 +100,9 @@ public class SubmittedRequestsAdapter extends RecyclerView.Adapter<SubmittedRequ
 
     /**
      * called when new requests are added, needing to create more views of the new requests
+     *
      * @param viewParent where the new view will be added
-     * @param type view type, not used
+     * @param type       view type, not used
      * @return new MessageViewHolder object with the new inflated view
      */
     @NonNull
@@ -110,6 +115,7 @@ public class SubmittedRequestsAdapter extends RecyclerView.Adapter<SubmittedRequ
 
     /**
      * called when needed to display new data of the new request that was added
+     *
      * @param messageHolder the MessageViewHolder that needs to be updated
      * @param positionIndex position of new item in requestList
      */
@@ -127,6 +133,7 @@ public class SubmittedRequestsAdapter extends RecyclerView.Adapter<SubmittedRequ
 
     /**
      * gets the amount of requests there are
+     *
      * @return size of messageContent
      */
     public int getItemCount()
@@ -136,6 +143,7 @@ public class SubmittedRequestsAdapter extends RecyclerView.Adapter<SubmittedRequ
 
     /**
      * adds new request to requestList
+     *
      * @param inRequest new Request object to be added
      */
     public void addRequest(Request inRequest)

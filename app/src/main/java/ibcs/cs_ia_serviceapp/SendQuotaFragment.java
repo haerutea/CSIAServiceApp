@@ -23,7 +23,8 @@ import ibcs.cs_ia_serviceapp.utils.UserSharedPreferences;
 /**
  * fragment shown when the service provider wants to press on send quota
  */
-public class SendQuotaFragment extends DialogFragment implements View.OnClickListener {
+public class SendQuotaFragment extends DialogFragment implements View.OnClickListener
+{
     //UI
     private EditText pricingField;
     private Button bCancel;
@@ -41,6 +42,7 @@ public class SendQuotaFragment extends DialogFragment implements View.OnClickLis
 
     /**
      * Create a new instance of this fragment with parameters
+     *
      * @param reqObject request object user is trying to send quota of
      * @return A new instance of fragment SendQuotaFragment.
      */
@@ -58,14 +60,16 @@ public class SendQuotaFragment extends DialogFragment implements View.OnClickLis
     {
         super.onCreate(savedInstanceState);
         userUid = UserSharedPreferences.getInstance(getContext()).getStringInfo(Constants.UID_KEY);
-        if (getArguments() != null) {
+        if (getArguments() != null)
+        {
             requestObj = (Request) getArguments().getSerializable(Constants.REQUEST_KEY);
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                             Bundle savedInstanceState)
+    {
         // Inflate the layout for this fragment
         View baseView = inflater.inflate(R.layout.send_quota_fragment, container, false);
         pricingField = baseView.findViewById(R.id.send_pricing_field);
@@ -79,7 +83,7 @@ public class SendQuotaFragment extends DialogFragment implements View.OnClickLis
 
     private void sendQuota()
     {
-        if(formFilled())
+        if (formFilled())
         {
             String username = UserSharedPreferences.getInstance(getContext()).getStringInfo(Constants.USERNAME_KEY);
             String quotaId = Constants.USER_REFERENCE.child(userUid).child(Constants.QUOTAS_SUBMITTED_PATH).push().getKey();
@@ -99,17 +103,18 @@ public class SendQuotaFragment extends DialogFragment implements View.OnClickLis
 
     /**
      * checks if form was filled in correctly
+     *
      * @return status of true or false
      */
     private boolean formFilled()
     {
         String input = pricingField.getText().toString();
-        if(input.matches("^[0-9]*$"))
+        if (input.matches("^[0-9]*$"))
         {
             price = Integer.parseInt(input);
             return true;
         }
-        else if(TextUtils.isEmpty(input))
+        else if (TextUtils.isEmpty(input))
         {
             pricingField.setError("Required.");
         }
@@ -124,11 +129,11 @@ public class SendQuotaFragment extends DialogFragment implements View.OnClickLis
     public void onClick(View v)
     {
         int i = v.getId();
-        if(i == bSend.getId())
+        if (i == bSend.getId())
         {
             sendQuota();
         }
-        else if( i == bCancel.getId())
+        else if (i == bCancel.getId())
         {
             dismiss();
         }
@@ -136,6 +141,7 @@ public class SendQuotaFragment extends DialogFragment implements View.OnClickLis
 
     /**
      * called when fragment is first attached, has to be overridden
+     *
      * @param context the context it'll be attached to
      */
     @Override

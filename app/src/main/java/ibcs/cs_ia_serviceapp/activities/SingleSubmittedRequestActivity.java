@@ -19,7 +19,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import java.util.HashMap;
 
 import ibcs.cs_ia_serviceapp.R;
-import ibcs.cs_ia_serviceapp.SendQuotaFragment;
+import ibcs.cs_ia_serviceapp.fragments.SendQuotaFragment;
 import ibcs.cs_ia_serviceapp.object_classes.Quota;
 import ibcs.cs_ia_serviceapp.object_classes.Request;
 import ibcs.cs_ia_serviceapp.utils.Constants;

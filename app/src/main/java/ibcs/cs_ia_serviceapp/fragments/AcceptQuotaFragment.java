@@ -1,4 +1,4 @@
-package ibcs.cs_ia_serviceapp;
+package ibcs.cs_ia_serviceapp.fragments;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,6 +16,7 @@ import com.google.firebase.database.DatabaseReference;
 
 import java.util.HashMap;
 
+import ibcs.cs_ia_serviceapp.R;
 import ibcs.cs_ia_serviceapp.activities.ChatActivity;
 import ibcs.cs_ia_serviceapp.object_classes.Chat;
 import ibcs.cs_ia_serviceapp.object_classes.Quota;

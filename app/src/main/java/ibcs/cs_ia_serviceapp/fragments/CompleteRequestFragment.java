@@ -1,4 +1,4 @@
-package ibcs.cs_ia_serviceapp;
+package ibcs.cs_ia_serviceapp.fragments;
 
 import android.content.Context;
 import android.content.Intent;
@@ -18,7 +18,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
-import ibcs.cs_ia_serviceapp.activities.ChooseAuthenticationActivity;
+import ibcs.cs_ia_serviceapp.R;
 import ibcs.cs_ia_serviceapp.activities.ReviewActivity;
 import ibcs.cs_ia_serviceapp.object_classes.Request;
 import ibcs.cs_ia_serviceapp.utils.Constants;

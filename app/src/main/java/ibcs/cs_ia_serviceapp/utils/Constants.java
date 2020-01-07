@@ -39,6 +39,7 @@ public class Constants {
     //Database and IntentExtra
     public static final String USER_PATH = "users";
     public static final String CHAT_PATH = "chats";
+    public static final String REVIEW_PATH = "reviews";
     public static final String MESSAGE_PATH = "messages";
     public static final String REQUEST_PATH = "requests";
     public static final String REQUESTS_SUBMITTED_PATH = "requestsSubmitted";
@@ -63,6 +64,7 @@ public class Constants {
     public static final DatabaseReference BASE_REFERENCE = FirebaseDatabase.getInstance().getReference();
     public static final DatabaseReference USER_REFERENCE = BASE_REFERENCE.child(USER_PATH);
     public static final DatabaseReference REQUEST_REFERENCE = BASE_REFERENCE.child(REQUEST_PATH);
+    public static final DatabaseReference REVIEW_REFERENCE = BASE_REFERENCE.child(REVIEW_PATH);
     public static final StorageReference STORAGE_REFERENCE = FirebaseStorage.getInstance().getReference();
 
 

@@ -74,7 +74,7 @@ public class SendRequestActivity extends BaseActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         LayoutInflater inflater = getLayoutInflater();
         inflater.inflate(R.layout.send_request_activity, (ViewGroup) findViewById(R.id.contents));
-        dialog = DialogUtils.showProgressDialog(this, "Loading...");
+        dialog = DialogUtils.makeProgressDialog(this, "Loading...");
         selectedLang = "";
         selectedService = "";
         selectedPriority = "";

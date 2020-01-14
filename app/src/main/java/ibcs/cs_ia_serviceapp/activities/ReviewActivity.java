@@ -43,7 +43,8 @@ public class ReviewActivity extends BaseActivity implements View.OnClickListener
     private void submitReview()
     {
         Log.d("reviewActivity", "submit review");
-        ProgressDialog loading = DialogUtils.showProgressDialog(this, getString(R.string.loading));
+        ProgressDialog loading = DialogUtils.makeProgressDialog(this, getString(R.string.loading));
+        loading.show();
         int rating = ratingBar.getNumStars();
         String writtenDesc = desc.getText().toString();
         final Review tempReview = new Review(username, rating, writtenDesc);

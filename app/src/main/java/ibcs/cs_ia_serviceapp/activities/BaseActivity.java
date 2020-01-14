@@ -99,6 +99,10 @@ public class BaseActivity extends AppCompatActivity
         {
             intent = new Intent(getApplicationContext(), CompletedRequestsListActivity.class);
         }
+        else if (id == R.id.menu_settings)
+        {
+            intent = new Intent(getApplicationContext(), SettingsActivity.class);
+        }
         startActivity(intent);
         drawer.closeDrawer(GravityCompat.START);
         return true;

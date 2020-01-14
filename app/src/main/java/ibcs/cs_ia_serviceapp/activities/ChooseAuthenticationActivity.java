@@ -27,7 +27,6 @@ public class ChooseAuthenticationActivity extends AppCompatActivity implements V
     //UI
     private Button bSignUp;
     private Button bLogin;
-    private SignInButton bLoginGoogle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -40,12 +39,8 @@ public class ChooseAuthenticationActivity extends AppCompatActivity implements V
         bSignUp = findViewById(R.id.bSign_up);
         bLogin = findViewById(R.id.bLogin);
 
-        bLoginGoogle = findViewById(R.id.bLogin_google);
-        bLoginGoogle.setSize(SignInButton.SIZE_STANDARD);
-
         bSignUp.setOnClickListener(this);
         bLogin.setOnClickListener(this);
-        bLoginGoogle.setOnClickListener(this);
     }
 
     /**
@@ -90,10 +85,6 @@ public class ChooseAuthenticationActivity extends AppCompatActivity implements V
         {
             Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
             startActivity(intent);
-        }
-        else if (id == bLoginGoogle.getId())
-        {
-
         }
         else if (id == bSignUp.getId())
         {

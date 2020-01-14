@@ -30,7 +30,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private static final String LOGTAG = "LogInActivity";
 
     private FirebaseAuth mAuth;
-    private ProgressDialog dialog;
 
     // UI references.
     private EditText emailField;
@@ -50,7 +49,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_activity);
 
-        dialog = DialogUtils.makeProgressDialog(this, "Loading...");
         mAuth = FirebaseAuth.getInstance();
 
         emailField = findViewById(R.id.login_email);
@@ -69,6 +67,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
      */
     private void signIn(String email, String password)
     {
+        ProgressDialog dialog = DialogUtils.makeProgressDialog(this, getString(R.string.loading));
+        dialog.show();
         Log.d(LOGTAG, "signIn:" + email);
 
         if (!formFilled())
@@ -150,7 +150,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
      */
     private void goToProfile(FirebaseUser user)
     {
-        dialog.dismiss();
         Constants.USER_REFERENCE.child(user.getUid())
                 .child(Constants.ONLINE_KEY).setValue(true);
         Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
@@ -169,7 +168,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         int i = v.getId();
         if (i == bLogIn.getId())
         {
-            dialog.show();
             signIn(emailField.getText().toString(), passwordField.getText().toString());
         }
     }

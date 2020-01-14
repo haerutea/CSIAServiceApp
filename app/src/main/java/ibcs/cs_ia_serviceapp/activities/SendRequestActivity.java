@@ -56,7 +56,6 @@ public class SendRequestActivity extends BaseActivity implements View.OnClickLis
     private StorageReference storageRef;
 
     //fields
-    private ProgressDialog dialog;
     private String uid;
     private String selectedLang;
     private String selectedService;
@@ -74,7 +73,6 @@ public class SendRequestActivity extends BaseActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         LayoutInflater inflater = getLayoutInflater();
         inflater.inflate(R.layout.send_request_activity, (ViewGroup) findViewById(R.id.contents));
-        dialog = DialogUtils.makeProgressDialog(this, "Loading...");
         selectedLang = "";
         selectedService = "";
         selectedPriority = "";
@@ -241,6 +239,8 @@ public class SendRequestActivity extends BaseActivity implements View.OnClickLis
 
     private void submitRequest()
     {
+        ProgressDialog dialog = DialogUtils.makeProgressDialog(this, getString(R.string.loading));
+        dialog.show();
         if (formFilled())
         {
             //https://stackoverflow.com/questions/28822054/firebase-how-to-generate-a-unique-numeric-id-for-key
@@ -294,7 +294,6 @@ public class SendRequestActivity extends BaseActivity implements View.OnClickLis
             {
                 Constants.USER_REFERENCE.child(uid).child(Constants.REQUESTS_SUBMITTED_PATH).child(inRequest.getRid()).setValue(true);
                 Constants.REQUEST_REFERENCE.child(inRequest.getRid()).setValue(inRequest);
-                dialog.dismiss();
                 Toast.makeText(SendRequestActivity.this, "Request uploaded successfully", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
                 startActivity(intent);
@@ -319,7 +318,6 @@ public class SendRequestActivity extends BaseActivity implements View.OnClickLis
         }
         if (bSubmit.getId() == i)
         {
-            dialog.show();
             submitRequest();
         }
     }

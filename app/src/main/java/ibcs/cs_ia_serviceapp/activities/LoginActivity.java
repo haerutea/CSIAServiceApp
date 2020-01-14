@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -31,7 +32,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private static final String LOGTAG = "LogInActivity";
 
     private FirebaseAuth mAuth;
-    private AlertDialog dialog;
+    private ProgressDialog dialog;
 
     // UI references.
     private EditText emailField;
@@ -51,7 +52,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_activity);
 
-        dialog = DialogUtils.makeDialog(this, "Loading...");
+        dialog = DialogUtils.showProgressDialog(this, "Loading...");
         mAuth = FirebaseAuth.getInstance();
 
         emailField = findViewById(R.id.login_email);

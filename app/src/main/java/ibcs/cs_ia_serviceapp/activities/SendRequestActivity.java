@@ -2,7 +2,7 @@ package ibcs.cs_ia_serviceapp.activities;
 
 import androidx.annotation.NonNull;
 
-import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -41,9 +41,6 @@ import ibcs.cs_ia_serviceapp.utils.UserSharedPreferences;
 
 public class SendRequestActivity extends BaseActivity implements View.OnClickListener
 {
-
-    private String LOG_TAG = "SendRequestActivity";
-
     //UI
     private TextView titleView;
     private Spinner sLanguageType;
@@ -59,7 +56,7 @@ public class SendRequestActivity extends BaseActivity implements View.OnClickLis
     private StorageReference storageRef;
 
     //fields
-    private AlertDialog dialog;
+    private ProgressDialog dialog;
     private String uid;
     private String selectedLang;
     private String selectedService;
@@ -77,7 +74,7 @@ public class SendRequestActivity extends BaseActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         LayoutInflater inflater = getLayoutInflater();
         inflater.inflate(R.layout.send_request_activity, (ViewGroup) findViewById(R.id.contents));
-        dialog = DialogUtils.makeDialog(this, "Loading...");
+        dialog = DialogUtils.showProgressDialog(this, "Loading...");
         selectedLang = "";
         selectedService = "";
         selectedPriority = "";

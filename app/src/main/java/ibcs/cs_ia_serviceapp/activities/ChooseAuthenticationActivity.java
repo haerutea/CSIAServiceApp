@@ -68,10 +68,12 @@ public class ChooseAuthenticationActivity extends AppCompatActivity implements V
      */
     private void updateUI(FirebaseUser user)
     {
-        //show a simple loading popup
-        ProgressDialog loadingWindow = DialogUtils.showProgressDialog(this, "loading");
+        //show loading popup
+        ProgressDialog loadingWindow = DialogUtils.makeProgressDialog(this, "loading");
+        loadingWindow.show();
         if (user != null)
         {
+            //start profileActivity if user is logged in
             Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
             intent.putExtra(Constants.UID_KEY, user.getUid());
             startActivity(intent);

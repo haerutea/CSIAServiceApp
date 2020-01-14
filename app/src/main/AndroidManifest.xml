@@ -13,11 +13,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.CompletedRequestsListActivity"
+        <activity android:name=".activities.SettingsActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity
+            android:name=".activities.CompletedRequestsListActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activities.ReviewActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+        <activity
+            android:name=".activities.ReviewActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".activities.SingleOngoingRequestActivity"
             android:theme="@style/AppTheme.NoActionBar" />

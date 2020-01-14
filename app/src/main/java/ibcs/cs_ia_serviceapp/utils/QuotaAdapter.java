@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import ibcs.cs_ia_serviceapp.AcceptQuotaFragment;
+import ibcs.cs_ia_serviceapp.fragments.AcceptQuotaFragment;
 import ibcs.cs_ia_serviceapp.R;
 import ibcs.cs_ia_serviceapp.object_classes.Quota;
 import ibcs.cs_ia_serviceapp.object_classes.Request;

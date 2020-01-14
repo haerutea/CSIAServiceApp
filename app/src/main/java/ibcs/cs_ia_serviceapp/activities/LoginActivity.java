@@ -1,7 +1,5 @@
 package ibcs.cs_ia_serviceapp.activities;
 
-import android.app.AlertDialog;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -52,7 +50,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_activity);
 
-        dialog = DialogUtils.showProgressDialog(this, "Loading...");
+        dialog = DialogUtils.makeProgressDialog(this, "Loading...");
         mAuth = FirebaseAuth.getInstance();
 
         emailField = findViewById(R.id.login_email);

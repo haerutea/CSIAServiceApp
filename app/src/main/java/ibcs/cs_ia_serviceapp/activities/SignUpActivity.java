@@ -32,7 +32,6 @@ import ibcs.cs_ia_serviceapp.R;
 import ibcs.cs_ia_serviceapp.object_classes.User;
 import ibcs.cs_ia_serviceapp.utils.Constants;
 import ibcs.cs_ia_serviceapp.utils.DialogUtils;
-import ibcs.cs_ia_serviceapp.utils.UserSharedPreferences;
 
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener
 {
@@ -154,7 +153,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
      */
     private void createAccount(String email, String password)
     {
-        final ProgressDialog loading = DialogUtils.showProgressDialog(this, getString(R.string.loading));
+        final ProgressDialog loading = DialogUtils.makeProgressDialog(this, getString(R.string.loading));
+        loading.show();
         Log.d(LOG_TAG, "createAccount:" + email);
         if (!formFilled()) //if formfilled returns false
         {

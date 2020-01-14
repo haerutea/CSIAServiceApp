@@ -22,6 +22,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -185,9 +186,13 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                                 {
                                     throw task.getException();
                                 }
+                                catch (FirebaseAuthWeakPasswordException e)
+                                {
+                                    errorMsg = e.getReason();
+                                }
                                 catch (FirebaseAuthInvalidCredentialsException e)
                                 {
-                                    errorMsg = "Invalid email.";
+                                    errorMsg = "Invalid email or password.";
                                 }
                                 catch (FirebaseAuthUserCollisionException e)
                                 {
@@ -306,7 +311,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 });
 
         //add username to firebaseUser obj
-
         //https://stackoverflow.com/questions/41105826/change-displayname-in-firebase/43680527#43680527
         authListener = new FirebaseAuth.AuthStateListener()
         {

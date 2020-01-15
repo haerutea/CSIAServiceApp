@@ -92,7 +92,7 @@ public class SingleCompletedRequestActivity extends BaseActivity
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot)
                         {
                             String opposingUsername = dataSnapshot.getValue(String.class);
-                            opposingUserView.setText(getString(R.string.location_format, opposingUsername));
+                            opposingUserView.setText(getString(R.string.opposing_user_format, opposingUsername));
                         }
 
                         @Override

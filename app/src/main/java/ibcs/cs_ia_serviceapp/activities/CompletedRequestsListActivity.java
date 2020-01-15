@@ -19,18 +19,25 @@ import java.util.ArrayList;
 
 import ibcs.cs_ia_serviceapp.R;
 import ibcs.cs_ia_serviceapp.object_classes.Request;
+import ibcs.cs_ia_serviceapp.utils.CompletedRequestsAdapter;
 import ibcs.cs_ia_serviceapp.utils.Constants;
-import ibcs.cs_ia_serviceapp.utils.OngoingRequestsAdapter;
 import ibcs.cs_ia_serviceapp.utils.UserSharedPreferences;
 
+/**
+ * activity that shows user's all completed request history
+ */
 public class CompletedRequestsListActivity extends BaseActivity
 {
     //UI
     private LinearLayoutManager linearLayoutManager;
 
-    private OngoingRequestsAdapter adapter;
+    private CompletedRequestsAdapter adapter;
     private ArrayList<Request> requestsList;
 
+    /**
+     * sets up fields, gets data from database to populate screen
+     * @param savedInstanceState data saved from onSaveInstanceState, not used
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -40,7 +47,6 @@ public class CompletedRequestsListActivity extends BaseActivity
 
         requestsList = new ArrayList<>();
         final TaskCompletionSource<String> getAllRequestsTask = new TaskCompletionSource<>();
-        String account = UserSharedPreferences.getInstance(this).getStringInfo(Constants.ACCOUNT_TYPE_KEY);
         final String uid = UserSharedPreferences.getInstance(this).getStringInfo(Constants.UID_KEY);
         final ArrayList<String> userRidList = new ArrayList<>();
         final TaskCompletionSource<String> getUserRidTask = new TaskCompletionSource<>();
@@ -98,8 +104,7 @@ public class CompletedRequestsListActivity extends BaseActivity
             {
                 System.out.println(requestsList.size());
                 linearLayoutManager = new LinearLayoutManager(CompletedRequestsListActivity.this);
-                //TODO: CHANGE ADAPTER TO COMPLETED ADAPTER
-                adapter = new OngoingRequestsAdapter(requestsList);
+                adapter = new CompletedRequestsAdapter(requestsList);
                 RecyclerView requests = findViewById(R.id.completed_requests_recycler);
                 requests.setLayoutManager(linearLayoutManager);
                 requests.setAdapter(adapter);

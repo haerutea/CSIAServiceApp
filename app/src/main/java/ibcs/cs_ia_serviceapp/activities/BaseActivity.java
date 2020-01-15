@@ -19,6 +19,11 @@ import ibcs.cs_ia_serviceapp.utils.Constants;
 import ibcs.cs_ia_serviceapp.utils.UserSharedPreferences;
 
 //https://stackoverflow.com/questions/16144399/sidebar-in-each-activity
+
+/**
+ * This activity serves as the base activity for all other activities to extend.  This sets up
+ * the side navigation bar.
+ */
 public class BaseActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener
 {
@@ -26,6 +31,11 @@ public class BaseActivity extends AppCompatActivity
     private Toolbar toolbar;
     private DrawerLayout drawer;
 
+    /**
+     * method called when activities are first opened, sets up navigation bar and adds listener
+     * to navigationView.
+     * @param savedInstanceState data saved from onSaveInstanceState, not used
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -46,6 +56,9 @@ public class BaseActivity extends AppCompatActivity
         updateMenu();
     }
 
+    /**
+     * update nav bar menu's string according to account type
+     */
     //https://stackoverflow.com/a/34283820
     public void updateMenu()
     {
@@ -63,6 +76,9 @@ public class BaseActivity extends AppCompatActivity
         navigationView.invalidate();
     }
 
+    /**
+     * When the back button of the phone is pressed, close the nav drawer if it was open
+     */
     @Override
     public void onBackPressed()
     {
@@ -76,6 +92,11 @@ public class BaseActivity extends AppCompatActivity
         }
     }
 
+    /**
+     * starts activity intent according to which menu item was pressed
+     * @param item item that was selected by user
+     * @return always return true
+     */
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item)

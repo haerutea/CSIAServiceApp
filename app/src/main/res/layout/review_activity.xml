@@ -1,15 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/activity_border_margin"
+    android:paddingTop="@dimen/activity_border_margin"
+    android:paddingRight="@dimen/activity_border_margin"
+    android:paddingBottom="@dimen/activity_border_margin"
     tools:context=".activities.ReviewActivity">
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="PLACEHOLDER">
+        style="@style/Base.TextAppearance.AppCompat.Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/overall_rating" />
 
-    </TextView>
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <RatingBar
+        android:id="@+id/review_rating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:numStars="5"
+        android:saveEnabled="true"
+        android:stepSize="0.5" />
+
+    <EditText
+        android:id="@+id/review_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/description"
+        android:maxLines="5"
+        android:singleLine="false" />
+
+    <Button
+        android:id="@+id/review_submit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/submit_request" />
+</LinearLayout>

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- https://stackoverflow.com/questions/11510804/imageview-wont-fill-parent-->
+<ScrollView
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:fillViewport="true">
+    <LinearLayout
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/single_completed_request_title"
+            style="@style/Base.TextAppearance.AppCompat.Title"
+            android:text="@string/title_format"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"/>
+
+        <TextView
+            android:id="@+id/single_completed_language"
+            style="@style/Base.TextAppearance.AppCompat.Title"
+            android:text="@string/lang_format"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"/>
+
+        <TextView
+            android:id="@+id/single_completed_service"
+            style="@style/Base.TextAppearance.AppCompat.Title"
+            android:text="@string/service_format"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"/>
+
+
+        <TextView
+            android:id="@+id/single_completed_priority"
+            style="@style/Base.TextAppearance.AppCompat.Title"
+            android:text="@string/priority_format"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"/>
+
+        <TextView
+            android:id="@+id/single_completed_location"
+            style="@style/Base.TextAppearance.AppCompat.Title"
+            android:text="@string/location_format"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"/>
+
+        <TextView
+            android:id="@+id/single_completed_description"
+            style="@style/Base.TextAppearance.AppCompat.Title"
+            android:text="@string/description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp" />
+
+        <TextView
+            android:id="@+id/single_completed_opposing_user"
+            style="@style/Base.TextAppearance.AppCompat.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/opposing_user_format"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp" />
+
+        <TextView
+            android:id="@+id/single_completed_price_paid"
+            style="@style/Base.TextAppearance.AppCompat.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/price_paid_format"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp" />
+
+
+        <!-- https://stackoverflow.com/questions/25995680/android-imageview-wrap-content -->
+        <ImageView
+            android:id="@+id/single_completed_img_view"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:background="@android:color/transparent" />
+
+    </LinearLayout>
+</ScrollView>

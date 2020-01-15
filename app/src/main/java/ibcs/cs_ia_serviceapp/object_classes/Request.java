@@ -3,6 +3,8 @@ package ibcs.cs_ia_serviceapp.object_classes;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 import ibcs.cs_ia_serviceapp.utils.Constants;
 
@@ -125,6 +127,15 @@ public class Request implements Serializable
         return quotas;
     }
 
+    public int getPricePaid()
+    {
+        //https://stackoverflow.com/questions/1066589/iterate-through-a-hashmap
+        Iterator it = quotas.entrySet().iterator();
+        Map.Entry pair = (Map.Entry)it.next();
+        it.remove(); // avoids a ConcurrentModificationException
+
+        return ((Quota) pair.getValue()).getPrice();
+    }
     public void setRid(String rid)
     {
         this.rid = rid;

@@ -60,13 +60,23 @@
             android:layout_marginLeft="20dp"/>
 
         <TextView
-            android:id="@+id/single_completed_description"
+            android:id="@+id/single_completed_description_title"
             style="@style/Base.TextAppearance.AppCompat.Title"
             android:text="@string/description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="20dp" />
+
+        <TextView
+            android:id="@+id/single_completed_description"
+            style="@style/Base.TextAppearance.AppCompat.Title"
+            android:text="@string/description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"/>
 
         <TextView
             android:id="@+id/single_completed_opposing_user"

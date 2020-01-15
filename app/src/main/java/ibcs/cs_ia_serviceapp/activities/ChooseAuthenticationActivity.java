@@ -18,16 +18,24 @@ import ibcs.cs_ia_serviceapp.utils.Constants;
 import ibcs.cs_ia_serviceapp.utils.DialogUtils;
 
 //https://developers.google.com/identity/sign-in/android/sign-in
+
+/**
+ * the activity where user begins when they first open up the app on fresh download.
+ * Also where the user will end up when logging out.
+ * Has buttons to signup and login
+ */
 public class ChooseAuthenticationActivity extends AppCompatActivity implements View.OnClickListener
 {
-    private String LOG_TAG = "ChooseAuthenticationActivity";
-
     private FirebaseAuth mAuth;
 
     //UI
     private Button bSignUp;
     private Button bLogin;
 
+    /**
+     * when activity is first created, set up fields and UI components
+     * @param savedInstanceState data saved from onSaveInstanceState, not used
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -44,7 +52,7 @@ public class ChooseAuthenticationActivity extends AppCompatActivity implements V
     }
 
     /**
-     * whenever app is opened, if there is already a user logged in,
+     * when app is opened, if there is already a user logged in,
      * call updateUI with that user.
      */
     @Override
@@ -57,8 +65,7 @@ public class ChooseAuthenticationActivity extends AppCompatActivity implements V
     }
 
     /**
-     * opens up ProfileActivity directly is user is present
-     *
+     * opens up ProfileActivity directly is user is logged in
      * @param user is the user that's logged in
      */
     private void updateUI(FirebaseUser user)
@@ -77,6 +84,11 @@ public class ChooseAuthenticationActivity extends AppCompatActivity implements V
         loadingWindow.dismiss();
     }
 
+    /**
+     * on click method that's triggered whenever a button with onClickListener is pressed.
+     * If login button is pressed, start LoginActivity.  If sign up button is pressed, start SignUpActivity
+     * @param v view that was clicked on
+     */
     @Override
     public void onClick(View v)
     {

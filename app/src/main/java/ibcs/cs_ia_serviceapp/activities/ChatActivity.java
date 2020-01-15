@@ -24,6 +24,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import ibcs.cs_ia_serviceapp.R;
@@ -34,13 +35,12 @@ import ibcs.cs_ia_serviceapp.utils.Constants;
 import ibcs.cs_ia_serviceapp.utils.UserSharedPreferences;
 
 /**
- * screen where user can chat with another user that was connected
- * through their chat request.
+ * activity where user can chat with another user that was connected
+ * through their request.
  */
 public class ChatActivity extends BaseActivity implements TextView.OnEditorActionListener
 {
     private final String LOG_TAG = "ChatFragmentDatabase";
-    private DatabaseReference roomReference;
     private DatabaseReference messageRef;
     private ChatAdapter adapter;
 
@@ -60,8 +60,7 @@ public class ChatActivity extends BaseActivity implements TextView.OnEditorActio
      * when activity is first created, set content from chat_activity.xml,
      * creates a new linearLayoutManager for chat messages to be displayed.
      * gets current user's uid and username from sharedPreferences,
-     * sets up chatAdapter for recyclerView,
-     * assigns views to fields, also changes user chat status to true.
+     * sets up chatAdapter for recyclerView, assigns views to fields
      *
      * @param savedInstanceState data saved from onSaveInstanceState, not used
      */
@@ -71,7 +70,6 @@ public class ChatActivity extends BaseActivity implements TextView.OnEditorActio
         super.onCreate(savedInstanceState);
         LayoutInflater inflater = getLayoutInflater();
         inflater.inflate(R.layout.chat_activity, (ViewGroup) findViewById(R.id.contents));
-        Log.d("inChatActivity", "here");
 
         //sets EditText
         messageInput = findViewById(R.id.chat_input);
@@ -86,7 +84,6 @@ public class ChatActivity extends BaseActivity implements TextView.OnEditorActio
 
         //gets request rid to access chat log
         rid = getIntent().getStringExtra(Constants.RID_KEY);
-        Log.d("chats", rid);
         chatLogRef = Constants.REQUEST_REFERENCE.child(rid).child(Constants.CHAT_PATH);
 
         final TaskCompletionSource<String> getChatLogTask = new TaskCompletionSource<>();
@@ -127,7 +124,7 @@ public class ChatActivity extends BaseActivity implements TextView.OnEditorActio
      * @param textView textView containing text, not used
      * @param i        identifier for action, not used
      * @param keyEvent event triggered by enter key
-     * @return true after action is processed by code
+     * @return true after action is processed
      */
     public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent)
     {
@@ -135,7 +132,7 @@ public class ChatActivity extends BaseActivity implements TextView.OnEditorActio
         {
             //creates new message object
             Message message = new Message(userUid,
-                    username, messageInput.getText().toString());
+                    username, messageInput.getText().toString(), new Timestamp(System.currentTimeMillis()));
 
             //adds to database
             //TODO: CHECK WHY TIMESTAMP DISAPPEARS???
@@ -153,7 +150,7 @@ public class ChatActivity extends BaseActivity implements TextView.OnEditorActio
     }
 
     /**
-     * connects to database with the chat room name, constantly listens for new message,
+     * connects to database, constantly listens for new message,
      * updates UI (RecyclerView) through adapter when new message is added to database.
      */
     private void setupConnection()
@@ -190,6 +187,11 @@ public class ChatActivity extends BaseActivity implements TextView.OnEditorActio
         });
     }
 
+    /**
+     * adds the toolbar to activity
+     * @param menu menu to inflate the view with
+     * @return true
+     */
     //https://guides.codepath.com/android/using-the-app-toolbar
     //https://stackoverflow.com/questions/35648913/how-to-set-menu-to-toolbar-in-android/35649219
     @Override
@@ -200,6 +202,11 @@ public class ChatActivity extends BaseActivity implements TextView.OnEditorActio
         return true;
     }
 
+    /**
+     * when an item on the toolbar_menu is pressed
+     * @param item item that was pressed on by user
+     * @return true if successful
+     */
     //https://developer.android.com/training/appbar/actions
     @Override
     public boolean onOptionsItemSelected(MenuItem item)

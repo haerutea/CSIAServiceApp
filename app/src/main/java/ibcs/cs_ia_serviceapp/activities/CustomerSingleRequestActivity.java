@@ -20,7 +20,6 @@ import ibcs.cs_ia_serviceapp.object_classes.Quota;
 import ibcs.cs_ia_serviceapp.object_classes.Request;
 import ibcs.cs_ia_serviceapp.utils.Constants;
 import ibcs.cs_ia_serviceapp.utils.QuotaAdapter;
-import ibcs.cs_ia_serviceapp.utils.UserSharedPreferences;
 
 public class CustomerSingleRequestActivity extends BaseActivity
 {
@@ -34,7 +33,6 @@ public class CustomerSingleRequestActivity extends BaseActivity
     private ImageView imageView;
 
     //Fields
-    private String uid;
     private Request inRequest;
     private LinearLayoutManager linearLayoutManager;
     private QuotaAdapter adapter;
@@ -48,7 +46,6 @@ public class CustomerSingleRequestActivity extends BaseActivity
         inflater.inflate(R.layout.customer_single_request_activity, (ViewGroup) findViewById(R.id.contents));
 
         inRequest = (Request) getIntent().getSerializableExtra(Constants.REQUEST_KEY);
-        uid = UserSharedPreferences.getInstance(CustomerSingleRequestActivity.this).getStringInfo(Constants.UID_KEY);
         if (inRequest != null)
         {
             requestView = findViewById(R.id.request_title_view);

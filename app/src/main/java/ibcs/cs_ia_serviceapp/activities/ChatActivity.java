@@ -24,7 +24,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import ibcs.cs_ia_serviceapp.R;
@@ -40,7 +39,6 @@ import ibcs.cs_ia_serviceapp.utils.UserSharedPreferences;
  */
 public class ChatActivity extends BaseActivity implements TextView.OnEditorActionListener
 {
-    private final String LOG_TAG = "ChatFragmentDatabase";
     private DatabaseReference messageRef;
     private ChatAdapter adapter;
 
@@ -161,8 +159,6 @@ public class ChatActivity extends BaseActivity implements TextView.OnEditorActio
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot)
             {
-                Log.d(LOG_TAG, "Success");
-
                 adapter.clearContent();
 
                 for (DataSnapshot item : dataSnapshot.getChildren())
@@ -181,7 +177,6 @@ public class ChatActivity extends BaseActivity implements TextView.OnEditorActio
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError)
             {
-                Log.e(LOG_TAG, "Failed. Error: " + databaseError.getMessage());
                 Toast.makeText(getApplicationContext(), "Failed to connect", Toast.LENGTH_SHORT).show();
             }
         });

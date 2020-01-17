@@ -7,7 +7,6 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,9 +25,6 @@ import ibcs.cs_ia_serviceapp.utils.DialogUtils;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener
 {
-
-    private static final String LOGTAG = "LogInActivity";
-
     private FirebaseAuth mAuth;
 
     // UI references.
@@ -69,7 +65,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     {
         ProgressDialog dialog = DialogUtils.makeProgressDialog(this, getString(R.string.loading));
         dialog.show();
-        Log.d(LOGTAG, "signIn:" + email);
 
         if (!formFilled())
         {
@@ -88,7 +83,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         if (task.isSuccessful())
                         {
                             //update UI with the signed-in user's information
-                            Log.d(LOGTAG, "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             goToProfile(user);
                         }
@@ -105,7 +99,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             }
                             catch (Exception e)
                             {
-                                Log.w(LOGTAG, "signInWithEmail:failure", task.getException());
+                                errorMsg = e.getMessage();
                             }
                             //display error message to user
                             Toast.makeText(LoginActivity.this, "Authentication failed. " + errorMsg,

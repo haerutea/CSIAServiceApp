@@ -40,7 +40,6 @@ public class OngoingRequestsListActivity extends BaseActivity
 
         requestsList = new ArrayList<>();
         final TaskCompletionSource<String> getAllRequestsTask = new TaskCompletionSource<>();
-        String account = UserSharedPreferences.getInstance(this).getStringInfo(Constants.ACCOUNT_TYPE_KEY);
         final String uid = UserSharedPreferences.getInstance(this).getStringInfo(Constants.UID_KEY);
         final ArrayList<String> userRidList = new ArrayList<>();
         final TaskCompletionSource<String> getUserRidTask = new TaskCompletionSource<>();

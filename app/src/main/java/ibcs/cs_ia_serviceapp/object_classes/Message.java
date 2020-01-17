@@ -1,16 +1,12 @@
 package ibcs.cs_ia_serviceapp.object_classes;
 
-import java.sql.Timestamp;
-
 import ibcs.cs_ia_serviceapp.utils.Constants;
 
 public class Message
 {
-
     private String mSenderName;
     private String mSenderId;
     private String mMessage;
-    private Timestamp mTimestamp;
 
     public Message()
     {
@@ -22,7 +18,6 @@ public class Message
         this.mSenderId = senderId;
         this.mSenderName = senderName;
         this.mMessage = message;
-        this.mTimestamp = new Timestamp(System.currentTimeMillis());
     }
 
     public void setSenderId(String senderId)
@@ -53,10 +48,5 @@ public class Message
     public String getSenderName()
     {
         return mSenderName;
-    }
-
-    public Timestamp getTimestamp()
-    {
-        return mTimestamp;
     }
 }

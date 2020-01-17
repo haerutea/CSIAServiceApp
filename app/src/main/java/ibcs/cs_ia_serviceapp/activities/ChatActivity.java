@@ -132,7 +132,7 @@ public class ChatActivity extends BaseActivity implements TextView.OnEditorActio
         {
             //creates new message object
             Message message = new Message(userUid,
-                    username, messageInput.getText().toString(), new Timestamp(System.currentTimeMillis()));
+                    username, messageInput.getText().toString());
 
             //adds to database
             //TODO: CHECK WHY TIMESTAMP DISAPPEARS???

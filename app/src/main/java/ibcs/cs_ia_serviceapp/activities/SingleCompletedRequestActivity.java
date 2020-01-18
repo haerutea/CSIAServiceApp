@@ -3,16 +3,11 @@ package ibcs.cs_ia_serviceapp.activities;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -20,14 +15,9 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.HashMap;
-
 import ibcs.cs_ia_serviceapp.R;
-import ibcs.cs_ia_serviceapp.fragments.SendQuotaFragment;
-import ibcs.cs_ia_serviceapp.object_classes.Quota;
 import ibcs.cs_ia_serviceapp.object_classes.Request;
 import ibcs.cs_ia_serviceapp.utils.Constants;
-import ibcs.cs_ia_serviceapp.utils.QuotaAdapter;
 import ibcs.cs_ia_serviceapp.utils.UserSharedPreferences;
 
 public class SingleCompletedRequestActivity extends BaseActivity

@@ -14,7 +14,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import ibcs.cs_ia_serviceapp.R;
-import ibcs.cs_ia_serviceapp.activities.ChatActivity;
 import ibcs.cs_ia_serviceapp.activities.SingleCompletedRequestActivity;
 import ibcs.cs_ia_serviceapp.object_classes.Request;
 

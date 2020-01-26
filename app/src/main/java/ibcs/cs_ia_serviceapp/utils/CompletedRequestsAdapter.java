@@ -32,7 +32,7 @@ public class CompletedRequestsAdapter extends RecyclerView.Adapter<CompletedRequ
         /**
          * assigns view for each field
          *
-         * @param v individual chat message view
+         * @param v individual request view
          */
         public RequestViewHolder(View v)
         {
@@ -92,7 +92,7 @@ public class CompletedRequestsAdapter extends RecyclerView.Adapter<CompletedRequ
      *
      * @param viewParent where the new view will be added
      * @param type       view type, not used
-     * @return new MessageViewHolder object with the new inflated view
+     * @return new RequestViewHolder object with the new inflated view
      */
     @NonNull
     public RequestViewHolder onCreateViewHolder(@NonNull ViewGroup viewParent, int type)
@@ -105,25 +105,25 @@ public class CompletedRequestsAdapter extends RecyclerView.Adapter<CompletedRequ
     /**
      * called when needed to display new data of the new request that was added
      *
-     * @param messageHolder the MessageViewHolder that needs to be updated
+     * @param requestHolder the MessageViewHolder that needs to be updated
      * @param positionIndex position of new item in requestList
      */
     @Override
-    public void onBindViewHolder(@NonNull RequestViewHolder messageHolder, int positionIndex)
+    public void onBindViewHolder(@NonNull RequestViewHolder requestHolder, int positionIndex)
     {
         Request data = requestList.get(positionIndex);
-        messageHolder.title.setText(data.getTitle());
-        messageHolder.service.setText(data.getService());
+        requestHolder.title.setText(data.getTitle());
+        requestHolder.service.setText(data.getService());
         //https://stackoverflow.com/questions/5683728/convert-java-util-date-to-string
         String date = new SimpleDateFormat("dd/MM/yyyy").format(data.getCurrentDate()).toString();
-        messageHolder.date.setText(date);
-        messageHolder.goToRequest(data);
+        requestHolder.date.setText(date);
+        requestHolder.goToRequest(data);
     }
 
     /**
      * gets the amount of requests there are
      *
-     * @return size of messageContent
+     * @return size of requestList
      */
     public int getItemCount()
     {

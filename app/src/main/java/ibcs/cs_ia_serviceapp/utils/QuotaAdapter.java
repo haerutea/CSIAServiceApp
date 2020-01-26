@@ -1,6 +1,5 @@
 package ibcs.cs_ia_serviceapp.utils;
 
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,12 +24,12 @@ import ibcs.cs_ia_serviceapp.object_classes.Request;
  * adapter for ChatActivity's recycler view, contains ViewHolder class within to set each
  * message's view.
  */
-public class QuotaAdapter extends RecyclerView.Adapter<QuotaAdapter.MessageViewHolder>
+public class QuotaAdapter extends RecyclerView.Adapter<QuotaAdapter.QuotaViewHolder>
 {
     /**
      * class for each individual chat message view object
      */
-    public static class MessageViewHolder extends RecyclerView.ViewHolder
+    public static class QuotaViewHolder extends RecyclerView.ViewHolder
     {
         private View wholeView;
         private TextView username;
@@ -41,7 +40,7 @@ public class QuotaAdapter extends RecyclerView.Adapter<QuotaAdapter.MessageViewH
          *
          * @param v individual chat message view
          */
-        public MessageViewHolder(View v)
+        public QuotaViewHolder(View v)
         {
             super(v);
             wholeView = v;
@@ -103,30 +102,30 @@ public class QuotaAdapter extends RecyclerView.Adapter<QuotaAdapter.MessageViewH
      *
      * @param viewParent where the new view will be added
      * @param type       view type, not used
-     * @return new MessageViewHolder object with the new inflated view
+     * @return new QuotaViewHolder object with the new inflated view
      */
     @NonNull
-    public MessageViewHolder onCreateViewHolder(@NonNull ViewGroup viewParent, int type)
+    public QuotaViewHolder onCreateViewHolder(@NonNull ViewGroup viewParent, int type)
     {
         LayoutInflater inflater = LayoutInflater.from(viewParent.getContext());
         View view = inflater.inflate(R.layout.chat_message_card, viewParent, false);
-        return new MessageViewHolder(view);
+        return new QuotaViewHolder(view);
     }
 
     /**
      * called when needed to display new data of the new chat message that was added
      *
-     * @param messageHolder the MessageViewHolder that needs to be updated
+     * @param quotaHolder the QuotaViewHolder that needs to be updated
      * @param positionIndex position of new item in quotaList
      */
     @Override
-    public void onBindViewHolder(@NonNull MessageViewHolder messageHolder, int positionIndex)
+    public void onBindViewHolder(@NonNull QuotaViewHolder quotaHolder, int positionIndex)
     {
         Quota data = quotaList.get(positionIndex);
-        messageHolder.username.setText(data.getProviderUsername());
+        quotaHolder.username.setText(data.getProviderUsername());
         String price = "Price: " + data.getPrice();
-        messageHolder.message.setText(price);
-        messageHolder.openQuotaFrag(data, requestObj);
+        quotaHolder.message.setText(price);
+        quotaHolder.openQuotaFrag(data, requestObj);
     }
 
     /**

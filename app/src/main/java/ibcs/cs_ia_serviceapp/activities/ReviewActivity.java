@@ -1,6 +1,6 @@
 package ibcs.cs_ia_serviceapp.activities;
 
-import android.app.ProgressDialog;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -43,12 +43,16 @@ public class ReviewActivity extends BaseActivity implements View.OnClickListener
     private void submitReview()
     {
         Log.d("reviewActivity", "submit review");
-        ProgressDialog loading = DialogUtils.makeProgressDialog(this, getString(R.string.loading));
+        //show loading dialog
+        AlertDialog loading = DialogUtils.makeDialog(this, false, getString(R.string.loading));
         loading.show();
+        //process input information
         int rating = ratingBar.getNumStars();
         String writtenDesc = desc.getText().toString();
         final Review tempReview = new Review(username, rating, writtenDesc);
+        //add to database
         Constants.USER_REFERENCE.child(opposingUid).child(Constants.REVIEW_PATH).push().setValue(tempReview);
+        //return back to profile screen
         loading.dismiss();
         Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
         startActivity(intent);

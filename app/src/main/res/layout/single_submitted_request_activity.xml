@@ -17,7 +17,6 @@
         <TextView
             android:id="@+id/request_title_view"
             style="@style/Base.TextAppearance.AppCompat.Title"
-            android:text="@string/title_format"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -29,7 +28,6 @@
         <TextView
             android:id="@+id/language_title"
             style="@style/Base.TextAppearance.AppCompat.Title"
-            android:text="@string/lang_format"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -41,7 +39,6 @@
         <TextView
             android:id="@+id/service_title"
             style="@style/Base.TextAppearance.AppCompat.Title"
-            android:text="@string/service_format"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -53,7 +50,6 @@
         <TextView
             android:id="@+id/priority_title"
             style="@style/Base.TextAppearance.AppCompat.Title"
-            android:text="@string/priority_format"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -65,7 +61,6 @@
         <TextView
             android:id="@+id/location_title"
             style="@style/Base.TextAppearance.AppCompat.Title"
-            android:text="@string/location_format"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -75,9 +70,16 @@
             app:layout_constraintVertical_bias="1.0" />
 
         <TextView
+            android:id="@+id/single_submitted_description_title"
+            style="@style/Base.TextAppearance.AppCompat.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp" />
+
+        <TextView
             android:id="@+id/description"
             style="@style/Base.TextAppearance.AppCompat.Title"
-            android:text="@string/description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -99,10 +101,10 @@
             android:id="@+id/send_quota_button"
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="1.0"
             android:layout_marginStart="5dp"
+            android:visibility="gone"
             android:text="@string/send_quota"
             android:theme="@style/ThemeOverlay.MyDarkButton"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -112,6 +114,7 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/all_quotas_recycler"
+            android:visibility="gone"
             android:layout_width="fill_parent"
             android:layout_height="match_parent"/>
 

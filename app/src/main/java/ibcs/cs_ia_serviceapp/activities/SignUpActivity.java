@@ -3,7 +3,7 @@ package ibcs.cs_ia_serviceapp.activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.ProgressDialog;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -153,63 +153,60 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
      */
     private void createAccount(String email, String password)
     {
-        final ProgressDialog loading = DialogUtils.makeProgressDialog(this, getString(R.string.loading));
-        loading.show();
+        final AlertDialog progress = DialogUtils.makeDialog(this, false, getString(R.string.loading));
+        progress.show();
         Log.d(LOG_TAG, "createAccount:" + email);
-        if (!formFilled()) //if formfilled returns false
+        if (!formFilled()) //if form is not filled correctly
         {
-            loading.dismiss();
+            progress.dismiss();
             return;
         }
-        else
-        {
-            mAuth.createUserWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(new OnCompleteListener<AuthResult>()
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>()
+                {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task)
                     {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task)
+                        if (task.isSuccessful())
                         {
-                            if (task.isSuccessful())
-                            {
-                                // Sign in success, update UI with the signed-in user's information
-                                Log.d(LOG_TAG, "createUserWithEmail:success");
-                                mUser = mAuth.getCurrentUser();
-                                //send email verification
-                                sendEmail();
-                                //https://firebase.google.com/docs/auth/android/manage-users
-                                signUp();
-                            }
-                            else
-                            {
-                                String errorMsg = "";
-                                try
-                                {
-                                    throw task.getException();
-                                }
-                                catch (FirebaseAuthWeakPasswordException e)
-                                {
-                                    errorMsg = e.getReason();
-                                }
-                                catch (FirebaseAuthInvalidCredentialsException e)
-                                {
-                                    errorMsg = "Invalid email or password.";
-                                }
-                                catch (FirebaseAuthUserCollisionException e)
-                                {
-                                    errorMsg = "The email address is already in use.";
-                                }
-                                catch (Exception e)
-                                {
-                                    Log.w(LOG_TAG, "createUserWithEmail:failure", task.getException());
-                                }
-                                // If sign in fails, display a message to the user.
-                                Toast.makeText(SignUpActivity.this, "Authentication failed.  " + errorMsg,
-                                        Toast.LENGTH_SHORT).show();
-                                loading.dismiss();
-                            }
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(LOG_TAG, "createUserWithEmail:success");
+                            mUser = mAuth.getCurrentUser();
+                            //send email verification
+                            sendEmail();
+                            //https://firebase.google.com/docs/auth/android/manage-users
+                            signUp();
                         }
-                    });
-        }
+                        else
+                        {
+                            String errorMsg = "";
+                            try
+                            {
+                                throw task.getException();
+                            }
+                            catch (FirebaseAuthWeakPasswordException e)
+                            {
+                                errorMsg = e.getReason();
+                            }
+                            catch (FirebaseAuthInvalidCredentialsException e)
+                            {
+                                errorMsg = "Invalid email or password.";
+                            }
+                            catch (FirebaseAuthUserCollisionException e)
+                            {
+                                errorMsg = "The email address is already in use.";
+                            }
+                            catch (Exception e)
+                            {
+                                Log.w(LOG_TAG, "createUserWithEmail:failure", task.getException());
+                            }
+                            // If sign in fails, display a message to the user.
+                            Toast.makeText(SignUpActivity.this, "Sign up failed.  " + errorMsg,
+                                    Toast.LENGTH_SHORT).show();
+                            progress.dismiss();
+                        }
+                    }
+                });
     }
 
     /**

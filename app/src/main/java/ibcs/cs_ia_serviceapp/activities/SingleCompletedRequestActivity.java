@@ -30,6 +30,7 @@ public class SingleCompletedRequestActivity extends BaseActivity
     private TextView serviceView;
     private TextView priorityView;
     private TextView locationView;
+    private TextView descriptionTitleView;
     private TextView descriptionView;
     private TextView opposingUserView;
     private TextView pricePaidView;
@@ -53,6 +54,7 @@ public class SingleCompletedRequestActivity extends BaseActivity
         serviceView = findViewById(R.id.single_completed_service);
         priorityView = findViewById(R.id.single_completed_priority);
         locationView = findViewById(R.id.single_completed_location);
+        descriptionTitleView = findViewById(R.id.single_completed_description_title);
         descriptionView = findViewById(R.id.single_completed_description);
         opposingUserView = findViewById(R.id.single_completed_opposing_user);
         pricePaidView = findViewById(R.id.single_completed_price_paid);
@@ -79,6 +81,7 @@ public class SingleCompletedRequestActivity extends BaseActivity
                     serviceView.setText(getString(R.string.service_format, inRequest.getService()));
                     priorityView.setText(getString(R.string.priority_format, inRequest.getPriority()));
                     locationView.setText(getString(R.string.location_format, inRequest.getLocation()));
+                    descriptionTitleView.setText(getString(R.string.description));
                     descriptionView.setText(inRequest.getDescription());
                     String opposingUid;
                     if (accountType.equals(Constants.ACCOUNT_CUSTOMER)) //if the user is a customer, show provider's username

@@ -1,6 +1,6 @@
 package ibcs.cs_ia_serviceapp.activities;
 
-import android.app.ProgressDialog;
+import android.app.AlertDialog;
 import android.content.Intent;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -70,7 +70,7 @@ public class ChooseAuthenticationActivity extends AppCompatActivity implements V
     private void updateUI(FirebaseUser user)
     {
         //show loading popup
-        ProgressDialog loadingWindow = DialogUtils.makeProgressDialog(this, "loading");
+        AlertDialog loadingWindow = DialogUtils.makeDialog(this, false, getString(R.string.loading));
         loadingWindow.show();
         if (user != null)
         {

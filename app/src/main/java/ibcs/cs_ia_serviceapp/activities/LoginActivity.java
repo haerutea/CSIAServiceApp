@@ -3,7 +3,7 @@ package ibcs.cs_ia_serviceapp.activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.ProgressDialog;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -63,12 +63,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
      */
     private void signIn(String email, String password)
     {
-        ProgressDialog dialog = DialogUtils.makeProgressDialog(this, getString(R.string.loading));
-        dialog.show();
+        final AlertDialog progress = DialogUtils.makeDialog(this, false, getString(R.string.loading));
+        progress.show();
 
         if (!formFilled())
         {
-            dialog.dismiss();
+            progress.dismiss();
             return;
         }
 
@@ -95,19 +95,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             }
                             catch (FirebaseAuthInvalidCredentialsException e)
                             {
-                                errorMsg = "Incorrect uEmail or password.";
+                                errorMsg = "Incorrect email or password.";
                             }
                             catch (Exception e)
                             {
                                 errorMsg = e.getMessage();
                             }
+                            progress.dismiss();
                             //display error message to user
-                            Toast.makeText(LoginActivity.this, "Authentication failed. " + errorMsg,
+                            Toast.makeText(LoginActivity.this, "Login failed. " + errorMsg,
                                     Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
-        dialog.dismiss();
     }
 
     /**

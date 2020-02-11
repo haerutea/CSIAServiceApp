@@ -2,7 +2,7 @@
     <string name="app_name">CSIA Service App</string>
 
     <!-- Dialog strings-->
-    <string name="loading">Loading</string>
+    <string name="loading">Loading...</string>
 
     <!-- BaseActivity -->
     <!-- nav bar-->

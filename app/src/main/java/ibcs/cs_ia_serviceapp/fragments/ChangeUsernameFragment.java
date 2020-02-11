@@ -1,6 +1,6 @@
 package ibcs.cs_ia_serviceapp.fragments;
 
-import android.app.ProgressDialog;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -124,8 +124,8 @@ public class ChangeUsernameFragment extends DialogFragment implements View.OnCli
      */
     private void confirmChange()
     {
-        ProgressDialog loading = DialogUtils
-                .makeProgressDialog(getActivity(), "Attempting to update username...");
+        AlertDialog loading = DialogUtils
+                .makeDialog(getActivity(), false, "Attempting to update username...");
         //otherwise
         if (formFilled())
         {

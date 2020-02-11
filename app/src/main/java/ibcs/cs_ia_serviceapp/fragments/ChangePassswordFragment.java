@@ -1,6 +1,6 @@
 package ibcs.cs_ia_serviceapp.fragments;
 
-import android.app.ProgressDialog;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -44,11 +44,10 @@ public class ChangePassswordFragment extends DialogFragment implements View.OnCl
     private String currentPassword;
 
     /**
-     * required empty constructor
+     * required empty public constructor
      */
     public ChangePassswordFragment()
     {
-        // Required empty public constructor
     }
 
     /**
@@ -106,7 +105,7 @@ public class ChangePassswordFragment extends DialogFragment implements View.OnCl
         password = newPass.getText().toString();
         rePassword = reNewPass.getText().toString();
         currentPassword = currentPass.getText().toString();
-        //if password is less than 6 characters long
+        //check if new password is valid
         if (TextUtils.isEmpty(password))
         {
             newPass.setError("Required.");
@@ -123,7 +122,7 @@ public class ChangePassswordFragment extends DialogFragment implements View.OnCl
         {
             newPass.setError("Password needs to be longer than 6.");
         }
-        //if password contains anything other than that
+        //if password contains anything other than digits or alphabets
         else if (!password.matches("([A-Za-z0-9])+"))
         {
             newPass.setError("Only alphabet and digits please.");
@@ -149,8 +148,8 @@ public class ChangePassswordFragment extends DialogFragment implements View.OnCl
      */
     private void confirmChange()
     {
-        ProgressDialog loading = DialogUtils
-                .makeProgressDialog(getActivity(), "Attempting to update password...");
+        AlertDialog loading = DialogUtils
+                .makeDialog(getActivity(), false,"Attempting to update password...");
         loading.show();
         //do the passwords in 2 fields match
         //otherwise

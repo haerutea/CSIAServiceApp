@@ -2,7 +2,7 @@ package ibcs.cs_ia_serviceapp.activities;
 
 import androidx.annotation.NonNull;
 
-import android.app.ProgressDialog;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -239,7 +239,7 @@ public class SendRequestActivity extends BaseActivity implements View.OnClickLis
 
     private void submitRequest()
     {
-        ProgressDialog dialog = DialogUtils.makeProgressDialog(this, getString(R.string.loading));
+        AlertDialog dialog = DialogUtils.makeDialog(this, false, getString(R.string.loading));
         dialog.show();
         if (formFilled())
         {

@@ -1,5 +1,6 @@
 package ibcs.cs_ia_serviceapp.activities;
 
+import android.app.AlertDialog;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.Target;
 import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.util.HashMap;
@@ -23,6 +25,7 @@ import ibcs.cs_ia_serviceapp.fragments.SendQuotaFragment;
 import ibcs.cs_ia_serviceapp.object_classes.Quota;
 import ibcs.cs_ia_serviceapp.object_classes.Request;
 import ibcs.cs_ia_serviceapp.utils.Constants;
+import ibcs.cs_ia_serviceapp.utils.DialogUtils;
 import ibcs.cs_ia_serviceapp.utils.QuotaAdapter;
 import ibcs.cs_ia_serviceapp.utils.UserSharedPreferences;
 
@@ -34,6 +37,7 @@ public class SingleSubmittedRequestActivity extends BaseActivity
     private TextView serviceView;
     private TextView priorityView;
     private TextView locationView;
+    private TextView descriptionTitleView;
     private TextView descriptionView;
     private ImageView imageView;
     private Button bSendQuota;
@@ -42,6 +46,7 @@ public class SingleSubmittedRequestActivity extends BaseActivity
     //Fields
     private String uid;
     private Request inRequest;
+    private AlertDialog loading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -49,11 +54,14 @@ public class SingleSubmittedRequestActivity extends BaseActivity
         super.onCreate(savedInstanceState);
         LayoutInflater inflater = getLayoutInflater();
         inflater.inflate(R.layout.single_submitted_request_activity, (ViewGroup) findViewById(R.id.contents));
+        loading = DialogUtils.makeDialog(this, false, getString(R.string.loading));
+        loading.show();
         requestView = findViewById(R.id.request_title_view);
         languageView = findViewById(R.id.language_title);
         serviceView = findViewById(R.id.service_title);
         priorityView = findViewById(R.id.priority_title);
         locationView = findViewById(R.id.location_title);
+        descriptionTitleView = findViewById(R.id.single_submitted_description_title);
         descriptionView = findViewById(R.id.description);
         imageView = findViewById(R.id.viewall_img_view);
         bSendQuota = findViewById(R.id.send_quota_button);
@@ -61,14 +69,11 @@ public class SingleSubmittedRequestActivity extends BaseActivity
 
         inRequest = (Request) getIntent().getSerializableExtra(Constants.REQUEST_KEY);
         uid = UserSharedPreferences.getInstance(SingleSubmittedRequestActivity.this).getStringInfo(Constants.UID_KEY);
+        final String accountType = UserSharedPreferences.getInstance(getApplicationContext())
+                .getStringInfo(Constants.ACCOUNT_TYPE_KEY);
+        final LinearLayout linearLayout = findViewById(R.id.single_request_linear_layout);
         if (inRequest != null)
         {
-            requestView.setText(getString(R.string.title_format, inRequest.getTitle()));
-            languageView.setText(getString(R.string.lang_format, inRequest.getLanguage()));
-            serviceView.setText(getString(R.string.service_format, inRequest.getService()));
-            priorityView.setText(getString(R.string.priority_format, inRequest.getPriority()));
-            locationView.setText(getString(R.string.location_format, inRequest.getLocation()));
-            descriptionView.setText(inRequest.getDescription());
             //https://stackoverflow.com/questions/50816557/storing-and-displaying-image-using-glide-firebase-android
             Constants.STORAGE_REFERENCE.child(inRequest.getSubmitterUid()).child(inRequest.getFilename())
                     .getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>()
@@ -77,38 +82,47 @@ public class SingleSubmittedRequestActivity extends BaseActivity
                 @Override
                 public void onSuccess(Uri uri)
                 {
-                    Glide.with(SingleSubmittedRequestActivity.this).load(uri).into(imageView);
-                }
-            });
-        }
-        String accountType = UserSharedPreferences.getInstance(getApplicationContext())
-                .getStringInfo(Constants.ACCOUNT_TYPE_KEY);
-        LinearLayout linearLayout = findViewById(R.id.single_request_linear_layout);
-        if (accountType.equals(Constants.ACCOUNT_CUSTOMER))
-        {
-            linearLayout.removeView(bSendQuota); //remove send quota button
-            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(SingleSubmittedRequestActivity.this);
-            HashMap<String, Quota> quotas = inRequest.getQuotas();
-            quotas.remove(Constants.DUMMY_STRING);
-            QuotaAdapter adapter = new QuotaAdapter(quotas, inRequest);
-            quotasView.setLayoutManager(linearLayoutManager);
-            quotasView.setAdapter(adapter);
-        }
-        else if (accountType.equals(Constants.ACCOUNT_PROVIDER))
-        {
-            linearLayout.removeView(quotasView);
-            bSendQuota.setOnClickListener(new View.OnClickListener()
-            {
-                @Override
-                public void onClick(View v)
-                {
-                    int i = v.getId();
-                    if (i == bSendQuota.getId())
+                    Glide.with(SingleSubmittedRequestActivity.this).load(uri).override(Target.SIZE_ORIGINAL).into(imageView);
+                    requestView.setText(getString(R.string.title_format, inRequest.getTitle()));
+                    languageView.setText(getString(R.string.lang_format, inRequest.getLanguage()));
+                    serviceView.setText(getString(R.string.service_format, inRequest.getService()));
+                    priorityView.setText(getString(R.string.priority_format, inRequest.getPriority()));
+                    locationView.setText(getString(R.string.location_format, inRequest.getLocation()));
+                    descriptionTitleView.setText(getString(R.string.description));
+                    descriptionView.setText(inRequest.getDescription());
+                    loading.dismiss();
+
+                    if (accountType.equals(Constants.ACCOUNT_CUSTOMER))
                     {
-                        pullUpQuotaScreen();
+                        linearLayout.removeView(bSendQuota); //remove send quota button
+                        quotasView.setVisibility(View.VISIBLE);
+                        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(SingleSubmittedRequestActivity.this);
+                        HashMap<String, Quota> quotas = inRequest.getQuotas();
+                        quotas.remove(Constants.DUMMY_STRING);
+                        QuotaAdapter adapter = new QuotaAdapter(quotas, inRequest);
+                        quotasView.setLayoutManager(linearLayoutManager);
+                        quotasView.setAdapter(adapter);
+                    }
+                    else if (accountType.equals(Constants.ACCOUNT_PROVIDER))
+                    {
+                        linearLayout.removeView(quotasView);
+                        bSendQuota.setVisibility(View.VISIBLE);
+                        bSendQuota.setOnClickListener(new View.OnClickListener()
+                        {
+                            @Override
+                            public void onClick(View v)
+                            {
+                                int i = v.getId();
+                                if (i == bSendQuota.getId())
+                                {
+                                    pullUpQuotaScreen();
+                                }
+                            }
+                        });
                     }
                 }
             });
+
         }
     }
 

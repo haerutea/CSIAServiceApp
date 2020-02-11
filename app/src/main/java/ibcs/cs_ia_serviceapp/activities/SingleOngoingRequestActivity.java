@@ -1,5 +1,6 @@
 package ibcs.cs_ia_serviceapp.activities;
 
+import android.app.AlertDialog;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -24,6 +25,7 @@ import ibcs.cs_ia_serviceapp.fragments.CompleteRequestFragment;
 import ibcs.cs_ia_serviceapp.R;
 import ibcs.cs_ia_serviceapp.object_classes.Request;
 import ibcs.cs_ia_serviceapp.utils.Constants;
+import ibcs.cs_ia_serviceapp.utils.DialogUtils;
 import ibcs.cs_ia_serviceapp.utils.UserSharedPreferences;
 
 public class SingleOngoingRequestActivity extends BaseActivity implements View.OnClickListener
@@ -34,6 +36,7 @@ public class SingleOngoingRequestActivity extends BaseActivity implements View.O
     private TextView serviceView;
     private TextView priorityView;
     private TextView locationView;
+    private TextView descriptionTitleView;
     private TextView descriptionView;
     private ImageView imageView;
     private Button bComplete;
@@ -42,6 +45,7 @@ public class SingleOngoingRequestActivity extends BaseActivity implements View.O
     private String uid;
     private String rid;
     private Request inRequest;
+    private AlertDialog loading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -49,12 +53,14 @@ public class SingleOngoingRequestActivity extends BaseActivity implements View.O
         super.onCreate(savedInstanceState);
         LayoutInflater inflater = getLayoutInflater();
         inflater.inflate(R.layout.single_ongoing_request_activity, (ViewGroup) findViewById(R.id.contents));
-
+        loading = DialogUtils.makeDialog(this, false, getString(R.string.loading));
+        loading.show();
         requestView = findViewById(R.id.request_title_view);
         languageView = findViewById(R.id.language_title);
         serviceView = findViewById(R.id.service_title);
         priorityView = findViewById(R.id.priority_title);
         locationView = findViewById(R.id.location_title);
+        descriptionTitleView = findViewById(R.id.description_title);
         descriptionView = findViewById(R.id.description);
         imageView = findViewById(R.id.viewall_img_view);
         bComplete = findViewById(R.id.complete_request_button);
@@ -89,12 +95,6 @@ public class SingleOngoingRequestActivity extends BaseActivity implements View.O
             {
                 if (inRequest != null)
                 {
-                    requestView.setText(getString(R.string.title_format, inRequest.getTitle()));
-                    languageView.setText(getString(R.string.lang_format, inRequest.getLanguage()));
-                    serviceView.setText(getString(R.string.service_format, inRequest.getService()));
-                    priorityView.setText(getString(R.string.priority_format, inRequest.getPriority()));
-                    locationView.setText(getString(R.string.location_format, inRequest.getLocation()));
-                    descriptionView.setText(inRequest.getDescription());
                     //https://stackoverflow.com/questions/50816557/storing-and-displaying-image-using-glide-firebase-android
                     Constants.STORAGE_REFERENCE.child(inRequest.getSubmitterUid()).child(inRequest.getFilename())
                             .getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>()
@@ -104,6 +104,15 @@ public class SingleOngoingRequestActivity extends BaseActivity implements View.O
                         public void onSuccess(Uri uri)
                         {
                             Glide.with(SingleOngoingRequestActivity.this).load(uri).into(imageView);
+                            requestView.setText(getString(R.string.title_format, inRequest.getTitle()));
+                            languageView.setText(getString(R.string.lang_format, inRequest.getLanguage()));
+                            serviceView.setText(getString(R.string.service_format, inRequest.getService()));
+                            priorityView.setText(getString(R.string.priority_format, inRequest.getPriority()));
+                            locationView.setText(getString(R.string.location_format, inRequest.getLocation()));
+                            descriptionTitleView.setText(getString(R.string.description));
+                            descriptionView.setText(inRequest.getDescription());
+                            bComplete.setVisibility(View.VISIBLE);
+                            loading.dismiss();
                         }
                     });
                 }

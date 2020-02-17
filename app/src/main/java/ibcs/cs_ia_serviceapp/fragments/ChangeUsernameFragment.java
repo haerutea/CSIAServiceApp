@@ -32,7 +32,6 @@ import ibcs.cs_ia_serviceapp.utils.UserSharedPreferences;
  */
 public class ChangeUsernameFragment extends DialogFragment implements View.OnClickListener
 {
-    private final String LOG_TAG = "changeUsernameFragment";
     private EditText newUsername;
     private Button confirm;
     private Button cancel;
@@ -155,7 +154,6 @@ public class ChangeUsernameFragment extends DialogFragment implements View.OnCli
                         catch (Exception e)
                         {
                             Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
-                            Log.d(LOG_TAG, e.getMessage());
                         }
                     }
                 }

@@ -34,7 +34,6 @@ public class CompleteRequestFragment extends DialogFragment implements View.OnCl
     private String rid;
     private Request requestObj;
     private String accountType;
-    private int price;
     private String opposingUid;
 
     public CompleteRequestFragment()

@@ -32,9 +32,6 @@
         <activity
             android:name=".activities.OngoingRequestsListActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".activities.CustomerSingleRequestActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activities.BaseActivity" />
         <activity
             android:name=".activities.ChatActivity"

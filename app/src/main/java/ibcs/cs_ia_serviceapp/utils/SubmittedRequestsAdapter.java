@@ -58,18 +58,7 @@ public class SubmittedRequestsAdapter extends RecyclerView.Adapter<SubmittedRequ
                     public void onClick(View v)
                     {
                         Log.d("requestObj", "clicked!");
-
-                        String accountType = UserSharedPreferences.getInstance(v.getContext()).getStringInfo(Constants.ACCOUNT_TYPE_KEY);
                         Intent intent = new Intent(v.getContext(), SingleSubmittedRequestActivity.class);
-                        /*
-                        if(accountType.equals(Constants.ACCOUNT_CUSTOMER))
-                        {
-                            intent = new Intent(v.getContext(), CustomerSingleRequestActivity.class);
-                        }
-                        else if(accountType.equals(Constants.ACCOUNT_PROVIDER))
-                        {
-                            intent = new Intent(v.getContext(), SingleSubmittedRequestActivity.class);
-                        }*/
                         intent.putExtra(Constants.REQUEST_KEY, dataObj);
                         v.getContext().startActivity(intent);
                     }

@@ -5,7 +5,7 @@ import ibcs.cs_ia_serviceapp.utils.Constants;
 public class Review
 {
     private String submitter;
-    private int rating;
+    private double rating;
     private String comments;
 
     public Review()
@@ -13,7 +13,7 @@ public class Review
         comments = Constants.DUMMY_STRING;
     }
 
-    public Review(String inSubmitter, int inRating, String inComments)
+    public Review(String inSubmitter, double inRating, String inComments)
     {
         submitter = inSubmitter;
         rating = inRating;
@@ -25,7 +25,7 @@ public class Review
         return submitter;
     }
 
-    public int getRating()
+    public double getRating()
     {
         return rating;
     }
@@ -40,7 +40,7 @@ public class Review
         this.submitter = submitter;
     }
 
-    public void setRating(int rating)
+    public void setRating(double rating)
     {
         this.rating = rating;
     }

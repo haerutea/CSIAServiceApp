@@ -12,6 +12,20 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/accept_show_rating"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.182" />
+
+
+        <TextView
             android:id="@+id/textView_show_pricing"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

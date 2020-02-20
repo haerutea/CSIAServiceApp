@@ -7,8 +7,22 @@
     tools:context=".activities.ProfileActivity">
 
     <TextView
+        android:id="@+id/profile_account_type"
+        style="@style/Base.TextAppearance.AppCompat.Body2"
+        android:textStyle="bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:padding="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.113" />
+
+    <TextView
         android:id="@+id/profile_username"
-        style="@style/Base.TextAppearance.AppCompat.Body1"
+        style="@style/Base.TextAppearance.AppCompat.Body2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
@@ -21,7 +35,7 @@
 
     <TextView
         android:id="@+id/profile_email"
-        style="@style/Base.TextAppearance.AppCompat.Body1"
+        style="@style/Base.TextAppearance.AppCompat.Body2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"

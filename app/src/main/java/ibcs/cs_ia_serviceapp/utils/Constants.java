@@ -56,6 +56,8 @@ public class Constants
     public static final String OPPOSING_USER_UID_KEY = "opposingUid";
     public static final String USERNAME_KEY = "username";
     public static final String ACCOUNT_TYPE_KEY = "accountType";
+    public static final String AVG_RATING_KEY = "avgRating";
+    public static final String REVIEW_COUNT_KEY = "reviewCount";
     public static final String ONLINE_KEY = "online";
     public static final String REQUEST_KEY = "request";
     public static final String QUOTA_KEY = "quota";

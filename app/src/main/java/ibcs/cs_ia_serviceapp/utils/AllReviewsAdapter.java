@@ -106,7 +106,7 @@ public class AllReviewsAdapter extends RecyclerView.Adapter<AllReviewsAdapter.Re
      *
      * @param inReview new review object to be added
      */
-    public void addRequest(Review inReview)
+    public void addReview(Review inReview)
     {
         reviewsList.add(inReview);
     }

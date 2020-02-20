@@ -31,6 +31,7 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
 {
 
     //UI
+    private TextView accountType;
     private TextView tUsername;
     private TextView tEmail;
     private Button bSend;
@@ -53,6 +54,7 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
         LayoutInflater inflater = getLayoutInflater();
         inflater.inflate(R.layout.profile_activity, (ViewGroup) findViewById(R.id.contents));
 
+        accountType = findViewById(R.id.profile_account_type);
         tUsername = findViewById(R.id.profile_username);
         tEmail = findViewById(R.id.profile_email);
         bSend = findViewById(R.id.submit_request);
@@ -88,10 +90,15 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
             public void onDataChange(@NonNull DataSnapshot dataSnapshot)
             {
                 userAccount = dataSnapshot.getValue(User.class);
+                accountType.setText(getString(R.string.account_type_format, userAccount.getAccountType()));
                 tUsername.setText(userAccount.getUsername());
                 tEmail.setText(userAccount.getEmail());
                 UserSharedPreferences.getInstance(getApplicationContext()).setInfo(Constants.USERNAME_KEY, userAccount.getUsername());
                 UserSharedPreferences.getInstance(getApplicationContext()).setInfo(Constants.ACCOUNT_TYPE_KEY, userAccount.getAccountType());
+                if(userAccount.getAccountType().equals(Constants.ACCOUNT_PROVIDER))
+                {
+                    bSend.setText(R.string.my_reviews);
+                }
             }
 
             @Override
@@ -109,7 +116,16 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
         int id = v.getId();
         if (bSend.getId() == id)
         {
-            Intent intent = new Intent(getApplicationContext(), SendRequestActivity.class);
+            Intent intent = null;
+            if(userAccount.getAccountType().equals(Constants.ACCOUNT_PROVIDER))
+            {
+                intent = new Intent(getApplicationContext(), MyReviewsActivity.class);
+            }
+            else
+            {
+                intent = new Intent(getApplicationContext(), SendRequestActivity.class);
+            }
+
             startActivity(intent);
         }
         else if (bLogout.getId() == id)

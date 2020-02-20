@@ -10,9 +10,16 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.TaskCompletionSource;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 
@@ -31,6 +38,7 @@ import ibcs.cs_ia_serviceapp.utils.UserSharedPreferences;
 public class AcceptQuotaFragment extends DialogFragment implements View.OnClickListener
 {
     //UI
+    private TextView avgRatingField;
     private TextView pricingField;
     private Button bReject;
     private Button bAccept;
@@ -40,6 +48,7 @@ public class AcceptQuotaFragment extends DialogFragment implements View.OnClickL
     private String requestId;
     private Quota quotaObj;
     private String userUid;
+    private double avgRating;
 
     public AcceptQuotaFragment()
     {
@@ -66,7 +75,6 @@ public class AcceptQuotaFragment extends DialogFragment implements View.OnClickL
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        userUid = UserSharedPreferences.getInstance(getContext()).getStringInfo(Constants.UID_KEY);
         if (getArguments() != null)
         {
             quotaObj = (Quota) getArguments().getSerializable(Constants.QUOTA_KEY);
@@ -74,6 +82,32 @@ public class AcceptQuotaFragment extends DialogFragment implements View.OnClickL
             requestId = requestObj.getRid();
         }
         userUid = UserSharedPreferences.getInstance(getContext()).getStringInfo(Constants.UID_KEY);
+        final double[] rating = new double[1];
+        final TaskCompletionSource<String> getRatingTask = new TaskCompletionSource<>();
+        Constants.USER_REFERENCE.child(quotaObj.getProviderUid()).child(Constants.AVG_RATING_KEY).addListenerForSingleValueEvent(new ValueEventListener()
+        {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot)
+            {
+                rating[0] = (double) dataSnapshot.getValue();
+                getRatingTask.setResult(null);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError)
+            {
+
+            }
+        });
+        getRatingTask.getTask().addOnCompleteListener(new OnCompleteListener<String>()
+        {
+            @Override
+            public void onComplete(@NonNull Task<String> task)
+            {
+                avgRating = rating[0];
+                avgRatingField.setText(getString(R.string.avg_score_format, avgRating + ""));
+            }
+        });
     }
 
     @Override
@@ -82,6 +116,8 @@ public class AcceptQuotaFragment extends DialogFragment implements View.OnClickL
     {
         // Inflate the layout for this fragment
         View baseView = inflater.inflate(R.layout.accept_quota_fragment, container, false);
+        avgRatingField = baseView.findViewById(R.id.accept_show_rating);
+        avgRatingField.setText(getString(R.string.avg_score_format, avgRating + ""));
         pricingField = baseView.findViewById(R.id.textView_show_pricing);
         pricingField.setText(getString(R.string.show_price_format, quotaObj.getPrice()));
         bReject = baseView.findViewById(R.id.button_accept_quota_reject);

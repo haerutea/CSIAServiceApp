@@ -34,8 +34,7 @@
 
     <!-- ProfileActivity -->
     <!-- xml layout -->
-    <string name="view_all_requests">All Requests</string>
-    <string name="my_requests">My Requests</string>
+    <string name="account_type_format">Account Type: %s</string>
     <string name="submit_request">Submit Request</string>
     <string name="logout">Logout</string>
 
@@ -85,6 +84,7 @@
     <!-- SingleCompletedRequestActivity -->
     <string name="opposing_user_format">Opposing User: %s</string>
     <string name="price_paid_format">Price Paid: $%d</string>
+
     <!-- ReviewActivity -->
     <string name="overall_rating">Overall Rating</string>
     <string name="submit_review">Submit Review</string>

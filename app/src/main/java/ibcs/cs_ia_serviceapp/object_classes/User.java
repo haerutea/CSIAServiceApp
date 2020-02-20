@@ -10,6 +10,8 @@ public class User implements Serializable
     private String username;
     private String email;
     private String accountType;
+    private int avgRating;
+    private int reviewCount;
     private ArrayList<Review> reviews;
 
     public User()
@@ -23,6 +25,8 @@ public class User implements Serializable
         username = inName;
         email = inEmail;
         accountType = inType;
+        avgRating = 0;
+        reviewCount = 0;
         reviews = new ArrayList<>();
         reviews.add(new Review());
     }
@@ -47,6 +51,16 @@ public class User implements Serializable
         this.accountType = inType;
     }
 
+    public void setAvgRating(int avgRating)
+    {
+        this.avgRating = avgRating;
+    }
+
+    public void setReviewCount(int reviewCount)
+    {
+        this.reviewCount = reviewCount;
+    }
+
     public String getUid()
     {
         return uid;
@@ -65,5 +79,15 @@ public class User implements Serializable
     public String getAccountType()
     {
         return accountType;
+    }
+
+    public int getAvgRating()
+    {
+        return avgRating;
+    }
+
+    public int getReviewCount()
+    {
+        return reviewCount;
     }
 }

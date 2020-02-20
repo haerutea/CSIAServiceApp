@@ -73,13 +73,11 @@ public class ReviewActivity extends BaseActivity implements View.OnClickListener
 
                     if(data.getKey().equals(Constants.AVG_RATING_KEY))
                     {
-                        long tempNum = (long) data.getValue();
-                        nums[0] = Long.valueOf(tempNum).doubleValue();
+                        nums[0] = (double) data.getValue();
                     }
                     else if(data.getKey().equals(Constants.REVIEW_COUNT_KEY))
                     {
-                        long tempNum = (long) data.getValue();
-                        nums[1] = Long.valueOf(tempNum).doubleValue();
+                        nums[1] = (double) data.getValue();
                     }
                 }
                 getNumbersTask.setResult(null);
@@ -107,6 +105,7 @@ public class ReviewActivity extends BaseActivity implements View.OnClickListener
         loading.dismiss();
         Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
         startActivity(intent);
+        finish();
     }
 
     private double calculateNewAvg(double newRating, double oldRating, double totalCount)

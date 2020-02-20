@@ -110,14 +110,15 @@ public class SendQuotaFragment extends DialogFragment implements View.OnClickLis
     private boolean formFilled()
     {
         String input = pricingField.getText().toString();
-        if (input.matches("^[0-9]*$"))
+
+        if (TextUtils.isEmpty(input))
+        {
+            pricingField.setError("Required.");
+        }
+        else if (input.matches("^[0-9]*$"))
         {
             price = Integer.parseInt(input);
             return true;
-        }
-        else if (TextUtils.isEmpty(input))
-        {
-            pricingField.setError("Required.");
         }
         else
         {

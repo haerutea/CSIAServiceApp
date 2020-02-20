@@ -133,6 +133,7 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
             mAuth.signOut();
             Intent intent = new Intent(getApplicationContext(), ChooseAuthenticationActivity.class);
             startActivity(intent);
+            finish();
         }
     }
 }

@@ -70,14 +70,15 @@ public class ReviewActivity extends BaseActivity implements View.OnClickListener
             {
                 for(DataSnapshot data : dataSnapshot.getChildren())
                 {
-
                     if(data.getKey().equals(Constants.AVG_RATING_KEY))
                     {
-                        nums[0] = (double) data.getValue();
+                        String temp = (String) data.getValue();
+                        nums[0] = Double.valueOf(temp);
                     }
                     else if(data.getKey().equals(Constants.REVIEW_COUNT_KEY))
                     {
-                        nums[1] = (double) data.getValue();
+                        String temp = (String) data.getValue();
+                        nums[1] = Double.valueOf(temp);
                     }
                 }
                 getNumbersTask.setResult(null);
@@ -95,9 +96,11 @@ public class ReviewActivity extends BaseActivity implements View.OnClickListener
             public void onComplete(@NonNull Task<String> task)
             {
                 double newAvg = calculateNewAvg(rating, nums[0], nums[1]);
-                Constants.USER_REFERENCE.child(opposingUid).child(Constants.AVG_RATING_KEY).setValue(newAvg);
+                String tempAvg = newAvg + "";
+                Constants.USER_REFERENCE.child(opposingUid).child(Constants.AVG_RATING_KEY).setValue(tempAvg);
                 double totalCount = nums[1] + 1;
-                Constants.USER_REFERENCE.child(opposingUid).child(Constants.REVIEW_COUNT_KEY).setValue(totalCount);
+                String tempTotal = totalCount + "";
+                Constants.USER_REFERENCE.child(opposingUid).child(Constants.REVIEW_COUNT_KEY).setValue(tempTotal);
             }
         });
 
@@ -112,7 +115,9 @@ public class ReviewActivity extends BaseActivity implements View.OnClickListener
     {
         double newAvg = 0;
         double total = oldRating * totalCount;
-        newAvg = (total + newRating) / (totalCount + 1);
+        total = total + newRating;
+        totalCount++;
+        newAvg = total / totalCount;
         return newAvg;
     }
 

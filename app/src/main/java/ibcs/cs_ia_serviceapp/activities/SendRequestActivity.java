@@ -297,6 +297,7 @@ public class SendRequestActivity extends BaseActivity implements View.OnClickLis
                 Toast.makeText(SendRequestActivity.this, "Request uploaded successfully", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
                 startActivity(intent);
+                finish();
             }
 
             @Override

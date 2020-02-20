@@ -78,6 +78,7 @@ public class ChooseAuthenticationActivity extends AppCompatActivity implements V
             Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
             intent.putExtra(Constants.UID_KEY, user.getUid());
             startActivity(intent);
+            finish();
         }
         //get rid of popup
         loadingWindow.dismiss();

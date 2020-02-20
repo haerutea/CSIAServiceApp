@@ -10,8 +10,8 @@ public class User implements Serializable
     private String username;
     private String email;
     private String accountType;
-    private int avgRating;
-    private int reviewCount;
+    private double avgRating;
+    private double reviewCount;
     private ArrayList<Review> reviews;
 
     public User()
@@ -81,12 +81,12 @@ public class User implements Serializable
         return accountType;
     }
 
-    public int getAvgRating()
+    public double getAvgRating()
     {
         return avgRating;
     }
 
-    public int getReviewCount()
+    public double getReviewCount()
     {
         return reviewCount;
     }

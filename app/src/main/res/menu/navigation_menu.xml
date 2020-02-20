@@ -17,6 +17,10 @@
         android:icon="@drawable/completed_icon"
         android:title="@string/completed_requests" />
 
+    <item android:id="@+id/menu_my_reviews_list"
+        android:icon="@drawable/reviews_icon"
+        android:title="@string/my_reviews" />
+
     <group android:id="@+id/settings_group">
         <item android:id="@+id/menu_settings"
             android:title="@string/settings"

@@ -120,6 +120,10 @@ public class BaseActivity extends AppCompatActivity
         {
             intent = new Intent(getApplicationContext(), CompletedRequestsListActivity.class);
         }
+        else if(id == R.id.menu_my_reviews_list)
+        {
+            intent = new Intent(getApplicationContext(), MyReviewsActivity.class);
+        }
         else if (id == R.id.menu_settings)
         {
             intent = new Intent(getApplicationContext(), SettingsActivity.class);

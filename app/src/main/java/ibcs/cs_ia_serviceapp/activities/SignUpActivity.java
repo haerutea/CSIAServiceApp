@@ -176,6 +176,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                             sendEmail();
                             //call self-written method to add user to database and start profileActivity
                             signUp();
+                            progress.dismiss();
                         }
                         else //account creation unsuccessful
                         {
@@ -341,6 +342,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
         Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
         startActivity(intent);
+        mAuth.removeAuthStateListener(authListener);
         finish();
     }
 }

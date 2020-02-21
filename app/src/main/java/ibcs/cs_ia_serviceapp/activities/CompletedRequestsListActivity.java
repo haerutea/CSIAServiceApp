@@ -42,7 +42,9 @@ public class CompletedRequestsListActivity extends BaseActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        //create instance of layout inflater
         LayoutInflater inflater = getLayoutInflater();
+        //inflate the contents frameLayout in BaseActivity with this activity's contents
         inflater.inflate(R.layout.completed_requests_list_activity, (ViewGroup) findViewById(R.id.contents));
 
         requestsList = new ArrayList<>();

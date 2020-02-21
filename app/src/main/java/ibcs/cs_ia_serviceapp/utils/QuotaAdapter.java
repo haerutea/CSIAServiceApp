@@ -92,7 +92,6 @@ public class QuotaAdapter extends RecyclerView.Adapter<QuotaAdapter.QuotaViewHol
      */
     public QuotaAdapter(HashMap<String, Quota> inQuotaMap, Request inRequestObj)
     {
-        //https://stackoverflow.com/questions/5483330/how-does-one-convert-a-hashmap-to-a-list-in-java
         quotaList = new ArrayList<Quota>(inQuotaMap.values());
         this.requestObj = inRequestObj;
     }

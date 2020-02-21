@@ -114,7 +114,6 @@ public class CompletedRequestsAdapter extends RecyclerView.Adapter<CompletedRequ
         Request data = requestList.get(positionIndex);
         requestHolder.title.setText(data.getTitle());
         requestHolder.service.setText(data.getService());
-        //https://stackoverflow.com/questions/5683728/convert-java-util-date-to-string
         String date = new SimpleDateFormat("dd/MM/yyyy").format(data.getCurrentDate()).toString();
         requestHolder.date.setText(date);
         requestHolder.goToRequest(data);

@@ -83,12 +83,15 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
                 });
 
         UserSharedPreferences.getInstance(this).setInfo(Constants.UID_KEY, uid);
+        //database reference pointing to the user's information
         getUserRef = Constants.USER_REFERENCE.child(uid);
+        //retrieves data using ValueEventListener
         getUserRef.addListenerForSingleValueEvent(new ValueEventListener()
         {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot)
             {
+                //cast relevant data in database into User class
                 userAccount = dataSnapshot.getValue(User.class);
                 accountType.setText(getString(R.string.account_type_format, userAccount.getAccountType()));
                 tUsername.setText(userAccount.getUsername());

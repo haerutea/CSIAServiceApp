@@ -6,18 +6,21 @@ import java.util.ArrayList;
 //https://stackoverflow.com/a/2736612
 public class Chat implements Serializable
 {
-    private String userOne;
-    private String userTwo;
+    //uid of customer
+    private String customerUid;
+    //uid of provider
+    private String providerUid;
+    //list of all messages
     private ArrayList<Message> messages;
 
     public Chat()
     {
     }
 
-    public Chat(String inUserOne, String inUserTwo)
+    public Chat(String customer, String provider)
     {
-        userOne = inUserOne;
-        userTwo = inUserTwo;
+        customerUid = customer;
+        providerUid = provider;
         messages = new ArrayList<>();
         //dummy element
         messages.add(new Message());
@@ -30,12 +33,12 @@ public class Chat implements Serializable
 
     public void setUserOne(String inputUserOne)
     {
-        this.userOne = inputUserOne;
+        this.customerUid = inputUserOne;
     }
 
     public void setUserTwo(String inputUserTwo)
     {
-        this.userTwo = inputUserTwo;
+        this.providerUid = inputUserTwo;
     }
 
     public ArrayList<Message> getMessages()
@@ -45,11 +48,11 @@ public class Chat implements Serializable
 
     public String getUserOne()
     {
-        return userOne;
+        return customerUid;
     }
 
     public String getUserTwo()
     {
-        return userTwo;
+        return providerUid;
     }
 }

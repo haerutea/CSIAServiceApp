@@ -101,34 +101,36 @@ public class BaseActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item)
     {
-        // Handle navigation view item clicks here.
+        //get the item id that was clicked on
         int id = item.getItemId();
         Intent intent = null;
-        if (id == R.id.menu_home)
+        if (id == R.id.menu_home) //if the user clicked on home
         {
             intent = new Intent(getApplicationContext(), ProfileActivity.class);
         }
-        else if (id == R.id.menu_requests_list)
+        else if (id == R.id.menu_requests_list) //if the user clicked my/all submitted requests
         {
             intent = new Intent(getApplicationContext(), SubmittedRequestsListActivity.class);
         }
-        else if (id == R.id.menu_ongoing_requests_list)
+        else if (id == R.id.menu_ongoing_requests_list) //if the user clicked on ongoing requests
         {
             intent = new Intent(getApplicationContext(), OngoingRequestsListActivity.class);
         }
-        else if (id == R.id.menu_completed_requests_list)
+        else if (id == R.id.menu_completed_requests_list) //if the user clicked on completed requests
         {
             intent = new Intent(getApplicationContext(), CompletedRequestsListActivity.class);
         }
-        else if(id == R.id.menu_my_reviews_list)
+        else if(id == R.id.menu_my_reviews_list) //if the user clicked on all my reviews
         {
             intent = new Intent(getApplicationContext(), MyReviewsActivity.class);
         }
-        else if (id == R.id.menu_settings)
+        else if (id == R.id.menu_settings) //if the user clicked on settings
         {
             intent = new Intent(getApplicationContext(), SettingsActivity.class);
         }
+        //start activity with the intent modified with the if statements
         startActivity(intent);
+        //close the navigation drawer
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }

@@ -11,7 +11,6 @@
         android:id="@+id/my_reviews_avg_score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="hi"
         style="@style/Base.TextAppearance.AppCompat.Body1"
         android:textSize="40sp"/>
 

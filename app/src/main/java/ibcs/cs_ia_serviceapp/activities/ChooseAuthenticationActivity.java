@@ -16,8 +16,6 @@ import ibcs.cs_ia_serviceapp.R;
 import ibcs.cs_ia_serviceapp.utils.Constants;
 import ibcs.cs_ia_serviceapp.utils.DialogUtils;
 
-//https://developers.google.com/identity/sign-in/android/sign-in
-
 /**
  * the activity where user begins when they first open up the app on fresh download.
  * Also where the user will end up when logging out.

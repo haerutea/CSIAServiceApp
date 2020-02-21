@@ -52,12 +52,18 @@ public class NotificationSender
             intent.putExtra(Constants.RID_KEY, rid);
         }
 
+        //make notification
         NotificationCompat.Builder builder = new NotificationCompat.Builder(inContext, Constants.CHANNEL_ID)
+                //set icon to small chatbox icon
                 .setSmallIcon(R.drawable.chat_notif_icon)
+                //set notification title to parameter's notifTitle
                 .setContentTitle(Constants.NOTIF_TITLE)
+                //set notification to parameter's body
                 .setContentText(notifContent)
+                //set priority of notification as default
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 //https://stackoverflow.com/questions/2632272/android-notification-doesnt-disappear-after-clicking-the-notifcation
+                //allow the notification to disappear after it has been clicked
                 .setAutoCancel(true)
                 // Set the intent that will fire when the user taps the notification
                 .setContentIntent(notifyPendingIntent);

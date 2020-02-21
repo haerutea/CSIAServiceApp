@@ -35,8 +35,6 @@ import ibcs.cs_ia_serviceapp.utils.DialogUtils;
 
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener
 {
-
-    //https://stackoverflow.com/questions/37886301/tag-has-private-access-in-android-support-v4-app-fragmentactivity
     private static final String LOG_TAG = "SignUp";
 
     private FirebaseAuth mAuth;
@@ -161,46 +159,50 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             progress.dismiss();
             return;
         }
+        //https://firebase.google.com/docs/auth/android/manage-users
+        //call built in method to create account
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>()
                 {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task)
                     {
-                        if (task.isSuccessful())
+                        if (task.isSuccessful()) //if account creation was successful
                         {
-                            // Sign in success, update UI with the signed-in user's information
                             Log.d(LOG_TAG, "createUserWithEmail:success");
+                            //get current FirebaseUser
                             mUser = mAuth.getCurrentUser();
                             //send email verification
                             sendEmail();
-                            //https://firebase.google.com/docs/auth/android/manage-users
+                            //call self-written method to add user to database and start profileActivity
                             signUp();
                         }
-                        else
+                        else //account creation unsuccessful
                         {
                             String errorMsg = "";
                             try
                             {
+                                //throw exception that prevented account creation
                                 throw task.getException();
                             }
-                            catch (FirebaseAuthWeakPasswordException e)
+                            catch (FirebaseAuthWeakPasswordException e) //password is less than 6 characters
                             {
+                                //store error message in variable
                                 errorMsg = e.getReason();
                             }
-                            catch (FirebaseAuthInvalidCredentialsException e)
+                            catch (FirebaseAuthInvalidCredentialsException e) //invalid email or password
                             {
                                 errorMsg = "Invalid email or password.";
                             }
-                            catch (FirebaseAuthUserCollisionException e)
+                            catch (FirebaseAuthUserCollisionException e) //email has existing user account
                             {
                                 errorMsg = "The email address is already in use.";
                             }
-                            catch (Exception e)
+                            catch (Exception e) //any other exception thrown
                             {
                                 Log.w(LOG_TAG, "createUserWithEmail:failure", task.getException());
                             }
-                            // If sign in fails, display a message to the user.
+                            //Display the error message to the user.
                             Toast.makeText(SignUpActivity.this, "Sign up failed.  " + errorMsg,
                                     Toast.LENGTH_SHORT).show();
                             progress.dismiss();
@@ -280,32 +282,12 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
      */
     private void signUp()
     {
-        //change FirebaseUser displayName field
+        //get username from input field
         String username = usernameField.getText().toString();
+        //create new User object
         User newUser = new User(mUser.getUid(), username, mUser.getEmail(), selectedType, false);
+        //add user object to database at user's branch with UID as key
         Constants.USER_REFERENCE.child(mUser.getUid()).setValue(newUser);
-
-        //add device notif token
-        //https://firebase.google.com/docs/cloud-messaging/android/client?authuser=0
-        FirebaseInstanceId.getInstance().getInstanceId()
-                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>()
-                {
-                    @Override
-                    public void onComplete(@NonNull Task<InstanceIdResult> task)
-                    {
-                        if (!task.isSuccessful())
-                        {
-                            Log.w(LOG_TAG, "getInstanceId failed", task.getException());
-                            return;
-                        }
-
-                        // Get new Instance ID token
-                        String token = task.getResult().getToken();
-                        Constants.USER_REFERENCE.child(mUser.getUid()).
-                                child(Constants.TOKEN_KEY).child(token).setValue(true);
-                        //UserSharedPreferences.getInstance(SignUpActivity.this).setInfo(Constants.TOKEN_KEY, token);
-                    }
-                });
 
         //add username to firebaseUser obj
         //https://stackoverflow.com/questions/41105826/change-displayname-in-firebase/43680527#43680527
@@ -334,6 +316,29 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             }
         };
         mAuth.addAuthStateListener(authListener);
+
+        //add device notif token
+        //https://firebase.google.com/docs/cloud-messaging/android/client?authuser=0
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>()
+                {
+                    @Override
+                    public void onComplete(@NonNull Task<InstanceIdResult> task)
+                    {
+                        if (!task.isSuccessful())
+                        {
+                            Log.w(LOG_TAG, "getInstanceId failed", task.getException());
+                            return;
+                        }
+
+                        // Get new Instance ID token
+                        String token = task.getResult().getToken();
+                        Constants.USER_REFERENCE.child(mUser.getUid()).
+                                child(Constants.TOKEN_KEY).child(token).setValue(true);
+                        //UserSharedPreferences.getInstance(SignUpActivity.this).setInfo(Constants.TOKEN_KEY, token);
+                    }
+                });
+
         Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
         startActivity(intent);
         finish();

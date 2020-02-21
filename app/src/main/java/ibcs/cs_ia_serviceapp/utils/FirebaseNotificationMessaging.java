@@ -29,6 +29,7 @@ public class FirebaseNotificationMessaging extends FirebaseMessagingService
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage)
     {
+        //log who the message is from
         Log.d(LOG_TAG, "From: " + remoteMessage.getFrom());
 
         // Check if message contains a data payload.
@@ -54,6 +55,7 @@ public class FirebaseNotificationMessaging extends FirebaseMessagingService
                 destinationClass = ProfileActivity.class;
             }
 
+            //send a notification with the message's title and body
             NotificationSender.setNotif(this, destinationClass,
                     remoteMessage.getNotification().getTitle(),
                     remoteMessage.getNotification().getBody(), false);

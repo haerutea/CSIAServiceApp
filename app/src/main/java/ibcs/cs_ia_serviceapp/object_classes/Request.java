@@ -10,7 +10,6 @@ import ibcs.cs_ia_serviceapp.utils.Constants;
 
 public class Request implements Serializable
 {
-
     private String rid;
     private String submitterUid;
     private String providerUid;
@@ -22,6 +21,7 @@ public class Request implements Serializable
     private String description;
     private String filename;
     private Date currentDate;
+    //all quotas corresponding to this request object
     private HashMap<String, Quota> quotas;
     private boolean accepted;
     private boolean completedCustomer;
@@ -129,7 +129,6 @@ public class Request implements Serializable
 
     public int getPricePaid()
     {
-        //https://stackoverflow.com/questions/1066589/iterate-through-a-hashmap
         Iterator it = quotas.entrySet().iterator();
         Map.Entry pair = (Map.Entry)it.next();
         it.remove(); // avoids a ConcurrentModificationException

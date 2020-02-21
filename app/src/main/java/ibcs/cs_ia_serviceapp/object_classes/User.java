@@ -6,6 +6,7 @@ import java.util.ArrayList;
 //https://stackoverflow.com/a/2736612
 public class User implements Serializable
 {
+    //all fields in User class
     private String uid;
     private String username;
     private String email;
@@ -14,6 +15,7 @@ public class User implements Serializable
     private String reviewCount;
     private ArrayList<Review> reviews;
 
+    //required default no-argument constructor
     public User()
     {
 

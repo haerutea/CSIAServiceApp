@@ -181,9 +181,13 @@ public class SendRequestActivity extends BaseActivity implements View.OnClickLis
     //https://code.tutsplus.com/tutorials/image-upload-to-firebase-in-android-application--cms-29934
     private void chooseImage()
     {
+        //make new intent
         Intent intent = new Intent();
-        intent.setType("image/*");
+        //set action to allow users to select any data
         intent.setAction(Intent.ACTION_GET_CONTENT);
+        //set media type to images only
+        intent.setType("image/*");
+        //Intent.createChooser builds a new intent to display the activity chooser, and start the activity
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
     }
 
@@ -191,12 +195,15 @@ public class SendRequestActivity extends BaseActivity implements View.OnClickLis
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
         super.onActivityResult(requestCode, resultCode, data);
+        //if the activity request is PICK_IMAGE_REQUEST, the result was successful, and there is data in the result
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
                 && data != null && data.getData() != null)
         {
+            //get the local path to the image on the device
             filePath = data.getData();
             try
             {
+                //try and load the image at that file path into the activity to display it to user
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
                 imageView.setImageBitmap(bitmap);
             }
@@ -263,15 +270,19 @@ public class SendRequestActivity extends BaseActivity implements View.OnClickLis
     //https://code.tutsplus.com/tutorials/image-upload-to-firebase-in-android-application--cms-29934
     private String uploadImage()
     {
+        //set filename to equal to the timestamp.jpg
         String timestamp = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()) + ".jpg";
 
+        //use built-in Firebase Storage's .putFile() method, filePath is the local path to the image on the device
         storageRef.child(timestamp).putFile(filePath)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>()
                 {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot)
                     {
-                        Toast.makeText(SendRequestActivity.this, "Uploaded Successfully", Toast.LENGTH_SHORT).show();
+                        //if upload successful, show message
+                        Toast.makeText(SendRequestActivity.this, "Uploaded Successfully",
+                                Toast.LENGTH_SHORT).show();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener()
@@ -279,9 +290,12 @@ public class SendRequestActivity extends BaseActivity implements View.OnClickLis
                     @Override
                     public void onFailure(@NonNull Exception e)
                     {
-                        Toast.makeText(SendRequestActivity.this, "Failed. " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        //if upload unsuccessful, show message with error description
+                        Toast.makeText(SendRequestActivity.this, "Failed. " + e.getMessage(),
+                                Toast.LENGTH_SHORT).show();
                     }
                 });
+        //return the filename to be saved in the Realtime Database
         return timestamp;
     }
 

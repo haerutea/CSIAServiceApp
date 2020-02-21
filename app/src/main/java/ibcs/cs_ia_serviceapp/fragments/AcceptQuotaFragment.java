@@ -90,6 +90,7 @@ public class AcceptQuotaFragment extends DialogFragment implements View.OnClickL
             public void onDataChange(@NonNull DataSnapshot dataSnapshot)
             {
                 String temp = (String) dataSnapshot.getValue();
+                temp = temp.substring(0, 3);
                 rating[0] = Double.valueOf(temp);
                 getRatingTask.setResult(null);
             }
